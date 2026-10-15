@@ -1,0 +1,56 @@
+## Build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+*.dvi
+*.xdv
+
+## Bibliography
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*-blx.bib
+
+## Index and glossary
+*.idx
+*.ind
+*.ilg
+*.glo
+*.gls
+*.glg
+*.acn
+*.acr
+*.alg
+
+## Beamer
+*.nav
+*.snm
+*.vrb
+
+## Other packages
+*.lol
+*.thm
+*.mtc*
+*.maf
+*.minted
+_minted-*/
+*.pyg
+*.auxlock
+*-converted-to.pdf
+*.pdfsync
+
+## Editor and OS files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.vscode/
+.idea/
