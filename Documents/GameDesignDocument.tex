@@ -3,16 +3,17 @@
 % Packages
 \usepackage{microtype}
 \usepackage{enumitem}
+\usepackage{pgffor}
 
 % Package stuff
 \setlist{nosep}
 
-% Document attribuites
+% Document attributes
 \title{
     Game Design Document\\
     Nevermind
 }
-\author{Andrea Ricciardi \and Christian Vezzoli \and Shaan Vashisht \and Matteo Vannini \and Andrea Coscia}
+\author{Andrea Ricciardi \and Christian Vezzoli \and Shaan Vashisht \and Matteo Vannini \and Andrea Coscia Vanoni}
 
 % Document
 \begin{document}
@@ -26,6 +27,60 @@
 \section{Overview and vision statement}
 
 \section{Gameplay}
+\subsection{Main Mechanics}
+\subsubsection{Player Mechanics}
+\begin{itemize}
+    \item \textbf{Movement:} The player has a physics based character controller that allows them to move sideways.
+    \item \textbf{Memory System:} The player has a set of memories that they can remember/forget. 
+    The elements in the level change their behavior depending on the memories the player currently remembers.
+    When the player forgets a memory, a thought bubble containing it is dropped at their position. The player has to interact with the bubble to remember the memory.
+\end{itemize}
+
+\subsubsection{Level Elements}
+\begin{itemize}
+    \item \textbf{Pressure Plate:} Sends signal when one or more objects are placed on top (the amount of weight needed can be specified).
+    \item \textbf{Button:} Sends signal when the player collides with it (only once).
+    \item \textbf{Lever:} Sends signal when the player collides with it (can switch on/off repeatedly).
+    \item \textbf{Moving Platform:} Platform that moves along a set path.
+    \item \textbf{Rotating Platform:} Platform that rotates.
+    \item \textbf{Gate:} Opens/Closes when signaled.
+    \item \textbf{Box:} Block that can be pushed or grabbed by the player.
+    \item \textbf{Ball:} Can be picked up and thrown.
+    \item \textbf{Kill Zone:} Kills the player on contact.
+    \item \textbf{Slime*:} Surface mod, makes objects stick together. Big slime area can be swam through.
+    \item \textbf{Light Beam*:} Emits a ray of light, can be rotated by the player.
+    \item \textbf{Light Beam* - Solid:} Ray of light that acts as a physical wall/platform.
+    \item \textbf{Light Beam* - Deadly:} Ray of light that kills the player.
+    \item \textbf{Light Receiver:} Sends signal when reached by a ray of light.
+    \item \textbf{Mirror:} Redirects light.
+    \item \textbf{Memory Screen:} Makes the player forget fragile memories when passed through.
+    \item \textbf{Memory Font:} Restores the player's semi-permanent memories.
+    \item \textbf{Ice*:} Surface mod, makes objects slide.
+    \item \textbf{Rubber*:} Surface mod, makes objects bounce.
+    \item \textbf{Rocket:} Kills player if hit, can be used as a platform.
+    \item \textbf{Gravity* Flux:} Pushes objects in a given direction.
+    \item \textbf{Gravity* Point:} Attracts objects towards the point.
+\end{itemize}
+\textit{*tied to a memory that enables/disable the object.}
+
+\subsubsection{Memories}
+\begin{itemize}
+    \item \textbf{Material (eg. Stone):} Manifests objects of a given material.
+    \item \textbf{Movement:} Allows the player to move.
+    \item \textbf{Jumping:} Allows the player to jump/Makes the player jump uncontrollably.
+    \item \textbf{Time:} Pauses the game when forgotten.
+    \item \textbf{Hands:} Allows the player to pick up and throw small objects (eg. balls, small boxes, memories).
+    \item \textbf{Object Specific:} See previous section. 
+\end{itemize}
+
+\paragraph{Memory Types}
+\begin{itemize}
+    \item \textbf{Permanent:} Cannot be forgotten.
+    \item \textbf{Semi-Permanent:} Can be forgotten, will return to the player at a memory font.
+    \item \textbf{Fragile:} Can be forgotten, will be destroyed when passing through a memory screen.
+\end{itemize}
+
+\subsection{Level Design}
 
 \section{Characters*}
 
@@ -43,44 +98,17 @@
     \item Christian Vezzoli
     \item Shaan Edoardo Vashisht
     \item Matteo Vannini
-    \item Andrea Coscia
+    \item Andrea Coscia Vanoni
 \end{itemize}
 
 \section{Special Thanks}
 
 \section{Team meetings and Deadlines}
-\subsection{Week 1}
-\subsubsection{October 6 team meeting}
-The team agreed upon the core idea and goal of the game: collecting memories and use them to solve puzzles. \par
-Discussed main game mechanics: the team is split between memories being physical objects or items that stay in an intentory of sort (or maybe a hybrid). \par
-Discussed the way memories can be remebered and forgotten: the team is undecided between a fixed place or everywhere (this also depends on the way memories work, so that has to be decided first). \par
-Discussed upon the idea of \textit{levels}: the team is split between a metroidvania style, based more on exploration, and a hardcore puzzle style, based more on mechanical skill and puzzle solving. \par
-Sketched some potential ideas for memories: meterials (like bricks), gravity, yourself (become a ghost), light, dark, time (may be used to pause the game), enemies. Sketched some more ideas like collectibles, bosses (that might unlock memory 'slots'), 'bad' memories (debuffs forced in some cases), frail memories (they can break).
-\subsubsection{October 13 deadline}
-\begin{itemize}
-    \item Bring a prototype based on the way memories work: either them being physical objects or items in an inventory (everyone)
-\end{itemize}
-\subsection{Week 2}
-\subsubsection{October 13 team meeting}
-Prototypes from everyone have been seen or tested to discuss the game design. After playtests and discussions, the team agreed upon:
-\begin{itemize}
-    \item Making levels with more screens to keep a theme (like Celeste)
-    \item Making memories physical objects that can be stored in an inventory or dropped onto the ground
-    \item Letting the player remember and forget everywhere
-    \item The number of memory slots (how many memories can be held at one): the player starts with 1 or 2 and defeating bosses unlocks more slots (maximum of 5 to 7)
-\end{itemize}
-Due to the nature of the game, memory classes have been designed:
-\begin{itemize}
-    \item Permanent: typically given at the end of a level, they are permanent upgrades (like double jump)
-    \item Semi-permanent: they only stay with the player during a level
-    \item Frail: they can break if the player touches some specific objects (like in Portal)
-\end{itemize}
-Sketched some more ideas for memories: hands (ability to grab items), weapons? (can be too violent), object properties? (maybe better to stick with the objects themselves), rubber tile/spring (forces you to bounce/jump). \par
-Sketched ideas for bosses: forces you memories and you have to adapt; gives you 'bad' memories. \par
-The idea of collectibles remains viable, it will be discussed later on. \par
-Andrea Ruben has shown the team his drawings and sketches for a potential game style.
-\subsubsection{October 20 deadline}
-\begin{itemize}
-    \item Sketch levels (even on paper) to test for the viability of some specific memories. Try to test as many as possible with as many ideas as possible (everyone)
-\end{itemize}
+\foreach \i in {1, 2, ..., 20} {%
+    \edef\FileName{Meeting Notes/Week\i}%
+    \IfFileExists{\FileName}{%
+       \input{\FileName}%
+    }
+}
+
 \end{document}
