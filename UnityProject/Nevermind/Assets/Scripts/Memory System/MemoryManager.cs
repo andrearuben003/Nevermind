@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Nevermind.MemorySystem
 {
+    [AddComponentMenu("Memory System/Memory Manager")]
     public class MemoryManager : MonoBehaviour
     {
         public static MemoryManager Instance;
@@ -44,7 +45,19 @@ namespace Nevermind.MemorySystem
         /// <param name="memory">The memory to remember.</param>
         public void Remember(Memory memory)
         {
-            if (memories.Exists(m => m.Key == memory.Key) || memories.Count == memorySlots) return;
+            if (memories.Count == memorySlots) return;
+
+            if (memories.Exists(m => m.Key == memory.Key))
+            {
+                Memory mem = memories.Find(m => m.Key == memory.Key);
+                if ((int)mem.Type < (int)memory.Type)
+                {
+                    Debug.Log($"Upgraded memory {mem} to {memory.Type}");
+                    memories.Remove(mem);
+                    memories.Add(memory);
+                    return;
+                }
+            }
             
             Debug.Log("Remembering memory: " + memory);
             
@@ -53,15 +66,22 @@ namespace Nevermind.MemorySystem
         }
 
         /// Removes a memory from the remembered list if present and invokes ForgotMemory.
-        /// <param name="memory">The memory to forget.</param>
-        public void Forget(Memory memory)
+        /// <param name="key">The memory key to forget.</param>
+        public void Forget(MemoryKey key)
         {
-            if (!memories.Contains(memory)) return;
+            if (!memories.Exists(m => m.Key == key)) return;
             
-            Debug.Log("Forgetting memory: " + memory);
+            Memory mem = memories.Find(m => m.Key == key);
+            if (mem.Type == MemoryType.Permanent)
+            {
+                Debug.Log("Can't forget permanent memory: " + key);
+                return;
+            }
             
-            memories.Remove(memory);
-            ForgotMemory?.Invoke(memory.Key);
+            Debug.Log("Forgetting memory: " + mem);
+            
+            memories.Remove(mem);
+            ForgotMemory?.Invoke(mem.Key);
         }
     }
 }

@@ -43,8 +43,8 @@ namespace Nevermind.MemorySystem
 
     public enum MemoryType
     {
-        Permanent,
-        SemiPermanent,
-        Fragile
+        Permanent = 2,
+        SemiPermanent = 1,
+        Fragile = 0
     }
 }
