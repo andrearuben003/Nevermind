@@ -199,7 +199,7 @@ EdgeCollider2D:
   m_EdgeRadius: 0.2
   m_Points:
   - {x: 0, y: 0}
-  - {x: 1, y: 1}
+  - {x: 1, y: 0}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -386,9 +386,7 @@ MonoBehaviour:
   beam: {fileID: 4242126193626125188}
   beamCollider: {fileID: 1616917029409565441}
   originalLightType: 0
-  lightType: 0
   alphaOnDeactivation: 0.2
-  _toxicCount: 0
 --- !u!1 &7636409535548761028
 GameObject:
   m_ObjectHideFlags: 0

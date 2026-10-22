@@ -1,34 +1,35 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class LightTrigger : MonoBehaviour
+namespace Nevermind.Lights
 {
-    [SerializeField]
-    private SpriteRenderer triggerSprite;
-    
-    public void OnTriggerEnter2D(Collider2D other)
+    public class LightTrigger : MonoBehaviour
     {
-        if (!other.gameObject.CompareTag("Light")) return;
-        
-        triggerSprite.color = Color.green;
-    }
+        [SerializeField, Tooltip("Trigger sprite")]
+        private SpriteRenderer triggerSprite;
 
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        if (!other.gameObject.CompareTag("Light")) return;
-        
-        triggerSprite.color = Color.red;
-    }
+        public void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.gameObject.CompareTag("Light")) return;
 
-    // Colliders and triggers both activate the trigger
-    public void OnCollisionEnter2D(Collision2D other)
-    {
-        OnTriggerEnter2D(other.collider);
-    }
+            triggerSprite.color = Color.green;
+        }
 
-    public void OnCollisionExit2D(Collision2D other)
-    {
-        OnTriggerExit2D(other.collider);
+        public void OnTriggerExit2D(Collider2D other)
+        {
+            if (!other.gameObject.CompareTag("Light")) return;
+
+            triggerSprite.color = Color.red;
+        }
+
+        // Colliders and triggers both activate the trigger
+        public void OnCollisionEnter2D(Collision2D other)
+        {
+            OnTriggerEnter2D(other.collider);
+        }
+
+        public void OnCollisionExit2D(Collision2D other)
+        {
+            OnTriggerExit2D(other.collider);
+        }
     }
 }
