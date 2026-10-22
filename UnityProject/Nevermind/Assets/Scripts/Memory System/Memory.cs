@@ -24,6 +24,14 @@ namespace Nevermind.MemorySystem
             
             return Equals(memory);
         }
+        public static bool operator ==(Memory memory1, Memory memory2)
+        {
+            return memory1.Equals(memory2);
+        }
+        public static bool operator !=(Memory memory1, Memory memory2)
+        {
+            return !memory1.Equals(memory2);
+        }
 
         public override int GetHashCode()
         {

@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 442219654}
   - component: {fileID: 442219656}
   - component: {fileID: 442219653}
-  - component: {fileID: 442219657}
+  - component: {fileID: 442219658}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -732,7 +732,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
---- !u!114 &442219657
+--- !u!114 &442219658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -741,9 +741,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 442219651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecbba6de81bc7b27a9e9d34d0ea130c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 47e4ac8561fd59543a8e0c744c202669, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Testing.MemSystemLightControls
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Testing.MemSystemTestControls
+  controlledMemory:
+    Key: 1
+    Type: 1
 --- !u!1001 &450170556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2076,7 +2079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0471c4170f3a9933b96caa3ff0a416a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightMemory
-  MemoryKey: 1
 --- !u!61 &962788695
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2668,6 +2670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryManager
   memorySlots: 3
   memories: []
+  thoughtBubblePrefab: {fileID: 0}
 --- !u!4 &1545197500
 Transform:
   m_ObjectHideFlags: 0
@@ -3100,7 +3103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0471c4170f3a9933b96caa3ff0a416a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightMemory
-  MemoryKey: 1
 --- !u!61 &1646424697
 BoxCollider2D:
   m_ObjectHideFlags: 0
