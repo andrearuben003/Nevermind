@@ -47,7 +47,8 @@ namespace Nevermind.MemorySystem
     public enum MemoryKey
     {
         Test,
-        Light
+        Light,
+        Gravity
     }
 
     public enum MemoryType
