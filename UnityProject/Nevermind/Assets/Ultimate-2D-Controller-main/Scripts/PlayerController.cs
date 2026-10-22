@@ -18,6 +18,7 @@ namespace TarodevController
         private CapsuleCollider2D _col;
         private FrameInput _frameInput;
         private Vector2 _frameVelocity;
+        private Vector2 _externalVelocity;
         private bool _cachedQueryStartInColliders;
 
         #region Interface
@@ -75,6 +76,7 @@ namespace TarodevController
             HandleGravity();
             
             ApplyMovement();
+            Debug.Log(_externalVelocity);
         }
 
         #region Collisions
@@ -114,8 +116,7 @@ namespace TarodevController
         }
 
         #endregion
-
-
+        
         #region Jumping
 
         private bool _jumpToConsume;
@@ -185,7 +186,8 @@ namespace TarodevController
 
         #endregion
 
-        private void ApplyMovement() => _rb.linearVelocity = _frameVelocity;
+        public void AddVelocity(Vector2 velocity) => _externalVelocity += velocity;
+        private void ApplyMovement() => _rb.linearVelocity = _frameVelocity + _externalVelocity;
 
 #if UNITY_EDITOR
         private void OnValidate()
