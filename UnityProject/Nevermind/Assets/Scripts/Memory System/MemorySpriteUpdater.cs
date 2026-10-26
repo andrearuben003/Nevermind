@@ -9,7 +9,8 @@ namespace Nevermind.MemorySystem
         private SpriteRenderer spriteRenderer;
         [SerializeField]
         private float inactiveAlpha = 0.2f;
-        
+
+        [SerializeField]
         private float activeAlpha = 1f;
         
         protected override void onRemembered(MemoryKey key)

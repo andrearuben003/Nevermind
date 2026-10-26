@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb7a027145d15964f83135796644044f, type: 3}
+  m_Name: DefaulPlayerConfig
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.PlayerController.PlayerConfig
+  maxSpeed: 9.01
+  maxAcceleration: 79
+  maxDecceleration: 76
+  maxTurnSpeed: 76
+  maxAirAcceleration: 80
+  maxAirDeceleration: 80
+  maxAirTurnSpeed: 80
+  friction: 0
+  useAcceleration: 1
+  jumpHeight: 2.25
+  timeToJumpApex: 0.3
+  upwardMovementMultiplier: 1
+  downwardMovementMultiplier: 5.2
+  maxAirJumps: 0
+  variablejumpHeight: 1
+  jumpCutOff: 5.23
+  speedLimit: 5
+  coyoteTime: 0.15
+  jumpBuffer: 0.15
+  groundLength: 0.7
+  colliderOffset: {x: 0.25, y: 0, z: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1

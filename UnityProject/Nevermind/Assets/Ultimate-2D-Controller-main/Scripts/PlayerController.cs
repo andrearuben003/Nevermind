@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 namespace TarodevController
@@ -70,10 +71,17 @@ namespace TarodevController
         {
             CheckCollisions();
 
-            HandleJump();
-            HandleDirection();
-            HandleGravity();
-            
+            if (!_isDashing)
+            {
+                HandleJump();
+                HandleDirection();
+                HandleGravity();
+            }
+            else
+            {
+                HandleDash();
+            }
+
             ApplyMovement();
         }
 
@@ -87,8 +95,8 @@ namespace TarodevController
             Physics2D.queriesStartInColliders = false;
 
             // Ground and Ceiling
-            bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _stats.GrounderDistance, ~_stats.PlayerLayer);
-            bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _stats.GrounderDistance, ~_stats.PlayerLayer);
+            bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _stats.GrounderDistance, _stats.CollisionLayers);
+            bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _stats.GrounderDistance, _stats.CollisionLayers);
 
             // Hit a Ceiling
             if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
@@ -114,7 +122,6 @@ namespace TarodevController
         }
 
         #endregion
-
 
         #region Jumping
 
@@ -165,6 +172,49 @@ namespace TarodevController
             }
         }
 
+        #endregion
+
+        #region Dash
+
+        private float _curDashTime;
+        private Vector2 _dashDir;
+        private bool _isDashing;
+
+        private void HandleDash()
+        {
+            if (_isDashing)
+            {
+                float deltaTime = _time - _curDashTime;
+
+                if (deltaTime < _stats.MaxDashTime)
+                {
+                    _frameVelocity *= _stats.DashEndMultiplier;
+                }
+                else 
+                {
+                    _isDashing = false;
+                    _frameVelocity = Vector2.zero;
+                }
+            }
+        }
+
+        public void Dash()
+        {
+            if (!_isDashing)
+            {
+                _rb.linearVelocity = Vector2.zero;
+
+                _isDashing = true;
+                _curDashTime = _time;
+                _dashDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                _frameVelocity = _dashDir * _stats.InitialDashSpeed;
+            }
+        }
+
+        public bool IsDashing()
+        {
+            return _isDashing;
+        }
         #endregion
 
         #region Gravity

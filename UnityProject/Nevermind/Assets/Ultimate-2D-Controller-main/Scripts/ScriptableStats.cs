@@ -5,8 +5,11 @@ namespace TarodevController
     [CreateAssetMenu]
     public class ScriptableStats : ScriptableObject
     {
-        [Header("LAYERS")] [Tooltip("Set this to the layer your player is on")]
-        public LayerMask PlayerLayer;
+        //[Header("PLAYER LAYER")] [Tooltip("Set this to the layer your player is on")]
+        //public LayerMask PlayerLayer;
+
+        [Header("COLLISION LAYERS")][Tooltip("Set this to what the player can collide with")]
+        public LayerMask CollisionLayers;
 
         [Header("INPUT")] [Tooltip("Makes all Input snap to an integer. Prevents gamepads from walking slowly. Recommended value is true to ensure gamepad/keybaord parity.")]
         public bool SnapInput = true;
@@ -52,5 +55,12 @@ namespace TarodevController
 
         [Tooltip("The amount of time we buffer a jump. This allows jump input before actually hitting the ground")]
         public float JumpBuffer = .2f;
+
+        [Header("DASH")][Tooltip("The time during which the dash is perfomed")]
+        public float MaxDashTime = 0.2f;
+        [Tooltip("The initial dash speed")]
+        public Vector2 InitialDashSpeed = new Vector2(2f, 7f);
+        [Tooltip("The amount of acceleration that will be applied on dash velocity")]
+        public float DashEndMultiplier = 0.95f;
     }
 }

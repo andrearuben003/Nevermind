@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d23f90b5ba61b46adcb58f1389f4cc, type: 3}
   m_Name: CharacterControllerDefault
   m_EditorClassIdentifier: Assembly-CSharp::TarodevController.ScriptableStats
-  PlayerLayer:
+  CollisionLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   SnapInput: 1
   VerticalDeadZoneThreshold: 0.3
   HorizontalDeadZoneThreshold: 0.1
@@ -30,3 +30,6 @@ MonoBehaviour:
   JumpEndEarlyGravityModifier: 3
   CoyoteTime: 0.15
   JumpBuffer: 0.2
+  MaxDashTime: 0.25
+  InitialDashSpeed: {x: 10, y: 7}
+  DashEndMultiplier: 0.8

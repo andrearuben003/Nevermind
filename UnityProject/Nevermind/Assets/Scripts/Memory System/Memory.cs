@@ -38,7 +38,8 @@ namespace Nevermind.MemorySystem
 
     public enum MemoryKey
     {
-        Test
+        Test, 
+        Slime
     }
 
     public enum MemoryType
