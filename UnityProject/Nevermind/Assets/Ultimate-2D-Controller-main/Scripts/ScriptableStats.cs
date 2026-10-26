@@ -52,5 +52,14 @@ namespace TarodevController
 
         [Tooltip("The amount of time we buffer a jump. This allows jump input before actually hitting the ground")]
         public float JumpBuffer = .2f;
+        
+        [Tooltip("Deceleration on Ice surface")]
+        public float IceDeceleration = 10;
+        
+        [Tooltip("Bounce force on Rubber surface")]
+        public float BounceForce = 5;
+        
+        [Tooltip("The amount of time we buffer a bounce on a wall")]
+        public float InputLockTime = .5f;
     }
 }

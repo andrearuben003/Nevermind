@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using Nevermind.MemorySystem;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace TarodevController
@@ -19,6 +22,8 @@ namespace TarodevController
         private FrameInput _frameInput;
         private Vector2 _frameVelocity;
         private bool _cachedQueryStartInColliders;
+        private bool _onIce;
+        private float _wallWaitTime;
 
         #region Interface
 
@@ -50,7 +55,9 @@ namespace TarodevController
             {
                 JumpDown = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.C),
                 JumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.C),
-                Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
+                Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")),
+                RememberMemory = Input.GetKey(KeyCode.Q),
+                ForgetMemory = Input.GetKey(KeyCode.W)
             };
 
             if (_stats.SnapInput)
@@ -63,6 +70,16 @@ namespace TarodevController
             {
                 _jumpToConsume = true;
                 _timeJumpWasPressed = _time;
+            }
+            
+            if(_frameInput.RememberMemory) {
+                MemoryManager.Instance.Remember(new Memory(MemoryKey.Rubber, MemoryType.Fragile));
+                MemoryManager.Instance.Remember(new Memory(MemoryKey.Ice, MemoryType.Fragile));
+            }
+            
+            if(_frameInput.ForgetMemory) {
+                MemoryManager.Instance.Forget(MemoryKey.Rubber);
+                MemoryManager.Instance.Forget(MemoryKey.Ice);
             }
         }
 
@@ -154,9 +171,13 @@ namespace TarodevController
 
         private void HandleDirection()
         {
+            
+            if(_time < _wallWaitTime)
+                return;
+            
             if (_frameInput.Move.x == 0)
             {
-                var deceleration = _grounded ? _stats.GroundDeceleration : _stats.AirDeceleration;
+                var deceleration = _grounded ? (_onIce ? _stats.IceDeceleration : _stats.GroundDeceleration) : _stats.AirDeceleration;
                 _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, deceleration * Time.fixedDeltaTime);
             }
             else
@@ -193,6 +214,24 @@ namespace TarodevController
             if (_stats == null) Debug.LogWarning("Please assign a ScriptableStats asset to the Player Controller's Stats slot", this);
         }
 #endif
+        
+        
+        /// Sets the player in "on ice" state.
+        public void SetIce(bool value)
+        {
+            _onIce = value;
+        }
+
+        /// Makes the player bounce.
+        /// <param name="bounceVelocity">The velocity of the bounce</param>
+        public void Bounce(Vector2 bounceVelocity)
+        {
+            bool upBounce = ((Vector2.Dot(bounceVelocity, Vector2.up) > 0.1f));
+            _frameVelocity = bounceVelocity * (upBounce ? _stats.BounceForce : 1);
+            _endedJumpEarly = false;
+            _coyoteUsable = false;
+            _wallWaitTime = _time + (upBounce ? 0 : _stats.InputLockTime);
+        }
     }
 
     public struct FrameInput
@@ -200,6 +239,8 @@ namespace TarodevController
         public bool JumpDown;
         public bool JumpHeld;
         public Vector2 Move;
+        public bool RememberMemory;
+        public bool ForgetMemory;
     }
 
     public interface IPlayerController
@@ -209,4 +250,6 @@ namespace TarodevController
         public event Action Jumped;
         public Vector2 FrameInput { get; }
     }
+    
+    
 }
