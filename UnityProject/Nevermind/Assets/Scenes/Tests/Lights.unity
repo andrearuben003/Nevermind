@@ -2057,7 +2057,6 @@ GameObject:
   m_Component:
   - component: {fileID: 962788696}
   - component: {fileID: 962788695}
-  - component: {fileID: 962788694}
   - component: {fileID: 962788697}
   - component: {fileID: 962788698}
   m_Layer: 0
@@ -2067,18 +2066,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &962788694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962788693}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0471c4170f3a9933b96caa3ff0a416a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LightMemory
 --- !u!61 &962788695
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2155,7 +2142,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryComponentEnabler
   MemoryKey: 1
   components:
-  - {fileID: 962788694}
   - {fileID: 962788695}
 --- !u!114 &962788698
 MonoBehaviour:
@@ -2171,6 +2157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
   MemoryKey: 1
   spriteRenderer: {fileID: 180221951}
+  activeAlpha: 1
   inactiveAlpha: 0.2
 --- !u!1 &1000228050
 GameObject:
@@ -3050,7 +3037,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1646424698}
   - component: {fileID: 1646424697}
-  - component: {fileID: 1646424696}
   - component: {fileID: 1646424695}
   - component: {fileID: 1646424694}
   m_Layer: 6
@@ -3074,6 +3060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
   MemoryKey: 1
   spriteRenderer: {fileID: 832588087}
+  activeAlpha: 1
   inactiveAlpha: 0.2
 --- !u!114 &1646424695
 MonoBehaviour:
@@ -3089,20 +3076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryComponentEnabler
   MemoryKey: 1
   components:
-  - {fileID: 1646424696}
   - {fileID: 1646424697}
---- !u!114 &1646424696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646424693}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0471c4170f3a9933b96caa3ff0a416a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LightMemory
 --- !u!61 &1646424697
 BoxCollider2D:
   m_ObjectHideFlags: 0
