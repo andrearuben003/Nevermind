@@ -1,4 +1,5 @@
 using System;
+using Nevermind.Lights;
 using UnityEngine;
 
 namespace TarodevController
@@ -11,7 +12,7 @@ namespace TarodevController
     /// If you hve any questions or would like to brag about your score, come to discord: https://discord.gg/tarodev
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-    public class PlayerController : MonoBehaviour, IPlayerController
+    public class PlayerController : MonoBehaviour, IPlayerController, IDefaultLightTrigger, IToxicLightTrigger, ISolidLightTrigger
     {
         [SerializeField] private ScriptableStats _stats;
         private Rigidbody2D _rb;
@@ -211,6 +212,21 @@ namespace TarodevController
             if (_stats == null) Debug.LogWarning("Please assign a ScriptableStats asset to the Player Controller's Stats slot", this);
         }
 #endif
+        public void OnDefaultLightBeamHit()
+        {
+            Debug.Log("HIT");
+        }
+
+        public void OnToxicLightBeamHit()
+        {
+            Debug.Log("DEAD!!!!!");
+        }
+
+        public void OnSolidLightBeamHit(Vector2 direction)
+        {
+            // _rb.AddForce(direction * 100f, ForceMode2D.Impulse);
+            Debug.Log("SOLID!!!!!");
+        }
     }
 
     public struct FrameInput
