@@ -4,7 +4,7 @@ using Nevermind.MemorySystem;
 using TarodevController;
 using UnityEngine;
 
-namespace Nevermind.PlatformMovements
+namespace Nevermind.PlatformSurfaces
 {
     public class RubberSurface : MonoBehaviour
     {

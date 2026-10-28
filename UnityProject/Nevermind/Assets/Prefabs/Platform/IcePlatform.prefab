@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7583629319233657057}
   - component: {fileID: 8135086421341457449}
   m_Layer: 0
-  m_Name: IceSurface
+  m_Name: IcePlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
