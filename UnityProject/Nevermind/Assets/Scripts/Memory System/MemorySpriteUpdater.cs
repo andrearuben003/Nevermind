@@ -11,9 +11,6 @@ namespace Nevermind.MemorySystem
         private float activeAlpha = 1f;
         [SerializeField, Range(0f, 1f)]
         private float inactiveAlpha = 0.2f;
-
-        [SerializeField]
-        private float activeAlpha = 1f;
         
         protected override void onRemembered(MemoryKey key)
         {

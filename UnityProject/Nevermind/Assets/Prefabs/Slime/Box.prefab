@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2606afc5344f5740bd13713b7a7c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryComponentEnabler
-  MemoryKey: 1
+  MemoryKey: 3
   components:
   - {fileID: 7697968322373110773}
 --- !u!114 &2763141636282060147
@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe16f80dfd70eb4f83f1081bd1bad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
-  MemoryKey: 1
+  MemoryKey: 3
   spriteRenderer: {fileID: 4611330849002741930}
-  inactiveAlpha: 0.2
   activeAlpha: 1
+  inactiveAlpha: 0.2
 --- !u!114 &7697968322373110773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,7 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2606afc5344f5740bd13713b7a7c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryComponentEnabler
-  MemoryKey: 1
+  MemoryKey: 3
   components:
   - {fileID: 7519890006840878476}
 --- !u!114 &6405263557675478812
@@ -742,10 +742,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe16f80dfd70eb4f83f1081bd1bad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
-  MemoryKey: 1
+  MemoryKey: 3
   spriteRenderer: {fileID: 3344820955517756168}
-  inactiveAlpha: 0.2
   activeAlpha: 1
+  inactiveAlpha: 0.2
 --- !u!114 &7519890006840878476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,7 +943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2606afc5344f5740bd13713b7a7c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryComponentEnabler
-  MemoryKey: 1
+  MemoryKey: 3
   components:
   - {fileID: 6496686909301246004}
 --- !u!114 &4590902752100209540
@@ -958,10 +958,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe16f80dfd70eb4f83f1081bd1bad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
-  MemoryKey: 1
+  MemoryKey: 3
   spriteRenderer: {fileID: 7395891445755773056}
-  inactiveAlpha: 0.2
   activeAlpha: 1
+  inactiveAlpha: 0.2
 --- !u!114 &6496686909301246004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1068,7 +1068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2606afc5344f5740bd13713b7a7c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryComponentEnabler
-  MemoryKey: 1
+  MemoryKey: 3
   components:
   - {fileID: 3260019969381885652}
 --- !u!114 &8488450187159354183
@@ -1083,10 +1083,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe16f80dfd70eb4f83f1081bd1bad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
-  MemoryKey: 1
+  MemoryKey: 3
   spriteRenderer: {fileID: 8788002965971056607}
-  inactiveAlpha: 0.2
   activeAlpha: 1
+  inactiveAlpha: 0.2
 --- !u!114 &3260019969381885652
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ namespace Nevermind.Testing
             if (Input.GetKeyDown(KeyCode.Q))
                 MemoryManager.Instance.Remember(new Memory(MemoryKey.Slime));
             if (Input.GetKeyDown(KeyCode.W))
-                MemoryManager.Instance.Forget(new Memory(MemoryKey.Slime));
+                MemoryManager.Instance.Forget(MemoryKey.Slime);
         }
     }
 }

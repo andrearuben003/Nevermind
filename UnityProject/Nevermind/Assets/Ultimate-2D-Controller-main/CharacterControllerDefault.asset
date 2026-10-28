@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TarodevController.ScriptableStats
   CollisionLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 65
   SnapInput: 1
   VerticalDeadZoneThreshold: 0.3
   HorizontalDeadZoneThreshold: 0.1
