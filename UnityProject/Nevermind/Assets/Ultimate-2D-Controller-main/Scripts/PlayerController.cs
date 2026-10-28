@@ -19,6 +19,9 @@ namespace TarodevController
         private CapsuleCollider2D _col;
         private FrameInput _frameInput;
         private Vector2 _frameVelocity;
+        private Vector2 _zoneVelocity;
+        private bool _isInGravityZone;
+        
         private bool _cachedQueryStartInColliders;
 
         #region Interface
@@ -219,22 +222,38 @@ namespace TarodevController
 
         #region Gravity
 
+        // NOTE Modified to allow for gravity flux zones
         private void HandleGravity()
         {
-            if (_grounded && _frameVelocity.y <= 0f)
+            if (!_isInGravityZone)
             {
-                _frameVelocity.y = _stats.GroundingForce;
+                if (_grounded && _frameVelocity.y <= 0f)
+                {
+                    _frameVelocity.y = _stats.GroundingForce;
+                }
+                else
+                {
+                    var inAirGravity = _stats.FallAcceleration;
+                    if (_endedJumpEarly && _frameVelocity.y > 0) inAirGravity *= _stats.JumpEndEarlyGravityModifier;
+                    _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, -_stats.MaxFallSpeed,
+                        inAirGravity * Time.fixedDeltaTime);
+                }
+                _zoneVelocity = Vector2.MoveTowards(_zoneVelocity, Vector2.zero, 25f * Time.deltaTime);
             }
-            else
-            {
-                var inAirGravity = _stats.FallAcceleration;
-                if (_endedJumpEarly && _frameVelocity.y > 0) inAirGravity *= _stats.JumpEndEarlyGravityModifier;
-                _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, -_stats.MaxFallSpeed, inAirGravity * Time.fixedDeltaTime);
-            }
+
+            _frameVelocity += _zoneVelocity;
+
+            // Reset the flag for the next frame check
+            _isInGravityZone = false;
+        }
+        
+        public void ApplyGravityFlow(Vector2 forceVector)
+        {
+            _isInGravityZone = true;
+            _zoneVelocity = forceVector;
         }
 
         #endregion
-
         private void ApplyMovement() => _rb.linearVelocity = _frameVelocity;
 
 #if UNITY_EDITOR

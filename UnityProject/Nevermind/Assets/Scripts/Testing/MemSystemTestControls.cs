@@ -5,13 +5,15 @@ namespace Nevermind.Testing
 {
     public class MemSystemTestControls : MonoBehaviour
     {
-        // Update is called once per frame
-        void Update()
+        [SerializeField]
+        private Memory controlledMemory;
+        
+        private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Q))
-                MemoryManager.Instance.Remember(new Memory(MemoryKey.Test));
+                MemoryManager.Instance.Remember(controlledMemory);
             if (Input.GetKeyDown(KeyCode.W))
-                MemoryManager.Instance.Forget(new Memory(MemoryKey.Test));
+                MemoryManager.Instance.Forget(controlledMemory.Key);
         }
     }
 }
