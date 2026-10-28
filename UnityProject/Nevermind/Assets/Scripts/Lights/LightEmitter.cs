@@ -42,7 +42,18 @@ namespace Nevermind.Lights
             defaultFirstDirection = transform.right;
         }
         
-        /** Cast the beam */
+        public void FixedUpdate()
+        {
+            BeamCast();
+            UpdateBeamCollider();
+        }
+
+        public void Update()
+        {
+            UpdateBeamRenderer();
+        }
+        
+        /** Casts the beam */
         public abstract void BeamCast();
 
         public abstract void UpdateBeamCollider();

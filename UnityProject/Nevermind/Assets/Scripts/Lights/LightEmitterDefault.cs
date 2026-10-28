@@ -10,16 +10,15 @@ namespace Nevermind.Lights
 
         private readonly List<RaycastHit2D> _raycastHits = new();
 
-        /** Marks if at least one default beam has become toxic */
+        // Toxic related
         private bool _hasThisBeamHitToxic = false;
-        
         [SerializeField] private LightEmitterToxic toxicEmitter = null;
         private Transform _toxicEmitterTransform = null;
         private EdgeCollider2D _toxicEmitterCollider = null;
         private LineRenderer _toxicEmitterRenderer = null;
 
 
-        public void Awake()
+        public new void Awake()
         {
             base.Awake();
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,14 +8,14 @@ namespace Nevermind.Lights
     {
         private readonly List<RaycastHit2D> _raycastHits = new();
 
-        public void Awake()
+        public new void Awake()
         {
             base.Awake();
 
             BeamCollider.isTrigger = false;
             BeamColor = Color.yellow;
         }
-
+        
         /**
          * Handles the raycast logic.
          * <returns> the first valid hit index; else -1 </returns>

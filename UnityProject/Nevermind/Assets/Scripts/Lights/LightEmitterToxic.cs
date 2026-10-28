@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,16 +7,21 @@ namespace Nevermind.Lights
     public class LightEmitterToxic : LightEmitter
     {
         private readonly List<RaycastHit2D> _raycastHits = new();
-        /** Signals wether the Beam is native Toxic, or derived from a Default one.
+        /** Signals whether the Beam is native Toxic, or derived from a Default one.
          * Derived beams **cannot** reinfect (I am NOT trying to make contamination chains (again))
          */
         public bool isDerivedFromDefaultBeam = false;
 
-        public void Awake()
+        public new void Awake()
         {
             base.Awake();
 
             BeamCollider.isTrigger = true;
+        }
+
+        public void Start()
+        {
+            // I put this in start because isDerived is assigned by another object
             BeamColor = isDerivedFromDefaultBeam ? Color.orangeRed : Color.red;
         }
 
