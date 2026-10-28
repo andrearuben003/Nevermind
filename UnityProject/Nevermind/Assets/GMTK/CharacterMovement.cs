@@ -38,11 +38,15 @@ public class CharacterMovement : MonoBehaviour
     public bool onGround;
     public bool pressingKey;
 
+    private MovementLimiter movementLimiter;
+
     private void Start()
     {
         //Find the character's Rigidbody and ground detection script
         body = GetComponent<Rigidbody2D>();
         ground = GetComponent<CharacterGround>();
+
+        movementLimiter = GetComponent<MovementLimiter>();
     }
 
     private void Update()

@@ -48,6 +48,7 @@ public class CharacterJump : MonoBehaviour
     private bool currentlyJumping;
 
     private Vector2 groundGravity;
+
     void Start()
     {
         //Find the character's Rigidbody and ground detection and juice scripts

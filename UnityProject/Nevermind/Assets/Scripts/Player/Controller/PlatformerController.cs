@@ -12,6 +12,7 @@ namespace Nevermind.Player.Controller {
         [SerializeField] private PlayerConfig config;
 
         Rigidbody2D rb;
+        MovementLimiter movementLimiter;
 
         private void Awake()
         {
@@ -20,6 +21,8 @@ namespace Nevermind.Player.Controller {
             ground = gameObject.AddComponent<CharacterGround>();
 
             rb = GetComponent<Rigidbody2D>();
+
+            movementLimiter = gameObject.AddComponent<MovementLimiter>();
 
             //Setting up
             movement.maxSpeed = config.maxSpeed;
@@ -48,6 +51,14 @@ namespace Nevermind.Player.Controller {
             ground.groundLayer = config.groundLayer;
         }
 
+        private void Update()
+        {
+            if (!movementLimiter.CanMove)
+            {
+                movement.directionX = 0f;
+            }
+        }
+
         protected virtual void OnEnable()
         {
             movement.enabled = true;
@@ -66,7 +77,10 @@ namespace Nevermind.Player.Controller {
         {
             //This is called when you input a direction on a valid input type, such as arrow keys or analogue stick
             //The value will read -1 when pressing left, 0 when idle, and 1 when pressing right.
-            movement.directionX = context.ReadValue<float>();
+            if (movementLimiter.CanMove)
+            {
+                movement.directionX = context.ReadValue<float>();
+            }
         }
 
         public void OnJump(InputAction.CallbackContext context)
@@ -74,15 +88,18 @@ namespace Nevermind.Player.Controller {
             //This function is called when one of the jump buttons (like space or the A button) is pressed.
             //When we press the jump button, tell the script that we desire a jump.
             //Also, use the started and canceled contexts to know if we're currently holding the button
-            if (context.started)
+            if (movementLimiter.CanJump)
             {
-                jump.desiredJump = true;
-                jump.pressingJump = true;
-            }
+                if (context.started)
+                {
+                    jump.desiredJump = true;
+                    jump.pressingJump = true;
+                }
 
-            if (context.canceled)
-            {
-                jump.pressingJump = false;
+                if (context.canceled)
+                {
+                    jump.pressingJump = false;
+                }
             }
         }
 
