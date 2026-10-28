@@ -2656,8 +2656,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryManager
   memorySlots: 3
-  memories: []
-  thoughtBubblePrefab: {fileID: 0}
+  memories:
+  - Key: 1
+    Type: 1
+  thoughtBubblePrefab: {fileID: 6661715623172311984, guid: b47953ba587df9440bd40fe833f29044, type: 3}
 --- !u!4 &1545197500
 Transform:
   m_ObjectHideFlags: 0
