@@ -12,7 +12,6 @@ namespace Nevermind.Lights
 
         private void FixedUpdate()
         {
-            // Update the beams in this specific order and updates the collider
             /* List of light emitters.
              * Note: the emitter render has a **very specific** order:
              * - solid, bad, good
@@ -29,8 +28,8 @@ namespace Nevermind.Lights
             {
                 emitter.BeamCast();
                 emitter.UpdateBeamCollider();
-            }   
-            
+            }
+
             foreach (var emitter in defaultEmitters)
             {
                 emitter.BeamCast();
@@ -41,8 +40,7 @@ namespace Nevermind.Lights
 
         private void Update()
         {
-            // order is not important here, since the points are computed by the FixedUpdate
-            
+            // Order doesn't matter since it's just rendering
             foreach (var emitter in defaultEmitters)
                 emitter.UpdateBeamRenderer();
             foreach (var emitter in toxicEmitters)

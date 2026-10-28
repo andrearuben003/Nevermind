@@ -6,13 +6,17 @@ namespace Nevermind.Lights
     public class LightEmitterToxic : LightEmitter
     {
         private readonly List<RaycastHit2D> _raycastHits = new();
+        /** Signals wether the Beam is native Toxic, or derived from a Default one.
+         * Derived beams **cannot** reinfect (I am NOT trying to make contamination chains (again))
+         */
+        public bool isDerivedFromDefaultBeam = false;
 
         public void Awake()
         {
             base.Awake();
 
             BeamCollider.isTrigger = true;
-            BeamColor = Color.red;
+            BeamColor = isDerivedFromDefaultBeam ? Color.orangeRed : Color.red;
         }
 
         /**
@@ -53,7 +57,7 @@ namespace Nevermind.Lights
             BeamPoints.Clear();
 
             Vector2 currentOrigin = transform.position;
-            Vector2 currentDirection = DefaultFirstDirection;
+            Vector2 currentDirection = defaultFirstDirection;
 
             BeamPoints.Add(currentOrigin);
 
@@ -104,6 +108,12 @@ namespace Nevermind.Lights
             BeamRenderer.positionCount = BeamPoints.Count;
             for (int i = 0; i < BeamPoints.Count; i++)
                 BeamRenderer.SetPosition(i, BeamPoints[i]);
+        }
+
+        /** Forcefully flushes the beam */
+        public void FlushBeam()
+        {
+            BeamPoints.Clear();
         }
     }
 }

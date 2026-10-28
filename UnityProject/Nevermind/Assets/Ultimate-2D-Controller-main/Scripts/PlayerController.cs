@@ -212,16 +212,19 @@ namespace TarodevController
             if (_stats == null) Debug.LogWarning("Please assign a ScriptableStats asset to the Player Controller's Stats slot", this);
         }
 #endif
+        // ReSharper disable Unity.PerformanceAnalysis
         public void OnDefaultLightBeamHit()
         {
             Debug.Log("HIT");
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void OnToxicLightBeamHit()
         {
             Debug.Log("DEAD!!!!!");
         }
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public void OnSolidLightBeamHit(Vector2 direction)
         {
             // _rb.AddForce(direction * 100f, ForceMode2D.Impulse);

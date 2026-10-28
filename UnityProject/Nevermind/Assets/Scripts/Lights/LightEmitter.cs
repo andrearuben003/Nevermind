@@ -26,7 +26,8 @@ namespace Nevermind.Lights
         [SerializeField, Min(0)] protected float hitCollisionEpsilon = 0.01f;
         [SerializeField, Range(0, 1)] protected float alphaOnDeactivation = 0.2f;
         [SerializeField, Range(0, 1)] private float defaultWidthMultiplier = 0.3f;
-        protected Vector2 DefaultFirstDirection;
+        [SerializeField, Min(0)] private float defaultColliderEdgeRadius = 0.3f;
+        public Vector2 defaultFirstDirection;
 
         protected void Awake()
         {
@@ -35,11 +36,12 @@ namespace Nevermind.Lights
             BeamPoints = new List<Vector2>();
 
             BeamCollider.isTrigger = true;
+            BeamCollider.edgeRadius = defaultColliderEdgeRadius;
             BeamRenderer.useWorldSpace = true;
             BeamRenderer.widthMultiplier = defaultWidthMultiplier;
-            DefaultFirstDirection = transform.right;
+            defaultFirstDirection = transform.right;
         }
-
+        
         /** Cast the beam */
         public abstract void BeamCast();
 

@@ -1,18 +1,39 @@
+using System;
 using System.Collections.Generic;
+using Nevermind.MemorySystem;
 using UnityEngine;
 
 namespace Nevermind.Lights
 {
     public class LightEmitterDefault : LightEmitter
     {
+
         private readonly List<RaycastHit2D> _raycastHits = new();
+
+        /** Marks if at least one default beam has become toxic */
+        private bool _hasThisBeamHitToxic = false;
+        
+        [SerializeField] private LightEmitterToxic toxicEmitter = null;
+        private Transform _toxicEmitterTransform = null;
+        private EdgeCollider2D _toxicEmitterCollider = null;
+        private LineRenderer _toxicEmitterRenderer = null;
+
 
         public void Awake()
         {
             base.Awake();
 
+            if (!toxicEmitter) Debug.LogError("No toxic emitter associated with this");
+            toxicEmitter.isDerivedFromDefaultBeam = true;
+            _toxicEmitterTransform = toxicEmitter.GetComponent<Transform>();
+            _toxicEmitterCollider = toxicEmitter.GetComponent<EdgeCollider2D>();
+            _toxicEmitterRenderer = toxicEmitter.GetComponent<LineRenderer>();
+            if (!_toxicEmitterTransform || !_toxicEmitterCollider || !_toxicEmitterRenderer)
+                Debug.LogError("Error in Light Emitter data assignment");
+
             BeamCollider.isTrigger = true;
             BeamColor = Color.green;
+
         }
 
         /**
@@ -26,17 +47,25 @@ namespace Nevermind.Lights
             filter.layerMask = ~0; // all layers
 
             int hitCount = Physics2D.Raycast(origin, direction, filter, _raycastHits, maxDistance);
-            
+
             // Try to find a valid hit
             for (int i = 0; i < hitCount; i++)
             {
                 Collider2D currentCollider = _raycastHits[i].collider;
-                
+
                 // Trigger
                 if (IsLightEnabled &&
                     currentCollider.TryGetComponent<IDefaultLightTrigger>(out IDefaultLightTrigger trigger))
                     trigger.OnDefaultLightBeamHit();
-                
+
+                // Toxic spread
+                if (currentCollider.TryGetComponent<LightEmitterToxic>(out LightEmitterToxic emitter))
+                {
+                    if (emitter.isDerivedFromDefaultBeam) continue;
+                    _hasThisBeamHitToxic = true;
+                    return i;
+                }
+
                 // skip itself
                 if (currentCollider == BeamCollider) continue;
 
@@ -51,10 +80,13 @@ namespace Nevermind.Lights
 
         public override void BeamCast()
         {
+            _hasThisBeamHitToxic = false;
+
             BeamPoints.Clear();
-            
+            toxicEmitter.FlushBeam();
+
             Vector2 currentOrigin = transform.position;
-            Vector2 currentDirection = DefaultFirstDirection;
+            Vector2 currentDirection = defaultFirstDirection;
 
             BeamPoints.Add(currentOrigin);
 
@@ -70,6 +102,15 @@ namespace Nevermind.Lights
                 RaycastHit2D hit = _raycastHits[hitIndex];
                 BeamPoints.Add(hit.point);
 
+                // Toxic check and cast
+                if (_hasThisBeamHitToxic)
+                {
+                    _toxicEmitterTransform.position = hit.point;
+                    toxicEmitter.defaultFirstDirection = currentDirection;
+                    toxicEmitter.BeamCast();
+                    break;
+                }
+
                 if (!hit.collider.CompareTag("Mirror")) break;
 
                 // update
@@ -83,8 +124,10 @@ namespace Nevermind.Lights
         public override void UpdateBeamCollider()
         {
             BeamCollider.enabled = IsLightEnabled;
+            _toxicEmitterCollider.enabled = IsLightEnabled;
+
             if (!IsLightEnabled) return;
-            
+
             // Add points
             List<Vector2> tempPoints = new();
             foreach (var point in BeamPoints)
@@ -92,6 +135,8 @@ namespace Nevermind.Lights
 
             BeamCollider.SetPoints(tempPoints);
             tempPoints.Clear();
+
+            toxicEmitter.UpdateBeamCollider();
         }
 
         /** Updates the beam renderer with the current points */
@@ -105,6 +150,8 @@ namespace Nevermind.Lights
             BeamRenderer.positionCount = BeamPoints.Count;
             for (int i = 0; i < BeamPoints.Count; i++)
                 BeamRenderer.SetPosition(i, BeamPoints[i]);
+
+            toxicEmitter.UpdateBeamRenderer();
         }
     }
 }
