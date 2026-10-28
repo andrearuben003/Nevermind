@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Platform_Movements
+namespace Nevermind.PlatformMovements
 {
 
     public enum RotationDirection
@@ -15,19 +15,16 @@ namespace Platform_Movements
         [SerializeField] private RotationDirection rotationDirection = RotationDirection.Clockwise;
 
         private Rigidbody2D _rb;
-        
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
+
         void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
         }
-
+        
         // Update is called once per frame
         void FixedUpdate()
         {
-            
             _rb.MoveRotation(_rb.rotation + (int)rotationDirection * rotationSpeed * Time.fixedDeltaTime);
-
         }
     }
 }

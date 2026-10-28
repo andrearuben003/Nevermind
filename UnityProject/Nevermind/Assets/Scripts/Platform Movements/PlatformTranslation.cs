@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Platform_Movements
+namespace Nevermind.PlatformMovements
 {
     public class PlatformTranslation : MonoBehaviour
     {
@@ -20,9 +20,8 @@ namespace Platform_Movements
 
         private void Awake()
         {
-            _rb = GetComponent<Rigidbody2D>();
             _collider = GetComponent<Collider2D>();
-            
+            _rb = GetComponent<Rigidbody2D>();
             _entities = new HashSet<Rigidbody2D>();
 
             _currentTargetIndex++;
@@ -40,6 +39,9 @@ namespace Platform_Movements
 
             if (delta != Vector2.zero)
             {//Moves entities on the platform
+                if(delta.y > 0f)
+                    delta.y = 0f;
+                
                 foreach (Rigidbody2D e in _entities)
                     e.position += delta;
             }
@@ -57,15 +59,15 @@ namespace Platform_Movements
 
             // Check if entity is on top of the platform
             if (other.collider.bounds.min.y >= _collider.bounds.max.y - topTolerance) 
-                _entities.Add(other.rigidbody);
+                _entities.Add(other.collider.attachedRigidbody);
             else 
-                _entities.Remove(other.rigidbody);
+                _entities.Remove(other.collider.attachedRigidbody);
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
             if (other.rigidbody != null)
-                _entities.Remove(other.rigidbody);
+                _entities.Remove(other.collider.attachedRigidbody);
         }
     }
 }
