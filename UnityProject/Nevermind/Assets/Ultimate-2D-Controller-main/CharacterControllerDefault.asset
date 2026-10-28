@@ -12,24 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4d23f90b5ba61b46adcb58f1389f4cc, type: 3}
   m_Name: CharacterControllerDefault
   m_EditorClassIdentifier: Assembly-CSharp::TarodevController.ScriptableStats
-  PlayerLayer:
+  CollisionLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   SnapInput: 1
   VerticalDeadZoneThreshold: 0.3
   HorizontalDeadZoneThreshold: 0.1
-  MaxSpeed: 14
-  Acceleration: 120
-  GroundDeceleration: 60
+  MaxSpeed: 10
+  Acceleration: 100
+  GroundDeceleration: 70
   AirDeceleration: 30
   GroundingForce: -1.5
   GrounderDistance: 0.05
   JumpPower: 36
-  MaxFallSpeed: 40
+  MaxFallSpeed: 20
   FallAcceleration: 110
   JumpEndEarlyGravityModifier: 3
   CoyoteTime: 0.15
   JumpBuffer: 0.2
+  MaxDashTime: 0.25
+  InitialDashSpeed: {x: 10, y: 7}
+  DashEndMultiplier: 0.8
   IceDeceleration: 10
   BounceForce: 5
   InputLockTime: 0.3

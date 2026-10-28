@@ -715,9 +715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryManager
   memorySlots: 3
-  memories:
-  - Key: 0
-    Type: 0
+  memories: []
 --- !u!4 &1191616815
 Transform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using System.Collections.Generic;
 using Nevermind.MemorySystem;
 using NUnit.Framework;
@@ -21,6 +22,9 @@ namespace TarodevController
         private CapsuleCollider2D _col;
         private FrameInput _frameInput;
         private Vector2 _frameVelocity;
+        private Vector2 _zoneVelocity;
+        private bool _isInGravityZone;
+        
         private bool _cachedQueryStartInColliders;
         private bool _onIce;
         private float _wallWaitTime;
@@ -55,9 +59,7 @@ namespace TarodevController
             {
                 JumpDown = Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.C),
                 JumpHeld = Input.GetButton("Jump") || Input.GetKey(KeyCode.C),
-                Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")),
-                RememberMemory = Input.GetKey(KeyCode.Q),
-                ForgetMemory = Input.GetKey(KeyCode.W)
+                Move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"))
             };
 
             if (_stats.SnapInput)
@@ -70,16 +72,6 @@ namespace TarodevController
             {
                 _jumpToConsume = true;
                 _timeJumpWasPressed = _time;
-            }
-            
-            if(_frameInput.RememberMemory) {
-                MemoryManager.Instance.Remember(new Memory(MemoryKey.Rubber, MemoryType.Fragile));
-                MemoryManager.Instance.Remember(new Memory(MemoryKey.Ice, MemoryType.Fragile));
-            }
-            
-            if(_frameInput.ForgetMemory) {
-                MemoryManager.Instance.Forget(MemoryKey.Rubber);
-                MemoryManager.Instance.Forget(MemoryKey.Ice);
             }
         }
 
@@ -104,8 +96,8 @@ namespace TarodevController
             Physics2D.queriesStartInColliders = false;
 
             // Ground and Ceiling
-            bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _stats.GrounderDistance, ~_stats.PlayerLayer);
-            bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _stats.GrounderDistance, ~_stats.PlayerLayer);
+            bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _stats.GrounderDistance, _stats.CollisionLayers);
+            bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _stats.GrounderDistance, _stats.CollisionLayers);
 
             // Hit a Ceiling
             if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
@@ -131,7 +123,6 @@ namespace TarodevController
         }
 
         #endregion
-
 
         #region Jumping
 
@@ -188,24 +179,83 @@ namespace TarodevController
 
         #endregion
 
-        #region Gravity
+        #region Dash
 
-        private void HandleGravity()
+        private float _curDashTime;
+        private Vector2 _dashDir;
+        private bool _isDashing;
+
+        private void HandleDash()
         {
-            if (_grounded && _frameVelocity.y <= 0f)
+            if (_isDashing)
             {
-                _frameVelocity.y = _stats.GroundingForce;
-            }
-            else
-            {
-                var inAirGravity = _stats.FallAcceleration;
-                if (_endedJumpEarly && _frameVelocity.y > 0) inAirGravity *= _stats.JumpEndEarlyGravityModifier;
-                _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, -_stats.MaxFallSpeed, inAirGravity * Time.fixedDeltaTime);
+                float deltaTime = _time - _curDashTime;
+
+                if (deltaTime < _stats.MaxDashTime)
+                {
+                    _frameVelocity *= _stats.DashEndMultiplier;
+                }
+                else 
+                {
+                    _isDashing = false;
+                    _frameVelocity = Vector2.zero;
+                }
             }
         }
 
+        public void Dash()
+        {
+            if (!_isDashing)
+            {
+                _rb.linearVelocity = Vector2.zero;
+
+                _isDashing = true;
+                _curDashTime = _time;
+                _dashDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                _frameVelocity = _dashDir * _stats.InitialDashSpeed;
+            }
+        }
+
+        public bool IsDashing()
+        {
+            return _isDashing;
+        }
         #endregion
 
+        #region Gravity
+
+        // NOTE Modified to allow for gravity flux zones
+        private void HandleGravity()
+        {
+            if (!_isInGravityZone)
+            {
+                if (_grounded && _frameVelocity.y <= 0f)
+                {
+                    _frameVelocity.y = _stats.GroundingForce;
+                }
+                else
+                {
+                    var inAirGravity = _stats.FallAcceleration;
+                    if (_endedJumpEarly && _frameVelocity.y > 0) inAirGravity *= _stats.JumpEndEarlyGravityModifier;
+                    _frameVelocity.y = Mathf.MoveTowards(_frameVelocity.y, -_stats.MaxFallSpeed,
+                        inAirGravity * Time.fixedDeltaTime);
+                }
+                _zoneVelocity = Vector2.MoveTowards(_zoneVelocity, Vector2.zero, 25f * Time.deltaTime);
+            }
+
+            _frameVelocity += _zoneVelocity;
+
+            // Reset the flag for the next frame check
+            _isInGravityZone = false;
+        }
+        
+        public void ApplyGravityFlow(Vector2 forceVector)
+        {
+            _isInGravityZone = true;
+            _zoneVelocity = forceVector;
+        }
+
+        #endregion
         private void ApplyMovement() => _rb.linearVelocity = _frameVelocity;
 
 #if UNITY_EDITOR
@@ -239,8 +289,6 @@ namespace TarodevController
         public bool JumpDown;
         public bool JumpHeld;
         public Vector2 Move;
-        public bool RememberMemory;
-        public bool ForgetMemory;
     }
 
     public interface IPlayerController
@@ -250,6 +298,4 @@ namespace TarodevController
         public event Action Jumped;
         public Vector2 FrameInput { get; }
     }
-    
-    
-}
+    }

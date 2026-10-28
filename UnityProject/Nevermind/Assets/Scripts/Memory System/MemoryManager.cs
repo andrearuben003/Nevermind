@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Nevermind.MemorySystem
@@ -13,11 +14,15 @@ namespace Nevermind.MemorySystem
         public event Action<MemoryKey> RememberedMemory;
         /// Event invoked when a memory is forgotten. Passes the forgotten memory key.
         public event Action<MemoryKey> ForgotMemory;
+        /// Event invoked when a memory is forgotten without spawning a thought bubble. Passes the forgotten memory key.
+        public event Action<Memory> EliminatedMemory;
 
         [SerializeField, Range(2, 10)]
         private int memorySlots = 3;
         [SerializeField, Tooltip("The memories the player currently remembers, add entries in the inspector to give them to the player at start.")]
         private List<Memory> memories = new();
+        [SerializeField]
+        private GameObject thoughtBubblePrefab;
         
         private void Awake()
         {
@@ -32,7 +37,7 @@ namespace Nevermind.MemorySystem
             // Invokes remembered and forgot at start to make sure all components are in the correct starting state
             foreach (Memory memory in memories)
                 RememberedMemory?.Invoke(memory.Key);
-
+            
             foreach (MemoryKey key in Enum.GetValues(typeof(MemoryKey)))
             {
                 if (memories.Exists(m => m.Key == key)) continue;
@@ -41,7 +46,7 @@ namespace Nevermind.MemorySystem
             }
         }
 
-        /// Adds a memory to the remembered list if not already present and if there are available slots and invokes RememberedMemory.
+        /// Adds a memory to the remembered list if not already present and if there are available slots or upgrades the present memory if of an inferior type.
         /// <param name="memory">The memory to remember.</param>
         public void Remember(Memory memory)
         {
@@ -55,8 +60,9 @@ namespace Nevermind.MemorySystem
                     Debug.Log($"Upgraded memory {mem} to {memory.Type}");
                     memories.Remove(mem);
                     memories.Add(memory);
-                    return;
-                }
+                    EliminatedMemory?.Invoke(mem);
+                }                    
+                return;
             }
             
             Debug.Log("Remembering memory: " + memory);
@@ -65,9 +71,10 @@ namespace Nevermind.MemorySystem
             RememberedMemory?.Invoke(memory.Key);
         }
 
-        /// Removes a memory from the remembered list if present and invokes ForgotMemory.
+        /// Removes a memory from the remembered list if present.
         /// <param name="key">The memory key to forget.</param>
-        public void Forget(MemoryKey key)
+        /// <param name="spawnBubble">If true, a thought bubble object will be instantiated.</param>
+        public void Forget(MemoryKey key, bool spawnBubble = true)
         {
             if (!memories.Exists(m => m.Key == key)) return;
             
@@ -82,6 +89,24 @@ namespace Nevermind.MemorySystem
             
             memories.Remove(mem);
             ForgotMemory?.Invoke(mem.Key);
+            
+            if (spawnBubble)
+                spawnThoughtBubble(mem);
+            else
+                EliminatedMemory?.Invoke(mem);
+        }
+        
+        private void spawnThoughtBubble(Memory memory)
+        {
+            GameObject bubble = Instantiate(thoughtBubblePrefab, transform.position, Quaternion.identity);
+            bubble.GetComponent<ThoughtBubble>().Initialize(memory);
+        }
+        
+        /// <param name="typeFlags">The memory types that should be included in the result.</param>
+        /// <returns>A list of the memories the player remembers that match the desired type.</returns>
+        public List<Memory> GetMemoriesByType(MemoryType typeFlags)
+        {
+            return memories.Where(m => typeFlags.HasFlag(m.Type)).ToList();
         }
     }
 }
