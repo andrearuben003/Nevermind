@@ -54,7 +54,7 @@ namespace Nevermind.Lights
             BeamPoints.Clear();
 
             Vector2 currentOrigin = transform.position;
-            Vector2 currentDirection = defaultFirstDirection;
+            Vector2 currentDirection = transform.right;
 
             BeamPoints.Add(currentOrigin);
 

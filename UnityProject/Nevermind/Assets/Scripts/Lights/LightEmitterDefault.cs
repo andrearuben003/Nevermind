@@ -15,7 +15,6 @@ namespace Nevermind.Lights
         [SerializeField] private LightEmitterToxic toxicEmitter = null;
         private Transform _toxicEmitterTransform = null;
         private EdgeCollider2D _toxicEmitterCollider = null;
-        private LineRenderer _toxicEmitterRenderer = null;
 
 
         public new void Awake()
@@ -26,8 +25,7 @@ namespace Nevermind.Lights
             toxicEmitter.isDerivedFromDefaultBeam = true;
             _toxicEmitterTransform = toxicEmitter.GetComponent<Transform>();
             _toxicEmitterCollider = toxicEmitter.GetComponent<EdgeCollider2D>();
-            _toxicEmitterRenderer = toxicEmitter.GetComponent<LineRenderer>();
-            if (!_toxicEmitterTransform || !_toxicEmitterCollider || !_toxicEmitterRenderer)
+            if (!_toxicEmitterTransform || !_toxicEmitterCollider)
                 Debug.LogError("Error in Light Emitter data assignment");
 
             BeamCollider.isTrigger = true;
@@ -85,7 +83,7 @@ namespace Nevermind.Lights
             toxicEmitter.FlushBeam();
 
             Vector2 currentOrigin = transform.position;
-            Vector2 currentDirection = defaultFirstDirection;
+            Vector2 currentDirection = transform.right;
 
             BeamPoints.Add(currentOrigin);
 
@@ -105,7 +103,7 @@ namespace Nevermind.Lights
                 if (_hasThisBeamHitToxic)
                 {
                     _toxicEmitterTransform.position = hit.point;
-                    toxicEmitter.defaultFirstDirection = currentDirection;
+                    toxicEmitter.transform.right = currentDirection;
                     toxicEmitter.BeamCast();
                     break;
                 }
@@ -123,7 +121,9 @@ namespace Nevermind.Lights
         public override void UpdateBeamCollider()
         {
             BeamCollider.enabled = IsLightEnabled;
-            _toxicEmitterCollider.enabled = IsLightEnabled;
+            _toxicEmitterCollider.enabled = IsLightEnabled && _hasThisBeamHitToxic;
+            
+            toxicEmitter.UpdateBeamCollider();
 
             if (!IsLightEnabled) return;
 
@@ -135,12 +135,13 @@ namespace Nevermind.Lights
             BeamCollider.SetPoints(tempPoints);
             tempPoints.Clear();
 
-            toxicEmitter.UpdateBeamCollider();
         }
 
         /** Updates the beam renderer with the current points */
         public override void UpdateBeamRenderer()
         {
+            toxicEmitter.UpdateBeamRenderer();
+            
             // Color
             BeamColor.a = IsLightEnabled ? 1 : alphaOnDeactivation;
             BeamRenderer.startColor = BeamRenderer.endColor = BeamColor;
@@ -149,8 +150,6 @@ namespace Nevermind.Lights
             BeamRenderer.positionCount = BeamPoints.Count;
             for (int i = 0; i < BeamPoints.Count; i++)
                 BeamRenderer.SetPosition(i, BeamPoints[i]);
-
-            toxicEmitter.UpdateBeamRenderer();
         }
     }
 }

@@ -25,6 +25,13 @@ namespace Nevermind.Lights
             BeamColor = isDerivedFromDefaultBeam ? Color.orangeRed : Color.red;
         }
 
+        public new void FixedUpdate()
+        {
+            if (isDerivedFromDefaultBeam) return;
+            
+            base.FixedUpdate();
+        }
+
         /**
          * Handles the raycast logic.
          * <returns> the first valid hit index; else -1 </returns>
@@ -63,7 +70,7 @@ namespace Nevermind.Lights
             BeamPoints.Clear();
 
             Vector2 currentOrigin = transform.position;
-            Vector2 currentDirection = defaultFirstDirection;
+            Vector2 currentDirection = transform.right;
 
             BeamPoints.Add(currentOrigin);
 
@@ -91,8 +98,9 @@ namespace Nevermind.Lights
         /** Updates the beam collider with the current points */
         public override void UpdateBeamCollider()
         {
-            BeamCollider.enabled = IsLightEnabled;
-            if (!IsLightEnabled) return;
+            if (!isDerivedFromDefaultBeam)
+                BeamCollider.enabled = IsLightEnabled;
+            if (!BeamCollider.enabled) return;
             
             // Add points
             List<Vector2> tempPoints = new();

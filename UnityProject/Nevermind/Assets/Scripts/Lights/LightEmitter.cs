@@ -22,12 +22,11 @@ namespace Nevermind.Lights
 
         // Params and consts
         [SerializeField] protected float maxDistance = 100f;
-        [SerializeField] protected int maxBeamPoints = 20;
+        [SerializeField] protected int maxBeamPoints = 50;
         [SerializeField, Min(0)] protected float hitCollisionEpsilon = 0.01f;
         [SerializeField, Range(0, 1)] protected float alphaOnDeactivation = 0.2f;
         [SerializeField, Range(0, 1)] private float defaultWidthMultiplier = 0.3f;
         [SerializeField, Min(0)] private float defaultColliderEdgeRadius = 0.3f;
-        public Vector2 defaultFirstDirection;
 
         protected void Awake()
         {
@@ -39,7 +38,6 @@ namespace Nevermind.Lights
             BeamCollider.edgeRadius = defaultColliderEdgeRadius;
             BeamRenderer.useWorldSpace = true;
             BeamRenderer.widthMultiplier = defaultWidthMultiplier;
-            defaultFirstDirection = transform.right;
         }
         
         public void FixedUpdate()
