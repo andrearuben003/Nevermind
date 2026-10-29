@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 9067762837888528133}
   - component: {fileID: 4032508594107222628}
   - component: {fileID: 5024087761988409286}
-  - component: {fileID: 6957539715245451357}
+  - component: {fileID: 5562946860135460284}
   m_Layer: 6
   m_Name: ToxicLightEmitter
   m_TagString: Light
@@ -371,7 +371,7 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &6957539715245451357
+--- !u!114 &5562946860135460284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -385,8 +385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Lights.LightEmitterToxic
   MemoryKey: 0
   maxDistance: 100
-  maxBeamPoints: 20
+  maxBeamPoints: 50
   hitCollisionEpsilon: 0.01
   alphaOnDeactivation: 0.2
   defaultWidthMultiplier: 0.3
-  defaultColliderEdgeRadius: 0.2
+  defaultColliderEdgeRadius: 0.3

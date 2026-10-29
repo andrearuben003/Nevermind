@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using Nevermind.MemorySystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Nevermind.Lights
 {
@@ -16,6 +14,7 @@ namespace Nevermind.Lights
         protected LineRenderer BeamRenderer;
         protected List<Vector2> BeamPoints;
         protected Color BeamColor = Color.white;
+        protected readonly List<RaycastHit2D> RaycastHits = new();
 
         // Memory bind
         protected bool IsLightEnabled = false;
@@ -28,7 +27,7 @@ namespace Nevermind.Lights
         [SerializeField, Range(0, 1)] private float defaultWidthMultiplier = 0.3f;
         [SerializeField, Min(0)] private float defaultColliderEdgeRadius = 0.3f;
 
-        protected void Awake()
+        public virtual void Awake()
         {
             BeamCollider = GetComponent<EdgeCollider2D>();
             BeamRenderer = GetComponent<LineRenderer>();
@@ -36,26 +35,113 @@ namespace Nevermind.Lights
 
             BeamCollider.isTrigger = true;
             BeamCollider.edgeRadius = defaultColliderEdgeRadius;
+            
             BeamRenderer.useWorldSpace = true;
             BeamRenderer.widthMultiplier = defaultWidthMultiplier;
         }
         
-        public void FixedUpdate()
+        public virtual void FixedUpdate()
         {
             BeamCast();
             UpdateBeamCollider();
         }
 
-        public void Update()
+        public virtual void Update()
         {
             UpdateBeamRenderer();
         }
         
-        /** Casts the beam */
-        public abstract void BeamCast();
+        /** Beam-specific events */
+        protected abstract void HandleBeamSpecificHitEvent(Collider2D currentCollider);
 
-        public abstract void UpdateBeamCollider();
-        public abstract void UpdateBeamRenderer();
+        /**
+         * Handles the raycast logic.
+         * <returns> the first valid hit index; else -1 </returns>
+         */
+        protected virtual int SingleBeamCast(Vector2 origin, Vector2 direction)
+        {
+            ContactFilter2D filter = ContactFilter2D.noFilter;
+            filter.useLayerMask = true;
+            filter.layerMask = ~0; // all layers
+
+            int hitCount = Physics2D.Raycast(origin, direction, filter, RaycastHits, maxDistance);
+            // Try to find a valid hit
+            for (int i = 0; i < hitCount; i++)
+            {
+                Collider2D currentCollider = RaycastHits[i].collider;
+                
+                // Event handling for raycast hits
+                HandleBeamSpecificHitEvent(currentCollider);
+                
+                // skip self
+                if (currentCollider == BeamCollider) continue;
+
+                // Skip triggers
+                if (currentCollider.isTrigger) continue;
+
+                return i;
+            }
+
+            return -1;
+        }
+        
+        /** Casts the beam */
+        public virtual void BeamCast()
+        {
+            BeamPoints.Clear();
+
+            Vector2 currentOrigin = transform.position;
+            Vector2 currentDirection = transform.right; // default for angle
+
+            BeamPoints.Add(currentOrigin);
+
+            for (int i = 0; i < maxBeamPoints; i++)
+            {
+                int hitIndex = SingleBeamCast(currentOrigin, currentDirection);
+                if (hitIndex < 0) // not hit
+                {
+                    BeamPoints.Add(currentOrigin + currentDirection * maxDistance);
+                    break;
+                }
+
+                RaycastHit2D hit = RaycastHits[hitIndex];
+                BeamPoints.Add(hit.point);
+
+                if (!hit.collider.CompareTag("Mirror")) break;
+
+                // move it slightly (Epsilon) so that the ray doesn't hit the same thing again
+                currentOrigin = hit.point + hit.normal * hitCollisionEpsilon;
+                currentDirection = Vector2.Reflect(currentDirection, hit.normal);
+            }
+        }
+        
+        /** Updates the beam collider with the current points */
+        public virtual void UpdateBeamCollider()
+        {
+            BeamCollider.enabled = IsLightEnabled;
+            if (!IsLightEnabled) return;
+            
+            // Add points
+            List<Vector2> tempPoints = new();
+            foreach (var point in BeamPoints)
+                tempPoints.Add(transform.InverseTransformPoint(point)); // convert coordinates
+
+            BeamCollider.SetPoints(tempPoints);
+            tempPoints.Clear();
+        }
+
+        /** Updates the beam renderer with the current points */
+        public virtual void UpdateBeamRenderer()
+        {
+            // Color
+            BeamColor.a = IsLightEnabled ? 1 : alphaOnDeactivation;
+            BeamRenderer.startColor = BeamRenderer.endColor = BeamColor;
+
+            // Add points
+            BeamRenderer.positionCount = BeamPoints.Count;
+            for (int i = 0; i < BeamPoints.Count; i++)
+                BeamRenderer.SetPosition(i, BeamPoints[i]);
+        }
 
         protected override void onRemembered(MemoryKey key)
         {

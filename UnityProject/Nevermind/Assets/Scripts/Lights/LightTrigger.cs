@@ -12,7 +12,7 @@ namespace Nevermind.Lights
 
         private bool _hit = false;
 
-        public void OnSolidLightBeamHit(Vector2 direction)
+        public void OnSolidLightBeamHit()
         {
             _hit = true;
         }

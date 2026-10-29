@@ -225,7 +225,7 @@ namespace TarodevController
         }
 
         // ReSharper disable Unity.PerformanceAnalysis
-        public void OnSolidLightBeamHit(Vector2 direction)
+        public void OnSolidLightBeamHit()
         {
             // _rb.AddForce(direction * 100f, ForceMode2D.Impulse);
             Debug.Log("SOLID!!!!!");
