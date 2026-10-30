@@ -1,5 +1,9 @@
 using System;
 using Nevermind.Lights;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using System.Collections.Generic;
+using Nevermind.MemorySystem;
+using NUnit.Framework;
 using UnityEngine;
 
 namespace TarodevController
@@ -23,6 +27,8 @@ namespace TarodevController
         private bool _isInGravityZone;
         
         private bool _cachedQueryStartInColliders;
+        private bool _onIce;
+        private float _wallWaitTime;
 
         #region Interface
 
@@ -91,8 +97,8 @@ namespace TarodevController
             Physics2D.queriesStartInColliders = false;
 
             // Ground and Ceiling
-            bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _stats.GrounderDistance, ~_stats.PlayerLayer);
-            bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _stats.GrounderDistance, ~_stats.PlayerLayer);
+            bool groundHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.down, _stats.GrounderDistance, _stats.CollisionLayers);
+            bool ceilingHit = Physics2D.CapsuleCast(_col.bounds.center, _col.size, _col.direction, 0, Vector2.up, _stats.GrounderDistance, _stats.CollisionLayers);
 
             // Hit a Ceiling
             if (ceilingHit) _frameVelocity.y = Mathf.Min(0, _frameVelocity.y);
@@ -157,9 +163,13 @@ namespace TarodevController
 
         private void HandleDirection()
         {
+            
+            if(_time < _wallWaitTime)
+                return;
+            
             if (_frameInput.Move.x == 0)
             {
-                var deceleration = _grounded ? _stats.GroundDeceleration : _stats.AirDeceleration;
+                var deceleration = _grounded ? (_onIce ? _stats.IceDeceleration : _stats.GroundDeceleration) : _stats.AirDeceleration;
                 _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, 0, deceleration * Time.fixedDeltaTime);
             }
             else
@@ -168,6 +178,49 @@ namespace TarodevController
             }
         }
 
+        #endregion
+
+        #region Dash
+
+        private float _curDashTime;
+        private Vector2 _dashDir;
+        private bool _isDashing;
+
+        private void HandleDash()
+        {
+            if (_isDashing)
+            {
+                float deltaTime = _time - _curDashTime;
+
+                if (deltaTime < _stats.MaxDashTime)
+                {
+                    _frameVelocity *= _stats.DashEndMultiplier;
+                }
+                else 
+                {
+                    _isDashing = false;
+                    _frameVelocity = Vector2.zero;
+                }
+            }
+        }
+
+        public void Dash()
+        {
+            if (!_isDashing)
+            {
+                _rb.linearVelocity = Vector2.zero;
+
+                _isDashing = true;
+                _curDashTime = _time;
+                _dashDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                _frameVelocity = _dashDir * _stats.InitialDashSpeed;
+            }
+        }
+
+        public bool IsDashing()
+        {
+            return _isDashing;
+        }
         #endregion
 
         #region Gravity
@@ -230,8 +283,26 @@ namespace TarodevController
             // _rb.AddForce(direction * 100f, ForceMode2D.Impulse);
             Debug.Log("SOLID!!!!!");
         }
+        
+        /// Sets the player in "on ice" state.
+        public void SetIce(bool value)
+        {
+            _onIce = value;
+        }
+
+        /// Makes the player bounce.
+        /// <param name="bounceVelocity">The velocity of the bounce</param>
+        public void Bounce(Vector2 bounceVelocity)
+        {
+            bool upBounce = ((Vector2.Dot(bounceVelocity, Vector2.up) > 0.1f));
+            _frameVelocity = bounceVelocity * (upBounce ? _stats.BounceForce : 1);
+            _endedJumpEarly = false;
+            _coyoteUsable = false;
+            _wallWaitTime = _time + (upBounce ? 0 : _stats.InputLockTime);
+        }
     }
 
+    
     public struct FrameInput
     {
         public bool JumpDown;
