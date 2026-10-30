@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace Nevermind.Lights
 {
@@ -23,8 +21,6 @@ namespace Nevermind.Lights
             BeamColor = Color.green;
 
             if (!toxicEmitter) throw new Exception("No toxic emitter associated with this");
-            toxicEmitter.beamTransform = toxicEmitter.GetComponent<Transform>();
-            toxicEmitter.beamCollider = toxicEmitter.GetComponent<EdgeCollider2D>();
         }
 
         public override void FixedUpdate()
@@ -63,7 +59,7 @@ namespace Nevermind.Lights
                 HandleBeamSpecificHitEvent(currentCollider);
 
                 // Toxic spread
-                if (currentCollider.TryGetComponent<LightEmitterToxic>(out LightEmitterToxic emitter))
+                if (currentCollider.TryGetComponent<LightEmitterToxic>(out _))
                 {
                     _hasThisBeamHitToxic = true;
                     return i;
@@ -121,6 +117,7 @@ namespace Nevermind.Lights
                 currentDirection = Vector2.Reflect(currentDirection, hit.normal);
             }
             
+            // Toxic emitter is disabled if the default does not hit a toxic beam
             toxicEmitter.SetLightEnabled(IsLightEnabled && _hasThisBeamHitToxic);
         }
 

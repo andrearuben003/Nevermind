@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &169811315399039772
 Transform:
   m_ObjectHideFlags: 0
@@ -107,7 +107,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8865023059103588093
 Transform:
   m_ObjectHideFlags: 0
@@ -193,9 +193,9 @@ GameObject:
   - component: {fileID: 9067762837888528133}
   - component: {fileID: 4032508594107222628}
   - component: {fileID: 5024087761988409286}
-  - component: {fileID: 758566520748379160}
+  - component: {fileID: 5562946860135460284}
   m_Layer: 6
-  m_Name: DefaultToxicLightEmitter
+  m_Name: ToxicLightEmitter
   m_TagString: Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,7 +371,7 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &758566520748379160
+--- !u!114 &5562946860135460284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -380,15 +380,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8707860394507951572}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e22c0a5a52b1042685d3b288480a928, type: 3}
+  m_Script: {fileID: 11500000, guid: ee0bbdcd51df904ecacd9031cc360375, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Lights.LightEmitterDefaultToxic
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Lights.LightEmitterToxic
   MemoryKey: 0
   maxDistance: 100
-  maxBeamPoints: 50
+  maxBeamPoints: 200
   hitCollisionEpsilon: 0.01
+  widthMultiplier: 0.3
+  colliderEdgeRadius: 0.15
   alphaOnDeactivation: 0.2
-  defaultWidthMultiplier: 0.3
-  defaultColliderEdgeRadius: 0.3
-  beamCollider: {fileID: 0}
-  beamTransform: {fileID: 0}

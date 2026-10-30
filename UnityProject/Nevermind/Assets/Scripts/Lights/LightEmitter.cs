@@ -20,12 +20,12 @@ namespace Nevermind.Lights
         protected bool IsLightEnabled = false;
 
         // Params and consts
-        [SerializeField] protected float maxDistance = 100f;
-        [SerializeField] protected int maxBeamPoints = 50;
+        [SerializeField, Min(0)] protected float maxDistance = 100f;
+        [SerializeField, Min(0)] protected int maxBeamPoints = 200;
         [SerializeField, Min(0)] protected float hitCollisionEpsilon = 0.01f;
+        [SerializeField, Min(0)] private float widthMultiplier = 0.3f;
+        [SerializeField, Min(0)] private float colliderEdgeRadius = 0.15f;
         [SerializeField, Range(0, 1)] protected float alphaOnDeactivation = 0.2f;
-        [SerializeField, Range(0, 1)] private float defaultWidthMultiplier = 0.3f;
-        [SerializeField, Min(0)] private float defaultColliderEdgeRadius = 0.3f;
 
         public virtual void Awake()
         {
@@ -34,10 +34,8 @@ namespace Nevermind.Lights
             BeamPoints = new List<Vector2>();
 
             BeamCollider.isTrigger = true;
-            BeamCollider.edgeRadius = defaultColliderEdgeRadius;
             
             BeamRenderer.useWorldSpace = true;
-            BeamRenderer.widthMultiplier = defaultWidthMultiplier;
         }
         
         public virtual void FixedUpdate()
@@ -121,6 +119,8 @@ namespace Nevermind.Lights
             BeamCollider.enabled = IsLightEnabled;
             if (!IsLightEnabled) return;
             
+            BeamCollider.edgeRadius = colliderEdgeRadius;
+            
             // Add points
             List<Vector2> tempPoints = new();
             foreach (var point in BeamPoints)
@@ -133,6 +133,8 @@ namespace Nevermind.Lights
         /** Updates the beam renderer with the current points */
         public virtual void UpdateBeamRenderer()
         {
+            BeamRenderer.widthMultiplier = widthMultiplier;
+            
             // Color
             BeamColor.a = IsLightEnabled ? 1 : alphaOnDeactivation;
             BeamRenderer.startColor = BeamRenderer.endColor = BeamColor;

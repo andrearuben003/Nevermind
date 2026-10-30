@@ -295,11 +295,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Lights.LightEmitterDefault
   MemoryKey: 0
   maxDistance: 100
-  maxBeamPoints: 20
+  maxBeamPoints: 200
   hitCollisionEpsilon: 0.01
+  widthMultiplier: 0.3
+  colliderEdgeRadius: 0.15
   alphaOnDeactivation: 0.2
-  defaultWidthMultiplier: 0.3
-  defaultColliderEdgeRadius: 0.2
   toxicEmitter: {fileID: 989923591605477196}
 --- !u!1 &3016614962816485406
 GameObject:

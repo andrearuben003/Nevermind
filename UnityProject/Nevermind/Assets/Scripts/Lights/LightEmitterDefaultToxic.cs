@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Nevermind.Lights
@@ -9,20 +8,12 @@ namespace Nevermind.Lights
     /// </summary>
     public class LightEmitterDefaultToxic : LightEmitter
     {
-        /** These beams **cannot** reinfect (I am NOT trying to make contamination chains (again)) */
-        
-        public EdgeCollider2D beamCollider = null;
-        public Transform beamTransform = null;
-        
         public override void Awake()
         {
             base.Awake();
 
             BeamColor = Color.orangeRed;
-            
-            beamTransform = transform;
-            beamCollider = GetComponent<EdgeCollider2D>();
-            
+
             // It's invisible when inactive
             alphaOnDeactivation = 0f;
         }
@@ -30,19 +21,17 @@ namespace Nevermind.Lights
         public override void FixedUpdate()
         {
             // do nothing
-            return;
         }
 
         public override void Update()
         {
             // do nothing
-            return;
         }
 
         protected override void HandleBeamSpecificHitEvent(Collider2D currentCollider)
         {
             if (IsLightEnabled &&
-                currentCollider.TryGetComponent<IToxicLightTrigger>(out IToxicLightTrigger trigger))
+                currentCollider.TryGetComponent(out IToxicLightTrigger trigger))
                 trigger.OnToxicLightBeamHit();
         }
 
