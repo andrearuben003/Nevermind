@@ -4,205 +4,155 @@ using UnityEngine;
 
 namespace Nevermind.Lights
 {
-    public enum LightType
+
+    [SelectionBase]
+    [RequireComponent(typeof(EdgeCollider2D), typeof(LineRenderer))]
+    public abstract class LightEmitter : MemoryListener
     {
-        Default,
-        Toxic,
-        Solid
-    }
+        // Beam data
+        protected EdgeCollider2D BeamCollider;
+        protected LineRenderer BeamRenderer;
+        protected List<Vector2> BeamPoints;
+        protected Color BeamColor = Color.white;
+        protected readonly List<RaycastHit2D> RaycastHits = new();
 
-    /// <summary>
-    /// This class handles all the Light logic.
-    /// For the Emitter to work, it must be in the LightEmitterManager's list.
-    /// </summary>
-    public class LightEmitter : MemoryListener
-    {
-        /*
-         * Notes on the class:
-         * - the solid light collider is weird because the player sometimes can go through; this should stop
-         *     being an issue if we move to a normal physics based movement system
-         * - I decided to develop the logic around the emitter instead of splitting it between emitter and beam
-         *     as it's easier with no huge costs (I think)
-         */
+        // Memory bind
+        protected bool IsLightEnabled = false;
 
-        // light color values
-        private static readonly Dictionary<LightType, Color> LightColors = new()
+        // Params and consts
+        [SerializeField, Min(0)] protected float maxDistance = 100f;
+        [SerializeField, Min(0)] protected int maxBeamPoints = 200;
+        [SerializeField, Min(0)] protected float hitCollisionEpsilon = 0.01f;
+        [SerializeField, Min(0)] private float widthMultiplier = 0.3f;
+        [SerializeField, Min(0)] private float colliderEdgeRadius = 0.15f;
+        [SerializeField, Range(0, 1)] protected float alphaOnDeactivation = 0.2f;
+
+        public virtual void Awake()
         {
-            { LightType.Default, Color.green },
-            { LightType.Solid, Color.yellow },
-            { LightType.Toxic, Color.red }
-        };
+            BeamCollider = GetComponent<EdgeCollider2D>();
+            BeamRenderer = GetComponent<LineRenderer>();
+            BeamPoints = new List<Vector2>();
 
-        // consts
-        private const float MaxDistance = 100f;
-        private const int MaxBeamPoints = 20;
-        private const float Epsilon = 0.01f;
+            BeamCollider.isTrigger = true;
+            
+            BeamRenderer.useWorldSpace = true;
+        }
         
-        // Attributes
-        [SerializeField] private LineRenderer beam;
-        [SerializeField] private EdgeCollider2D beamCollider;
-
-        // Note that changing this at runtime is undefined behaviour, it may or may not do something
-        [SerializeField] public LightType originalLightType = LightType.Default;
-
-        // light type (may change at runtime)
-        public LightType LightType { get; private set; }
-        public float alphaOnDeactivation = 0.2f;
-
-        // how many toxic rays are touching this
-        private int _toxicCount = 0;
-        
-        private bool _isLightEnabled = false;
-        
-        private readonly List<Vector2> _beamPoints = new();
-
-        // Raycast attributes
-        private ContactFilter2D _filter;
-        private void Awake()
+        public virtual void FixedUpdate()
         {
-            LightType = originalLightType;
-
-            _filter = ContactFilter2D.noFilter;
-            _filter.useLayerMask = true;
-            _filter.layerMask = ~0;
-            beam.useWorldSpace = true;
+            BeamCast();
+            UpdateBeamCollider();
         }
 
+        public virtual void Update()
+        {
+            UpdateBeamRenderer();
+        }
+        
+        /** Beam-specific events */
+        protected abstract void HandleBeamSpecificHitEvent(Collider2D currentCollider);
+
         /**
-         * Handles the raycast logic: it detects valid hits and handles toxic beam logic.
-         * A valid hit is a hit that is not the beam itself and that is on a non-trigger collider.
+         * Handles the raycast logic.
          * <returns> the first valid hit index; else -1 </returns>
          */
-        private int HandleBeamRaycast(int hitCount)
+        protected virtual int SingleBeamCast(Vector2 origin, Vector2 direction)
         {
+            ContactFilter2D filter = ContactFilter2D.noFilter;
+            filter.useLayerMask = true;
+            filter.layerMask = ~0; // all layers
+
+            int hitCount = Physics2D.Raycast(origin, direction, filter, RaycastHits, maxDistance);
+            // Try to find a valid hit
             for (int i = 0; i < hitCount; i++)
             {
-                Collider2D currentCollider = _raycastHits[i].collider;
-                if (currentCollider == beamCollider)
-                    continue;
+                Collider2D currentCollider = RaycastHits[i].collider;
                 
-                // check toxic light while iterating
-                currentCollider.TryGetComponent<LightBeam>(out LightBeam otherBeam);
-                if (otherBeam && otherBeam.emitter && 
-                    otherBeam.emitter.LightType == LightType.Toxic)
-                    _toxicCount++;
+                // Event handling for raycast hits
+                HandleBeamSpecificHitEvent(currentCollider);
                 
-                if (!currentCollider.isTrigger)
-                    return i;
+                // skip self
+                if (currentCollider == BeamCollider) continue;
+
+                // Skip triggers
+                if (currentCollider.isTrigger) continue;
+
+                return i;
             }
 
             return -1;
         }
-
-        private readonly List<Vector2> _tempPoints = new();
-
-        /**
-         * Updates the beam collider
-         */
-        private void UpdateBeamCollider()
+        
+        /** Casts the beam */
+        public virtual void BeamCast()
         {
-            for (int i = 0; i < _beamPoints.Count; i++)
-                _tempPoints.Add(transform.InverseTransformPoint(_beamPoints[i])); // convert coordinates
-            beamCollider.SetPoints(_tempPoints);
-            _tempPoints.Clear();
-        }
+            BeamPoints.Clear();
 
-        /**
-         * Updates the beam rendering
-         */
-        private void UpdateBeam()
-        {
-            beam.positionCount = _beamPoints.Count;
-            for (int i = 0; i < _beamPoints.Count; i++)
-                beam.SetPosition(i, _beamPoints[i]);
-        }
+            Vector2 currentOrigin = transform.position;
+            Vector2 currentDirection = transform.right; // default for angle
 
-        /**
-         * Handles the spread of the toxic status to default beams
-         */
-        private void ToxicSpread()
-        {
-            // If at least one toxic beam was touched, spread and reset count
-            if (originalLightType != LightType.Default) return;
-            LightType = _toxicCount > 0 ? LightType.Toxic : LightType.Default;
-            _toxicCount = 0;
-        }
+            BeamPoints.Add(currentOrigin);
 
-        private readonly List<RaycastHit2D> _raycastHits = new();
-
-        /**
-         * Physics update
-         */
-        public void EmitterFixedUpdate()
-        {
-            if (!beam) return;
-
-            if (LightType == LightType.Solid)
-                beamCollider.isTrigger = false;
-            else
-                beamCollider.isTrigger = true;
-
-            _beamPoints.Clear();
-
-            // Check for light being enabled
-            beamCollider.enabled = _isLightEnabled;
-            
-            // Cast beam:
-            // I do this on the FixedUpdate because even when deactivated it's still visible
-
-            // Init first cast
-            Vector2 origin = transform.position;
-            Vector2 direction = transform.right;
-
-            _beamPoints.Add(origin);
-
-            RaycastHit2D hit;
-            for (int i = 0; i < MaxBeamPoints; i++) // avoid infinite loops
+            for (int i = 0; i < maxBeamPoints; i++)
             {
-                // get hits
-                int hitCount = Physics2D.Raycast(origin, direction, _filter, _raycastHits, MaxDistance);
-                int firstValidIndex = HandleBeamRaycast(hitCount);
-                if (firstValidIndex < 0)
+                int hitIndex = SingleBeamCast(currentOrigin, currentDirection);
+                if (hitIndex < 0) // not hit
                 {
-                    _beamPoints.Add(origin + direction * MaxDistance);
+                    BeamPoints.Add(currentOrigin + currentDirection * maxDistance);
                     break;
                 }
 
-                // Wall hit: add valid point
-                hit = _raycastHits[firstValidIndex];
-                _beamPoints.Add(hit.point);
+                RaycastHit2D hit = RaycastHits[hitIndex];
+                BeamPoints.Add(hit.point);
 
                 if (!hit.collider.CompareTag("Mirror")) break;
 
-                origin = hit.point +
-                         hit.normal * Epsilon; // move it slightly so that the ray doesn't hit the same thing again
-                direction = Vector2.Reflect(direction, hit.normal);
+                // move it slightly (Epsilon) so that the ray doesn't hit the same thing again
+                currentOrigin = hit.point + hit.normal * hitCollisionEpsilon;
+                currentDirection = Vector2.Reflect(currentDirection, hit.normal);
             }
+        }
+        
+        /** Updates the beam collider with the current points */
+        public virtual void UpdateBeamCollider()
+        {
+            BeamCollider.enabled = IsLightEnabled;
+            if (!IsLightEnabled) return;
+            
+            BeamCollider.edgeRadius = colliderEdgeRadius;
+            
+            // Add points
+            List<Vector2> tempPoints = new();
+            foreach (var point in BeamPoints)
+                tempPoints.Add(transform.InverseTransformPoint(point)); // convert coordinates
 
-            ToxicSpread();
-            UpdateBeamCollider();
+            BeamCollider.SetPoints(tempPoints);
+            tempPoints.Clear();
         }
 
-        /**
-         * Rendering update
-         */
-        public void EmitterUpdate()
+        /** Updates the beam renderer with the current points */
+        public virtual void UpdateBeamRenderer()
         {
-            Color color = LightColors[LightType];
-            color.a = _isLightEnabled ? 1 : alphaOnDeactivation;
-            beam.startColor = beam.endColor = color;
+            BeamRenderer.widthMultiplier = widthMultiplier;
+            
+            // Color
+            BeamColor.a = IsLightEnabled ? 1 : alphaOnDeactivation;
+            BeamRenderer.startColor = BeamRenderer.endColor = BeamColor;
 
-            UpdateBeam();
+            // Add points
+            BeamRenderer.positionCount = BeamPoints.Count;
+            for (int i = 0; i < BeamPoints.Count; i++)
+                BeamRenderer.SetPosition(i, BeamPoints[i]);
         }
 
         protected override void onRemembered(MemoryKey key)
         {
-            _isLightEnabled = true;
+            IsLightEnabled = true;
         }
 
         protected override void onForgot(MemoryKey key)
         {
-            _isLightEnabled = false;
+            IsLightEnabled = false;
         }
     }
 }
