@@ -48,7 +48,10 @@ namespace Nevermind.MemorySystem
     {
         Test,
         Light,
-        Gravity
+        Gravity,
+        Slime,
+        Ice,
+        Rubber
     }
 
     public enum MemoryType
