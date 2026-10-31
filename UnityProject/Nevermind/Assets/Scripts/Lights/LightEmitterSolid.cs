@@ -20,7 +20,7 @@ namespace Nevermind.Lights
         protected override void HandleBeamSpecificHitEvent(Collider2D currentCollider)
         {
             if (IsLightEnabled &&
-             currentCollider.TryGetComponent<ISolidLightTrigger>(out ISolidLightTrigger trigger))
+             currentCollider.TryGetComponent(out ISolidLightTrigger trigger))
                 trigger.OnSolidLightBeamHit();
         }
 

@@ -8,6 +8,7 @@ TagManager:
   - Light
   - Slime
   - Box
+  - Gravity
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,6 @@ TagManager:
   - Light
   - Player
   - Slime
-  - 
-  - 
   - 
   - 
   - 

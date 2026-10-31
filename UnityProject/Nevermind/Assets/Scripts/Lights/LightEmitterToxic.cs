@@ -18,7 +18,7 @@ namespace Nevermind.Lights
         protected override void HandleBeamSpecificHitEvent(Collider2D currentCollider)
         {
             if (IsLightEnabled &&
-                currentCollider.TryGetComponent<IToxicLightTrigger>(out IToxicLightTrigger trigger))
+                currentCollider.TryGetComponent(out IToxicLightTrigger trigger))
                 trigger.OnToxicLightBeamHit();
         }
     }

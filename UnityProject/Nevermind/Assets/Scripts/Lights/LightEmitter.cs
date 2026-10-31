@@ -68,11 +68,11 @@ namespace Nevermind.Lights
             {
                 Collider2D currentCollider = RaycastHits[i].collider;
                 
-                // Event handling for raycast hits
-                HandleBeamSpecificHitEvent(currentCollider);
-                
                 // skip self
                 if (currentCollider == BeamCollider) continue;
+                
+                // Event handling for raycast hits
+                HandleBeamSpecificHitEvent(currentCollider);
 
                 // Skip triggers
                 if (currentCollider.isTrigger) continue;

@@ -1,21 +1,17 @@
 using UnityEngine;
-using TarodevController;
 
 namespace Nevermind.Gravity
  {
      [SelectionBase]
-     public class GravityFlux : MonoBehaviour
+     public class GravityFlux : Gravity
      {
-         [SerializeField, Min(0)]
-         private float attractionForce;
- 
-         private void OnTriggerStay2D(Collider2D other)
+         private const float UpDistance = 1000f; // far enough
+         
+         public override void FixedUpdate()
          {
-             Vector2 force = (Vector2)transform.up * attractionForce;
-             if (other.TryGetComponent(out PlayerController controller))
-                 controller.ApplyGravityFlow(force);
-             else if (other.TryGetComponent(out Rigidbody2D rigidBody))
-                 rigidBody.AddForce(force, ForceMode2D.Impulse);
+             // Always point up
+             Center = transform.position;
+             Center += Vector2.up * UpDistance;
          }
      }
  }
