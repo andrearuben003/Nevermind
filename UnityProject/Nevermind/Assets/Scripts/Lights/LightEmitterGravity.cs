@@ -41,19 +41,17 @@ namespace Nevermind.Lights
             _castDistance = maxDistance;
             
             // Check gravity fields
-            foreach (Gravity gravityInfluence in _gravityInfluences.ToList())
-                if (!gravityInfluence.IsPointInGravityFields(origin))
-                    _gravityInfluences.Remove(gravityInfluence);
+            for (int i = 0; i < _gravityInfluences.Count; i++)
+                if (!_gravityInfluences[i].IsPointInGravityFields(origin))
+                    _gravityInfluences.RemoveAt(i);
             if (_gravityInfluences.Count > 0)
             {
                 // Weighted average of the influences
-                Vector2 force = _gravityInfluences
-                                    .Select(gravity => (
-                                        dir: gravity.GetDirectionTowardsCenter(origin), 
-                                        force: gravity.attractionForce))
-                                    .Aggregate(Vector2.zero, (a, b) => 
-                                        a + b.dir*b.force)
-                                / _gravityInfluences.Count;
+                Vector2 force = Vector2.zero;
+                foreach (Gravity gravityInfluence in _gravityInfluences)
+                    force += gravityInfluence.GetDirectionTowardsCenter(origin) *
+                             gravityInfluence.attractionForce;
+                force /= _gravityInfluences.Count;
                 
                 _castDirection = (direction + force*gravityInfluenceStrength).normalized;
                 _castDistance = gravityDistance;
