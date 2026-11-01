@@ -208,8 +208,8 @@ MonoBehaviour:
   widthMultiplier: 0.3
   colliderEdgeRadius: 0.15
   alphaOnDeactivation: 0.2
-  gravityDistance: 0.1
-  gravityInfluenceStrength: 0.02
+  gravityDistance: 0.8
+  gravityInfluenceStrength: 0.16
 --- !u!1 &5337299503701264355
 GameObject:
   m_ObjectHideFlags: 0

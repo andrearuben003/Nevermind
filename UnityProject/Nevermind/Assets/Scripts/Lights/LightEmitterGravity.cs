@@ -14,8 +14,8 @@ namespace Nevermind.Lights
     {
         private bool _justEnteredGravity = false;
         private readonly List<Gravity> _gravityInfluences = new();
-        [SerializeField] private float gravityDistance = 0.1f;
-        [SerializeField] private float gravityInfluenceStrength = 0.02f;
+        [SerializeField] private float gravityDistance = 0.8f;
+        [SerializeField] private float gravityInfluenceStrength = 0.16f;
         private Vector2 _castDirection = Vector2.zero;
         private float _castDistance = 0f;
         
