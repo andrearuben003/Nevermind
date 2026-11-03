@@ -89,7 +89,17 @@ _\*tied to a memory that enables/disable the object._
 
 ### **2.2 Level Design** 
 
-A level is defined as a single scene composed of a succession of rooms, each occupying one screen and containing one puzzle. Each level is designed around a theme (eg. ”forest”, ”volcano”, ”temple”) and a central mechanic (eg. ”boxpushing”, ”slime”, ”lights”) that is explored throughout the level’s rooms. 
+A level is defined as a single scene composed of a succession of rooms, each occupying one screen and containing one puzzle. Each level is designed around a theme (eg. ”forest”, ”volcano”, ”temple”) and a central mechanic (eg. ”boxpushing”, ”slime”, ”lights”) that is explored throughout the level’s rooms.
+
+The game's mechanical progression should be as follows:
+- Level 0: Memories, Stone, basic controls (tutorial)
+- Level 1: Rubber, Boxes -- Rewards with Jump memory
+- Level 2: Slime (for grabbing objs), Ball, Pressure plate -- Rewards with Hands memory
+- Level 3: Ice
+- Level 4: Slime (more complex functions), Rockets
+- Level 5: Lights
+- Level 6: Gravity
+- Level 7: Finale
 
 ## **3 Characters\***
 
@@ -222,3 +232,16 @@ Andrea Coscia: initial implementation of components is workable, will refine gra
 |Rocket|||||
 
 ### **10.5 Week 5**
+
+#### **10.5.1 November 3 team meeting**
+
+The team finished implementing the requested mechanics early. It was decided to start designing individual screens.
+Added vision statement, expanded on level design.
+
+#### **10.5.2 November 10 deadline** 
+
+|Andrea Ruben|Christian|Shaan|Matteo|Andrea Coscia|
+|---|---|---|---|---|
+|Hands|Lights Cleanup|Editor tools for level creation|||
+|||Memory UI|||
+|Level 2, 4|Level 5|Level 6|Level 3|Level 0, 1|
