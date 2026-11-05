@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Nevermind.Lights
 {
+    using Gravity;
     /// <summary>
     /// Default beam. Can be intoxicated by hitting a toxic beam.
     /// </summary>
@@ -35,72 +36,71 @@ namespace Nevermind.Lights
             toxicEmitter.UpdateBeamRenderer();
         }
 
-        protected override void HandleBeamSpecificHitEvent(Collider2D currentCollider)
+        protected override void BeamCastHandleSpecificHitEvent(Collider2D currentCollider)
         {
             if (IsLightEnabled &&
                 currentCollider.TryGetComponent(out IDefaultLightTrigger trigger))
                 trigger.OnDefaultLightBeamHit();
         }
 
-        protected override int SingleBeamCast(Vector2 origin, Vector2 direction)
+        protected override bool SingleBeamCastForceCollider(Collider2D currentCollider)
         {
-            ContactFilter2D filter = ContactFilter2D.noFilter;
-            filter.useLayerMask = true;
-            filter.layerMask = ~0; // all layers
-
-            int hitCount = Physics2D.Raycast(origin, direction, filter, RaycastHits, maxDistance);
-
-            // Try to find a valid hit
-            for (int i = 0; i < hitCount; i++)
-            {
-                Collider2D currentCollider = RaycastHits[i].collider;
-
-                // Trigger
-                HandleBeamSpecificHitEvent(currentCollider);
-
-                // Toxic spread
-                if (currentCollider.TryGetComponent<LightEmitterToxic>(out _))
-                {
-                    _hasThisBeamHitToxic = true;
-                    return i;
-                }
-
-                // skip itself
-                if (currentCollider == BeamCollider) continue;
-
-                // Skip triggers
-                if (currentCollider.isTrigger) continue;
-
-                return i;
-            }
-
-            return -1;
+            // Toxic spread
+            if (!currentCollider.TryGetComponent<LightEmitterToxic>(out _)) 
+                return false;
+            
+            _hasThisBeamHitToxic = true;
+            return true;
         }
 
         public override void BeamCast()
         {
             _hasThisBeamHitToxic = false;
             toxicEmitter.FlushBeam();
-
+            
             BeamPoints.Clear();
 
             Vector2 currentOrigin = transform.position;
-            Vector2 currentDirection = transform.right;
+            Vector2 currentDirection = transform.right; // default for angle
+            float castDistance = 0f;
 
             BeamPoints.Add(currentOrigin);
 
             for (int i = 0; i < maxBeamPoints; i++)
             {
-                int hitIndex = SingleBeamCast(currentOrigin, currentDirection);
-                if (hitIndex < 0) // not hit
+                // Gravity handling
+                JustEnteredGravity = false;
+                castDistance = maxDistance;
+                for (int j = 0; j < GravityInfluences.Count; j++)
+                    if (!GravityInfluences[j].IsPointInGravityFields(currentOrigin))
+                        GravityInfluences.RemoveAt(j);
+                if (GravityInfluences.Count > 0)
                 {
-                    BeamPoints.Add(currentOrigin + currentDirection * maxDistance);
-                    break;
+                    // Weighted average of the influences
+                    Vector2 force = Vector2.zero;
+                    foreach (Gravity gravityInfluence in GravityInfluences)
+                        force += gravityInfluence.GetDirectionTowardsCenter(currentOrigin) *
+                                 gravityInfluence.attractionForce;
+                    force /= GravityInfluences.Count;
+                
+                    currentDirection = (currentDirection + force*gravityInfluenceStrength).normalized;
+                    castDistance = gravityStepDistance;
+                }
+                
+                int hitIndex = SingleBeamCast(currentOrigin, currentDirection, castDistance);
+                
+                if (hitIndex < 0)
+                {
+                    // In's normal not to hit anything in gravity
+                    BeamPoints.Add(currentOrigin + currentDirection * castDistance);
+                    if (GravityInfluences.Count == 0) break;
+                    currentOrigin += currentDirection * gravityStepDistance;
+                    continue;
                 }
 
                 RaycastHit2D hit = RaycastHits[hitIndex];
                 BeamPoints.Add(hit.point);
-
+                
                 // Toxic check and cast
                 if (_hasThisBeamHitToxic)
                 {
@@ -109,15 +109,18 @@ namespace Nevermind.Lights
                     toxicEmitter.BeamCast();
                     break;
                 }
+                
+                if (JustEnteredGravity) {
+                    // don't stop after hitting gravity
+                    currentOrigin = hit.point + currentDirection * hitCollisionEpsilon;
+                    continue;
+                }
 
                 if (!hit.collider.CompareTag("Mirror")) break;
 
-                // move it slightly (Epsilon) so that the ray doesn't hit the same thing again
                 currentOrigin = hit.point + hit.normal * hitCollisionEpsilon;
                 currentDirection = Vector2.Reflect(currentDirection, hit.normal);
             }
-            
-            // Toxic emitter is disabled if the default does not hit a toxic beam
             toxicEmitter.SetLightEnabled(IsLightEnabled && _hasThisBeamHitToxic);
         }
 

@@ -17,12 +17,19 @@ namespace Nevermind.Lights
             BeamCollider.isTrigger = false;
         }
 
-        protected override void HandleBeamSpecificHitEvent(Collider2D currentCollider)
+        protected override void BeamCastHandleSpecificHitEvent(Collider2D currentCollider)
         {
             if (IsLightEnabled &&
              currentCollider.TryGetComponent(out ISolidLightTrigger trigger))
                 trigger.OnSolidLightBeamHit();
         }
 
+        protected override bool SingleBeamCastIgnoreCollider(Collider2D currentCollider)
+        {
+            // Ignore other solid beams
+            if (currentCollider.TryGetComponent<LightEmitterSolid>(out _))
+                return true;
+            return false;
+        }
     }
 }

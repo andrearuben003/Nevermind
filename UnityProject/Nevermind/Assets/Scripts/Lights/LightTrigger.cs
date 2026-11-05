@@ -5,7 +5,7 @@ namespace Nevermind.Lights
     [SelectionBase]
     [RequireComponent(typeof(Collider2D))]
     public class LightTrigger : MonoBehaviour, 
-        ISolidLightTrigger, IToxicLightTrigger, IDefaultLightTrigger, IGravityLightTrigger
+        ISolidLightTrigger, IToxicLightTrigger, IDefaultLightTrigger
     {
         [SerializeField, Tooltip("Trigger sprite")]
         private SpriteRenderer triggerSprite;
@@ -29,11 +29,6 @@ namespace Nevermind.Lights
         }
 
         public void OnDefaultLightBeamHit()
-        {
-            _hit = true;
-        }
-
-        public void OnGravityLightBeamHit()
         {
             _hit = true;
         }
