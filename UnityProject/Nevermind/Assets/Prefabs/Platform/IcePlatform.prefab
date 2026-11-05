@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2606afc5344f5740bd13713b7a7c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryComponentEnabler
-  MemoryKey: 1
+  MemoryKey: 4
   components:
   - {fileID: 3537718289010877932}
 --- !u!61 &7583629319233657057
@@ -244,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
   MemoryKey: 1
   spriteRenderer: {fileID: 3592393810390432894}
+  activeAlpha: 1
   inactiveAlpha: 0.2
 --- !u!1 &5597321588478003562
 GameObject:

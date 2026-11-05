@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceSurface
       objectReference: {fileID: 0}
+    - target: {fileID: 784857056691548545, guid: 829423c96ef32c644a05a8d36ef624fd, type: 3}
+      propertyPath: MemoryKey
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1381171010469264766, guid: 829423c96ef32c644a05a8d36ef624fd, type: 3}
       propertyPath: m_LocalScale.x
       value: 19.93851
@@ -398,6 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryManager
   memorySlots: 3
   memories: []
+  thoughtBubblePrefab: {fileID: 0}
 --- !u!4 &697757230
 Transform:
   m_ObjectHideFlags: 0
