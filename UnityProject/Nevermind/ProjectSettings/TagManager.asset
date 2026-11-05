@@ -8,6 +8,8 @@ TagManager:
   - Light
   - Slime
   - Box
+  - Thought Bubble
+  - Gravity
   layers:
   - Default
   - TransparentFX
@@ -19,8 +21,6 @@ TagManager:
   - Light
   - Player
   - Slime
-  - 
-  - 
   - 
   - 
   - 

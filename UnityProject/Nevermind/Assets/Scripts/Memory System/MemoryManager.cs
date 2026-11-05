@@ -102,11 +102,24 @@ namespace Nevermind.MemorySystem
             bubble.GetComponent<ThoughtBubble>().Initialize(memory);
         }
         
+        public List<Memory> GetMemories() => memories.ToList();
+        
         /// <param name="typeFlags">The memory types that should be included in the result.</param>
         /// <returns>A list of the memories the player remembers that match the desired type.</returns>
         public List<Memory> GetMemoriesByType(MemoryType typeFlags)
         {
             return memories.Where(m => typeFlags.HasFlag(m.Type)).ToList();
+        }
+
+        /// Makes the player forget all their current memories and replaces them with new ones.
+        /// <param name="newMemories">The memories the player should have.</param>
+        public void SetMemories(List<Memory> newMemories)
+        {
+            foreach (Memory memory in memories.ToList())
+                Forget(memory.Key, false);
+
+            foreach (Memory memory in newMemories)
+                Remember(memory);
         }
     }
 }

@@ -20,6 +20,15 @@ public class Button : MonoBehaviour
 
     private readonly HashSet<Collider2D> playerColliders = new();
 
+
+    //timer connection
+    [SerializeField]
+    private UnityEvent<float> onTimerProgress = new();
+
+    //set the duration of the timer in seconds
+    [SerializeField]
+    private float activeDuration = 5f;
+
     private void Awake()
     {
         if (buttonRenderer == null)
@@ -82,7 +91,7 @@ public class Button : MonoBehaviour
         }
     }
 
-
+    /*
     // every 5 seconds  
     private IEnumerator ButtonTimer()
     {
@@ -103,6 +112,34 @@ public class Button : MonoBehaviour
             if(!buttonPressed)
                 buttonRenderer.color = Color.black;
         }
+    }
+    */
+
+    private IEnumerator ButtonTimer()
+    {
+        float timeRemaining = activeDuration;
+
+        onTimerProgress.Invoke(1f);
+
+        while (timeRemaining > 0f)
+        {
+            yield return null;
+
+            timeRemaining -= Time.deltaTime;
+
+            timeRemaining = Mathf.Max(0f, timeRemaining);
+
+            float fraction = timeRemaining / activeDuration;
+
+            onTimerProgress.Invoke(fraction);
+        }
+
+        onReleased.Invoke();
+        buttonPressed = false;
+
+        buttonRenderer.color = playerClose
+            ? Color.yellow
+            : Color.black;
     }
 
 }
