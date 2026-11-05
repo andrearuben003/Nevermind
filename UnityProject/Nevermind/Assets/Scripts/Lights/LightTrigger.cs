@@ -2,34 +2,35 @@ using UnityEngine;
 
 namespace Nevermind.Lights
 {
-    public class LightTrigger : MonoBehaviour
+    [SelectionBase]
+    [RequireComponent(typeof(Collider2D))]
+    public class LightTrigger : MonoBehaviour, 
+        ISolidLightTrigger, IToxicLightTrigger, IDefaultLightTrigger
     {
         [SerializeField, Tooltip("Trigger sprite")]
         private SpriteRenderer triggerSprite;
 
-        public void OnTriggerEnter2D(Collider2D other)
+        private bool _hit = false;
+        
+        private void FixedUpdate()
         {
-            if (!other.gameObject.CompareTag("Light")) return;
-
-            triggerSprite.color = Color.green;
+            triggerSprite.color = _hit ? Color.green : Color.red;
+            _hit = false;
         }
 
-        public void OnTriggerExit2D(Collider2D other)
+        public void OnSolidLightBeamHit()
         {
-            if (!other.gameObject.CompareTag("Light")) return;
-
-            triggerSprite.color = Color.red;
+            _hit = true;
         }
 
-        // Colliders and triggers both activate the trigger
-        public void OnCollisionEnter2D(Collision2D other)
+        public void OnToxicLightBeamHit()
         {
-            OnTriggerEnter2D(other.collider);
+            _hit = true;
         }
 
-        public void OnCollisionExit2D(Collision2D other)
+        public void OnDefaultLightBeamHit()
         {
-            OnTriggerExit2D(other.collider);
+            _hit = true;
         }
     }
 }

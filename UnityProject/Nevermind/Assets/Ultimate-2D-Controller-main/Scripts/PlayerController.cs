@@ -1,4 +1,5 @@
 using System;
+using Nevermind.Lights;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using System.Collections.Generic;
 using Nevermind.MemorySystem;
@@ -15,7 +16,7 @@ namespace TarodevController
     /// If you hve any questions or would like to brag about your score, come to discord: https://discord.gg/tarodev
     /// </summary>
     [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-    public class PlayerController : MonoBehaviour, IPlayerController
+    public class PlayerController : MonoBehaviour, IPlayerController, IDefaultLightTrigger, IToxicLightTrigger, ISolidLightTrigger
     {
         [SerializeField] private ScriptableStats _stats;
         private Rigidbody2D _rb;
@@ -123,7 +124,7 @@ namespace TarodevController
         }
 
         #endregion
-
+        
         #region Jumping
 
         private bool _jumpToConsume;
@@ -264,7 +265,24 @@ namespace TarodevController
             if (_stats == null) Debug.LogWarning("Please assign a ScriptableStats asset to the Player Controller's Stats slot", this);
         }
 #endif
-        
+        // ReSharper disable Unity.PerformanceAnalysis
+        public void OnDefaultLightBeamHit()
+        {
+            Debug.Log("HIT");
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        public void OnToxicLightBeamHit()
+        {
+            Debug.Log("DEAD!!!!!");
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        public void OnSolidLightBeamHit()
+        {
+            // _rb.AddForce(direction * 100f, ForceMode2D.Impulse);
+            Debug.Log("SOLID!!!!!");
+        }
         
         /// Sets the player in "on ice" state.
         public void SetIce(bool value)
@@ -284,6 +302,7 @@ namespace TarodevController
         }
     }
 
+    
     public struct FrameInput
     {
         public bool JumpDown;
@@ -298,4 +317,4 @@ namespace TarodevController
         public event Action Jumped;
         public Vector2 FrameInput { get; }
     }
-    }
+}

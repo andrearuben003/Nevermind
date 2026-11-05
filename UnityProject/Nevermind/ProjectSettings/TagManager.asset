@@ -9,6 +9,7 @@ TagManager:
   - Slime
   - Box
   - Thought Bubble
+  - Gravity
   layers:
   - Default
   - TransparentFX
