@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Nevermind.Lights
 {
     public interface IToxicLightTrigger

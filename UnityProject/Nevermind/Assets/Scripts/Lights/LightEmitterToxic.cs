@@ -15,10 +15,10 @@ namespace Nevermind.Lights
             BeamColor = Color.red;
         }
 
-        protected override void HandleBeamSpecificHitEvent(Collider2D currentCollider)
+        protected override void BeamCastHandleSpecificHitEvent(Collider2D currentCollider)
         {
             if (IsLightEnabled &&
-                currentCollider.TryGetComponent<IToxicLightTrigger>(out IToxicLightTrigger trigger))
+                currentCollider.TryGetComponent(out IToxicLightTrigger trigger))
                 trigger.OnToxicLightBeamHit();
         }
     }
