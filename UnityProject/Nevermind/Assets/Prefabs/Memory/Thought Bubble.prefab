@@ -444,7 +444,7 @@ MonoBehaviour:
   collectable: 1
   memory:
     Key: 0
-    Type: 0
+    Type: 2
 --- !u!1 &9077882248936045780
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,6 +494,4 @@ MonoBehaviour:
   bubble: {fileID: 5009854183628157068}
   spriteRenderer: {fileID: 6559817483642840591}
   text: {fileID: 8536906336154730601}
-  permanentColor: {r: 1, g: 1, b: 0, a: 0.29803923}
-  semipermanentColor: {r: 0, g: 0.6, b: 1, a: 0.29803923}
-  fragileColor: {r: 1, g: 0, b: 0.4, a: 0.29803923}
+  settings: {fileID: 11400000, guid: fb27baedc319f6749bd0b58a4291736b, type: 2}

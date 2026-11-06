@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using Nevermind.UI;
 using TMPro;
 using UnityEngine;
 
@@ -14,27 +14,19 @@ namespace Nevermind.MemorySystem
         private TextMeshProUGUI text;
         [Space]
         [SerializeField]
-        private Color permanentColor;
-        [SerializeField]
-        private Color semipermanentColor;
-        [SerializeField]
-        private Color fragileColor;
-
-        private readonly Dictionary<MemoryType, Color> memoryColors = new();
-
+        private MemoryGraphicsSettingsSO settings;
+        
         private void Awake()
         {
             bubble.MemoryChanged += onMemoryChanged;
-            
-            memoryColors.Add(MemoryType.Permanent, permanentColor);
-            memoryColors.Add(MemoryType.SemiPermanent, semipermanentColor);
-            memoryColors.Add(MemoryType.Fragile, fragileColor);
         }
 
         private void onMemoryChanged(Memory memory)
         {
             text.text = memory.Key.ToString();
-            spriteRenderer.color = memoryColors[memory.Type];
+            Color c = settings.TypeColors[memory.Type];
+            c.a = 0.3f;
+            spriteRenderer.color = c;
         }
     }
 }
