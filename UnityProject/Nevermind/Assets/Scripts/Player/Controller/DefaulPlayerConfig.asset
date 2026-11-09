@@ -35,7 +35,7 @@ MonoBehaviour:
   colliderOffset: {x: 0.25, y: 0, z: 0}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1089
+    m_Bits: 3137
   grabRange: 1.5
   grabLayer:
     serializedVersion: 2

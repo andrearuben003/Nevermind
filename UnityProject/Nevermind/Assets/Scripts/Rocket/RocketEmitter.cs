@@ -15,13 +15,19 @@ namespace Nevermind.Rocket
         private float timer;
         private float curTimer;
 
+        private void Awake()
+        {
+            curTimer = timer;
+        }
+
         private void Update()
         {
             curTimer += Time.deltaTime;
 
             if (curTimer > timer)
             {
-                GameObject.Instantiate(rocket, transform.position, Quaternion.identity);
+                Rocket tmp = GameObject.Instantiate(rocket, transform.position, Quaternion.identity).GetComponent<Rocket>();
+                tmp.SetDirection(transform.right);
                 curTimer = 0f;
             }
         }
