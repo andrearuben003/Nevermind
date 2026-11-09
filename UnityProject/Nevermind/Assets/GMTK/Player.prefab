@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8337592996603293420}
   - component: {fileID: 8846574668776656847}
   - component: {fileID: 1742324781748015951}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -61,9 +61,9 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &2840489628868152700
 BoxCollider2D:
@@ -187,6 +187,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5dc41093-c527-41c6-aba7-3b193e4aa5a5
     m_ActionName: 'OmnidirectionalController/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ddbfaf8a-c7b0-4446-bf52-85eee754a26c
+    m_ActionName: 'BaseController/Grab[/Keyboard/z]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: BaseController

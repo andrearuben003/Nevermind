@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,7 @@ namespace Nevermind.Player.Controller {
 
     public class PlatformerController : MonoBehaviour
     {
+        #region General
         CharacterMovement movement;
         CharacterJump jump;
         CharacterGround ground;
@@ -13,6 +15,12 @@ namespace Nevermind.Player.Controller {
 
         Rigidbody2D rb;
         MovementLimiter movementLimiter;
+        #endregion
+
+        #region Grab
+        Transform grabbedObject;
+
+        #endregion
 
         private void Awake()
         {
@@ -57,8 +65,23 @@ namespace Nevermind.Player.Controller {
             {
                 movement.directionX = 0f;
             }
+
+            if (grabbedObject)
+            {
+                jump.jumpHeight = config.jumpHeight + config.grabJumpHeightAddition * grabbedObject.transform.parent.childCount;
+
+                movement.maxSpeed = config.maxSpeed + config.grabMaxSpeedAddition * grabbedObject.transform.parent.childCount;
+                movement.maxAcceleration = config.maxAcceleration + config.grabMaxAcceleration * grabbedObject.transform.parent.childCount;
+
+                //When something push the box away from the player
+                if(Vector2.Distance(transform.position, grabbedObject.position) > config.grabRange)
+                {
+                    ReleaseBox();
+                }
+            }
         }
 
+        #region General
         protected virtual void OnEnable()
         {
             movement.enabled = true;
@@ -102,6 +125,111 @@ namespace Nevermind.Player.Controller {
                 }
             }
         }
+        #endregion
+
+        #region Grab
+
+        public void OnGrab(InputAction.CallbackContext context)
+        {
+            if (context.started){
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.right * transform.localScale.x, config.grabRange, config.grabLayer);
+                if (hit)
+                {
+                    grabbedObject = hit.transform;
+
+                    Box box = grabbedObject.GetComponent<Box>();
+
+                    if (box)
+                    {
+                        Transform group = box.transform.parent;
+
+                        if (!group) //Player touch a box without a group
+                        {
+                            //Create new parent group
+                            group = (new GameObject("Box Group")).transform;
+                            group.gameObject.AddComponent<Rigidbody2D>();
+                            group.GetComponent<Rigidbody2D>().freezeRotation = true;
+
+                            box.transform.parent = group;
+                            box.GetJoint().enabled = true;
+                            box.GetJoint().connectedBody = group.GetComponent<Rigidbody2D>();
+
+
+                            //Connect the group to the player
+                            group.AddComponent<FixedJoint2D>().connectedBody = rb;
+                        } 
+                        else
+                        {
+                            FixedJoint2D joint = group.GetComponent<FixedJoint2D>();
+
+                            if (joint)
+                            {
+                                joint.enabled = true;
+                                joint.connectedBody = rb;
+                            } 
+                            else
+                            {
+                                group.AddComponent<FixedJoint2D>().connectedBody = rb;
+                            }
+                        }
+
+                        box.FreeBoxGroupPhysics();
+                        box.ResetBoxGroupGravityScale();
+
+                        group.transform.parent = transform;
+                    }
+                }
+            }
+            else if (context.canceled){
+                if (grabbedObject)
+                {
+                    Box tmp = grabbedObject.GetComponent<Box>();
+                    ReleaseBox();
+
+                    //Throw
+                    if(rb.linearVelocity != Vector2.zero)
+                    {
+                        Vector2 dir = new Vector2(config.throwDirection.x * transform.localScale.x, config.throwDirection.y);
+                        tmp.Throw(dir , config.throwForce);
+                    }
+                }
+            }
+        }
+
+        public void ReleaseBox()
+        {
+            Box box = grabbedObject.GetComponent<Box>();
+
+            if (box)
+            {
+                FixedJoint2D joint = box.transform.parent.GetComponent<FixedJoint2D>();
+
+                if (joint)
+                {
+                    joint.connectedBody = null;
+                    joint.enabled = false;
+                }
+            }
+
+            //Reset original values
+            jump.jumpHeight = config.jumpHeight;
+
+            movement.maxSpeed = config.maxSpeed;
+            movement.maxAcceleration = config.maxAcceleration;
+
+            grabbedObject.transform.parent.parent = null;
+
+            grabbedObject = null;
+        }
+
+
+        private void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * config.grabRange);
+        }
+
+        #endregion
 
         public void Bounce(Vector2 dir, float bounceAmount)
         {
