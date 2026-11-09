@@ -9,9 +9,9 @@ namespace Nevermind.MemorySystem
         [SerializeField]
         private ThoughtBubble bubble;
         [SerializeField]
-        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer backgroundSprite;
         [SerializeField]
-        private TextMeshProUGUI text;
+        private SpriteRenderer iconSprite;
         [Space]
         [SerializeField]
         private MemoryGraphicsSettingsSO settings;
@@ -23,10 +23,11 @@ namespace Nevermind.MemorySystem
 
         private void onMemoryChanged(Memory memory)
         {
-            text.text = memory.Key.ToString();
             Color c = settings.TypeColors[memory.Type];
             c.a = 0.3f;
-            spriteRenderer.color = c;
+            backgroundSprite.color = c;
+            
+            iconSprite.sprite = settings.MemoryIcons[memory.Key];
         }
     }
 }
