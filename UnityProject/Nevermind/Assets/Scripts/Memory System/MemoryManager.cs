@@ -50,8 +50,6 @@ namespace Nevermind.MemorySystem
         /// <param name="memory">The memory to remember.</param>
         public void Remember(Memory memory)
         {
-            if (memories.Count == memorySlots) return;
-
             if (memories.Exists(m => m.Key == memory.Key))
             {
                 Memory mem = memories.Find(m => m.Key == memory.Key);
@@ -68,6 +66,8 @@ namespace Nevermind.MemorySystem
                 }                    
                 return;
             }
+            
+            if (memories.Count == memorySlots) return;
             
             Debug.Log("Remembering memory: " + memory);
             
