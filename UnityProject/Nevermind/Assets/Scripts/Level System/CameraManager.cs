@@ -20,8 +20,17 @@ namespace Nevermind.LevelSystem
             else
                 Destroy(gameObject);
         }
-        
+
+        private void Start()
+        {
+            roomCameras[0].gameObject.SetActive(true);
+            for (int i = 1; i < roomCameras.Count; i++)
+                roomCameras[i].gameObject.SetActive(false);
+        }
+
         public int GetActiveCameraIndex() => activeCameraIndex;
+
+        public int GetCameraIndex(CinemachineCamera cam) => roomCameras.IndexOf(cam);
         
         public void SwitchCamera(int index)
         {

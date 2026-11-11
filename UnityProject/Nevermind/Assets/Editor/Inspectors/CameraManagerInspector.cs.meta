@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 8a7175bfbadfe2b42bb095239a0bba3f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - boundaryIcon: {fileID: 2800000, guid: 50725332093906f4f849db328bd3951b, type: 3}
+  - checkpointIcon: {fileID: 2800000, guid: 9bc7a4b8fea4e1846a0c116d8ff9ed17, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
