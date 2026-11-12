@@ -42,8 +42,9 @@ namespace Nevermind.PlatformSurfaces
                 return;
         
             Vector2 velocity = this.transform.up * bounceSpeed;
-        
-            if(_rb.bodyType == RigidbodyType2D.Dynamic)
+
+            //used when rubber is sticked to objects
+            if(_rb && _rb.bodyType == RigidbodyType2D.Dynamic)
                 _rb.linearVelocity = -velocity;
         
             if(other.gameObject.CompareTag("Player"))
