@@ -2,33 +2,31 @@ using UnityEngine;
 
 namespace Nevermind.Rocket
 {
+    [SelectionBase]
     public class RocketEmitter : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject rocketPrefab;
+        [SerializeField]
+        private Transform shotOrigin;
+        [SerializeField, Min(0.1f)]
+        private float shotInterval;
         
-        //TODO: maybe is better to use pooling
-
-
-        [SerializeField]
-        private GameObject rocket;
-
-        [SerializeField]
         private float timer;
-        private float curTimer;
 
         private void Awake()
         {
-            curTimer = timer;
+            timer = shotInterval;
         }
 
         private void Update()
         {
-            curTimer += Time.deltaTime;
+            timer += Time.deltaTime;
 
-            if (curTimer > timer)
+            if (timer > shotInterval)
             {
-                Rocket tmp = GameObject.Instantiate(rocket, transform.position, Quaternion.identity).GetComponent<Rocket>();
-                tmp.SetDirection(transform.right);
-                curTimer = 0f;
+                Instantiate(rocketPrefab, shotOrigin.position, shotOrigin.rotation);
+                timer = 0f;
             }
         }
     }
