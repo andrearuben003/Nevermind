@@ -28,6 +28,7 @@ namespace TarodevController
         
         private bool _cachedQueryStartInColliders;
         private bool _onIce;
+        private bool _onPlatform;
         private float _wallWaitTime;
 
         #region Interface
@@ -46,6 +47,8 @@ namespace TarodevController
             _col = GetComponent<CapsuleCollider2D>();
 
             _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
+            _onIce = false;
+            _onPlatform = false;
         }
 
         private void Update()
@@ -142,7 +145,7 @@ namespace TarodevController
 
             if (!_jumpToConsume && !HasBufferedJump) return;
 
-            if (_grounded || CanUseCoyote) ExecuteJump();
+            if (_grounded || CanUseCoyote || _onPlatform) ExecuteJump();
 
             _jumpToConsume = false;
         }
@@ -174,7 +177,7 @@ namespace TarodevController
             }
             else
             {
-                _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, _frameInput.Move.x * _stats.MaxSpeed, _stats.Acceleration * Time.fixedDeltaTime);
+                _frameVelocity.x = Mathf.MoveTowards(_frameVelocity.x, (_onIce ? 4.0f : 1.0f) * _frameInput.Move.x * _stats.MaxSpeed, _stats.Acceleration * Time.fixedDeltaTime);
             }
         }
 
@@ -288,6 +291,11 @@ namespace TarodevController
         public void SetIce(bool value)
         {
             _onIce = value;
+        }
+
+        public void SetOnPlatform(bool value)
+        {
+            _onPlatform = value;
         }
 
         /// Makes the player bounce.

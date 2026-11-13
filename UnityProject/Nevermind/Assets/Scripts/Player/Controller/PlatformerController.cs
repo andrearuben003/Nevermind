@@ -1,9 +1,10 @@
+using Nevermind.PlatformSurfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Nevermind.Player.Controller {
 
-    public class PlatformerController : MonoBehaviour
+    public class PlatformerController : MonoBehaviour, IIceAffected
     {
         CharacterMovement movement;
         CharacterJump jump;
@@ -13,6 +14,11 @@ namespace Nevermind.Player.Controller {
 
         Rigidbody2D rb;
         MovementLimiter movementLimiter;
+
+        private bool _onIce;
+        private float _inputX;
+        private float _iceDirection;
+        private bool _slideMomentum;
 
         private void Awake()
         {
@@ -49,6 +55,8 @@ namespace Nevermind.Player.Controller {
             ground.groundLength = config.groundLength;
             ground.colliderOffset = config.colliderOffset;
             ground.groundLayer = config.groundLayer;
+            
+            _onIce = false;
         }
 
         private void Update()
@@ -56,6 +64,14 @@ namespace Nevermind.Player.Controller {
             if (!movementLimiter.CanMove)
             {
                 movement.directionX = 0f;
+                return;
+            }
+            
+            if(_slideMomentum && !movementLimiter.OnIce && rb.linearVelocity.y <= 0.01f)
+            {
+                _slideMomentum = false;
+                _iceDirection = 0f;
+                CheckDirection();
             }
         }
 
@@ -79,7 +95,8 @@ namespace Nevermind.Player.Controller {
             //The value will read -1 when pressing left, 0 when idle, and 1 when pressing right.
             if (movementLimiter.CanMove)
             {
-                movement.directionX = context.ReadValue<float>();
+                _inputX = context.ReadValue<float>();
+                CheckDirection();
             }
         }
 
@@ -106,6 +123,53 @@ namespace Nevermind.Player.Controller {
         public void Bounce(Vector2 dir, float bounceAmount)
         {
             rb.AddForce(dir * bounceAmount, ForceMode2D.Impulse);
+        }
+
+        public void CheckDirection()
+        {
+            if (!movementLimiter.CanMove)
+            {
+                movement.directionX = 0;
+                return;
+            }
+
+            if (movementLimiter.OnIce)
+            {
+                if(_iceDirection == 0f && _inputX != 0f )
+                    _iceDirection = Mathf.Sign(_inputX);
+                
+                movement.directionX = _iceDirection;
+            }
+            else if (_slideMomentum)
+            {
+                movement.directionX = _iceDirection;
+            }
+            else
+            {
+                movement.directionX = _inputX;
+            }
+        }
+
+        public void EnterIce()
+        {
+            movementLimiter.OnIce = true;
+            if(!_slideMomentum)
+                _iceDirection = 0f;
+            
+            _slideMomentum = false;
+            
+            CheckDirection();
+        }
+
+        public void ExitIce()
+        {
+            movementLimiter.OnIce = false;
+
+            _slideMomentum = rb.linearVelocity.y > 0.01f && _iceDirection != 0f;
+            if(!_slideMomentum)
+                _iceDirection = 0f;
+            
+            CheckDirection();
         }
     }
 }

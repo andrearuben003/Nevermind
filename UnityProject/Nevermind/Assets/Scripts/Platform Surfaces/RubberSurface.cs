@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Nevermind.MemorySystem;
+using Nevermind.Player.Controller;
 using TarodevController;
 using UnityEngine;
 
@@ -8,7 +9,15 @@ namespace Nevermind.PlatformSurfaces
 {
     public class RubberSurface : MonoBehaviour
     {
+        /// <summary>
+        /// Bounce Speed for objects (as boxes) and Tarodev Player Controller
+        /// </summary>
         [SerializeField] float bounceSpeed = 10;
+        
+        /// <summary>
+        /// Bounce Speed for GMTK Player Controller
+        /// </summary>
+        [SerializeField] float bounceForce = 10;
 
         private Rigidbody2D _rb;
 
@@ -47,7 +56,12 @@ namespace Nevermind.PlatformSurfaces
                 _rb.linearVelocity = -velocity;
         
             if(other.gameObject.CompareTag("Player"))
-                other.gameObject.GetComponent<PlayerController>().Bounce(velocity);
+            {
+                if (other.gameObject.TryGetComponent<PlayerController>(out var pl))
+                    pl.Bounce(velocity);
+                else if (other.gameObject.TryGetComponent<PlatformerController>(out var pc))
+                    pc.Bounce(this.transform.up, bounceForce);
+            }
             else if(other.attachedRigidbody.bodyType == RigidbodyType2D.Dynamic)
                 other.attachedRigidbody.linearVelocity = velocity;
         }

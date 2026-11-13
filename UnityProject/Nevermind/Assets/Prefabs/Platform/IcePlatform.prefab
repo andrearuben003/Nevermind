@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe16f80dfd70eb4f83f1081bd1bad09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
-  MemoryKey: 1
+  MemoryKey: 4
   spriteRenderer: {fileID: 3592393810390432894}
   activeAlpha: 1
   inactiveAlpha: 0.2

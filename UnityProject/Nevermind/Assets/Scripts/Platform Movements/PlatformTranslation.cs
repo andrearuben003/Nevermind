@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TarodevController;
 using UnityEngine;
 
 namespace Nevermind.PlatformMovements
@@ -56,7 +57,10 @@ namespace Nevermind.PlatformMovements
         {
             if (!other.gameObject.CompareTag("Player") || other.rigidbody == null) 
                 return;
-
+            
+            if(other.gameObject.TryGetComponent<PlayerController>(out PlayerController playerController))
+                playerController.SetOnPlatform(true);
+            
             // Check if entity is on top of the platform
             if (other.collider.bounds.min.y >= _collider.bounds.max.y - topTolerance) 
                 _entities.Add(other.collider.attachedRigidbody);
