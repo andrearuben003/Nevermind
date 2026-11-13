@@ -1,4 +1,3 @@
-using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Nevermind.LevelSystem
@@ -6,10 +5,10 @@ namespace Nevermind.LevelSystem
     [SelectionBase, RequireComponent(typeof(Collider2D))]
     public class RoomBoundary : MonoBehaviour
     {
-        [SerializeField, Tooltip("The index of the room to the left of the boundary.")]
-        private CinemachineCamera leftCamera;
-        [SerializeField, Tooltip("The index of the room to the right of the boundary.")]
-        private CinemachineCamera rightCamera;
+        [SerializeField, Tooltip("The room to the left of the boundary.")]
+        private GameObject leftRoom;
+        [SerializeField, Tooltip("The room to the right of the boundary.")]
+        private GameObject rightRoom;
         
         private int leftCameraIndex;
         private int rightCameraIndex;
@@ -23,8 +22,8 @@ namespace Nevermind.LevelSystem
 
         private void Start()
         {
-            leftCameraIndex = CameraManager.Instance.GetCameraIndex(leftCamera);
-            rightCameraIndex = CameraManager.Instance.GetCameraIndex(rightCamera);
+            leftCameraIndex = RoomManager.Instance.GetRoomIndex(leftRoom);
+            rightCameraIndex = RoomManager.Instance.GetRoomIndex(rightRoom);
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -34,7 +33,7 @@ namespace Nevermind.LevelSystem
             // Player enters from the right -> switch to left room
             // Player enters from the left  -> switch to right room
             float rel = Vector3.Dot(transform.right, other.transform.position - transform.position);
-            CameraManager.Instance.SwitchCamera(rel > 0 ? leftCameraIndex : rightCameraIndex);
+            RoomManager.Instance.SwitchRoom(rel > 0 ? leftCameraIndex : rightCameraIndex);
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -44,7 +43,7 @@ namespace Nevermind.LevelSystem
             // Player exits from the right -> switch to right room
             // Player exits from the left  -> switch to left room
             float rel = Vector3.Dot(transform.right, other.transform.position - transform.position);
-            CameraManager.Instance.SwitchCamera(rel < 0 ? leftCameraIndex : rightCameraIndex);
+            RoomManager.Instance.SwitchRoom(rel < 0 ? leftCameraIndex : rightCameraIndex);
         }
     }
 }

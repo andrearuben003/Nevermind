@@ -18,7 +18,7 @@ namespace Nevermind.LevelSystem
             
             Debug.Log("Checkpoint reached");
             
-            LevelManager.Instance.RecordPlayer(transform.position);
+            RespawnManager.Instance.RecordPlayer(transform.position);
         }
     }
 }

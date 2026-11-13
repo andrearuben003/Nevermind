@@ -6,9 +6,9 @@ using UnityEngine.SceneManagement;
 
 namespace Nevermind.LevelSystem
 {
-    public class LevelManager : MonoBehaviour
+    public class RespawnManager : MonoBehaviour
     {
-        public static LevelManager Instance;
+        public static RespawnManager Instance;
         
         private int recordedCameraIndex = -1;
         private Vector3 recordedPosition;
@@ -47,7 +47,7 @@ namespace Nevermind.LevelSystem
             
             MemoryManager.Instance.transform.position = recordedPosition;
             MemoryManager.Instance.SetMemories(recordedMemories);
-            CameraManager.Instance.SwitchCamera(recordedCameraIndex);
+            RoomManager.Instance.SwitchRoom(recordedCameraIndex);
         }
         
         public void Reload()
@@ -59,7 +59,7 @@ namespace Nevermind.LevelSystem
 
         public void RecordPlayer(Vector3 respawnPosition)
         {
-            recordedCameraIndex = CameraManager.Instance.GetActiveCameraIndex();
+            recordedCameraIndex = RoomManager.Instance.CurrentRoomIndex;
             recordedPosition = respawnPosition;
             recordedMemories = MemoryManager.Instance.GetMemories();
             

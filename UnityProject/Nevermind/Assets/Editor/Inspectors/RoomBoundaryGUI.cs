@@ -1,17 +1,18 @@
 using Nevermind.LevelSystem;
+using Unity.Cinemachine;
 using UnityEditor;
 using UnityEngine;
 
-public class RoomBoundaryGUI
+public static class RoomBoundaryGUI
 {
     [DrawGizmo(GizmoType.Active | GizmoType.Selected)]
     private static void OnDrawGizmosSelected(RoomBoundary boundary, GizmoType gizmoType)
     {
         Vector3 pos = boundary.transform.position;
         
-        SerializedObject serializedObject = new SerializedObject(boundary);
-        GameObject lCam = ((Component)serializedObject.FindProperty("leftCamera").objectReferenceValue).gameObject;
-        GameObject rCam = ((Component)serializedObject.FindProperty("rightCamera").objectReferenceValue).gameObject;
+        SerializedObject serializedObject = new(boundary);
+        GameObject lCam = ((GameObject)serializedObject.FindProperty("leftRoom").objectReferenceValue).GetComponentInChildren<CinemachineCamera>().gameObject;
+        GameObject rCam = ((GameObject)serializedObject.FindProperty("rightRoom").objectReferenceValue).GetComponentInChildren<CinemachineCamera>().gameObject;
 
         if (lCam)
         {
