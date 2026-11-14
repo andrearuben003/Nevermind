@@ -8,9 +8,9 @@ namespace Nevermind.Testing
         // Update is called once per frame
         void Update()
         {
+            //if (Input.GetKeyDown(KeyCode.Q))
+                //MemoryManager.Instance.Remember(new Memory(MemoryKey.Slime));
             if (Input.GetKeyDown(KeyCode.Q))
-                MemoryManager.Instance.Remember(new Memory(MemoryKey.Slime));
-            if (Input.GetKeyDown(KeyCode.W))
                 MemoryManager.Instance.Forget(MemoryKey.Slime);
         }
     }

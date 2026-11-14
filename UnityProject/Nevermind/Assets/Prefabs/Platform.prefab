@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 1200724830343302616}
   - component: {fileID: 7942005493752847543}
   - component: {fileID: 6703607145817853211}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,4 +213,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Material.Platform
   slimeMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 512

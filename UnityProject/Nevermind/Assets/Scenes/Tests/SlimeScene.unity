@@ -1162,6 +1162,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d656988dfedde9409ca2f8c1052074f, type: 3}
+--- !u!114 &679296494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8337592996603293420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+  m_PrefabInstance: {fileID: 1170588357}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 188863d7bbbdcf54d96e58c47a578581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.PlayerController.PlatformerController
 --- !u!1 &718882148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,7 +1185,7 @@ GameObject:
   - component: {fileID: 718882149}
   m_Layer: 0
   m_Name: Wall (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1946,6 +1957,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: ddbfaf8a-c7b0-4446-bf52-85eee754a26c
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: 'BaseController/Grab[/Keyboard/z]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 679296494}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnGrab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Nevermind.Player.Controller.PlatformerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6101442038422913420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1963,7 +2014,7 @@ GameObject:
   - component: {fileID: 1176713597}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2042,7 +2093,7 @@ GameObject:
   - component: {fileID: 1181962684}
   m_Layer: 0
   m_Name: Wall (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2304,7 +2355,7 @@ GameObject:
   - component: {fileID: 1347776087}
   m_Layer: 0
   m_Name: Wall (4)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2600,7 +2651,7 @@ GameObject:
   - component: {fileID: 1544564368}
   m_Layer: 0
   m_Name: Wall (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2740,7 +2791,7 @@ GameObject:
   - component: {fileID: 1640932931}
   m_Layer: 0
   m_Name: Wall (6)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2819,7 +2870,7 @@ GameObject:
   - component: {fileID: 1700752172}
   m_Layer: 0
   m_Name: Wall (5)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
