@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Nevermind.Rocket
 {
+    [SelectionBase, RequireComponent(typeof(Rigidbody2D))]
     public class Rocket : MonoBehaviour
     {
 
@@ -48,7 +49,7 @@ namespace Nevermind.Rocket
                 }
             }
 
-            transform.position = transform.position + (Vector3)direction * currentSpeed * Time.deltaTime;
+            transform.position = transform.position + transform.right * (currentSpeed * Time.deltaTime);
         }
 
         private void Explode()
@@ -60,7 +61,7 @@ namespace Nevermind.Rocket
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, transform.position + (Vector3)direction * rayLength);
+            Gizmos.DrawLine(transform.position, transform.position + transform.right * rayLength);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -107,14 +108,7 @@ namespace Nevermind.Rocket
         {
             if (collision.collider.CompareTag("Player"))
                 if(gameObject.activeSelf) //to fix a bug when closing the game
-                collision.transform.parent = null;
+                    collision.transform.parent = null;
         }
-
-        public void SetDirection(Vector2 direction)
-        {
-            this.direction = direction;
-        }
-
-
     }
 }

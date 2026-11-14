@@ -24,14 +24,12 @@ namespace Nevermind.UI
             get => selectedIndex;
             set
             {
-                Debug.Log("Setting "  + value + " over " + menuEntries.Count);
                 selectedIndex = Mathf.Clamp(value, 0, Mathf.Clamp(menuEntries.Count - 1, 0, int.MaxValue));
                 if (menuEntries.Count == 0)
                     selector.gameObject.SetActive(false);
                 else
                 {
                     selector.gameObject.SetActive(true);
-                    Debug.Log(selectedIndex + " Pos "  + memoryEntryParent.GetChild(selectedIndex));
                     Canvas.ForceUpdateCanvases();
                     LayoutRebuilder.ForceRebuildLayoutImmediate(memoryEntryParent);
                     
@@ -41,11 +39,6 @@ namespace Nevermind.UI
         }
         
         private Dictionary<MemoryKey, GameObject> menuEntries = new Dictionary<MemoryKey, GameObject>();
-
-        //private void Start()
-        //{
-        //    SelectedIndex = -1;
-        //}
 
         public void Toggle()
         {

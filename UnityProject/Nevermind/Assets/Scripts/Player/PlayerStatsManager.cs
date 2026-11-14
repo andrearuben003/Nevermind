@@ -1,7 +1,7 @@
 using Nevermind.Player.Controller;
 using UnityEngine;
 
-namespace Neverming.Player
+namespace Nevermind.Player
 {
     public class PlayerStatsManager : MonoBehaviour
     {

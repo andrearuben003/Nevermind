@@ -17,7 +17,7 @@ namespace Nevermind.LevelSystem
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag(playerTag))
-                LevelManager.Instance.Reload();
+                RespawnManager.Instance.Reload();
             else if (other.gameObject.CompareTag(bubbleTag))
                 Destroy(other.gameObject);
         }

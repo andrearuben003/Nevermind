@@ -1,5 +1,5 @@
 using Nevermind.Player.Controller;
-using Neverming.Player;
+using Nevermind.Player;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
