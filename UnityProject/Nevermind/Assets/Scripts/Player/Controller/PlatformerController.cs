@@ -135,6 +135,7 @@ namespace Nevermind.Player.Controller {
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector3.right * transform.localScale.x, config.grabRange, config.grabLayer);
                 if (hit)
                 {
+                    Debug.Log("Grabbed!");
                     grabbedObject = hit.transform;
 
                     Box box = grabbedObject.GetComponent<Box>();

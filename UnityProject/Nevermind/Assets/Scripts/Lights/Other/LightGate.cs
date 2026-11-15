@@ -1,10 +1,15 @@
 using Nevermind.Lights;
+using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [SelectionBase]
 [RequireComponent(typeof(Collider2D),  typeof(SpriteRenderer))]
 public class LightGate : LightTriggerTarget
 {
+    [SerializeField] private int triggerCountToOpen = 1;
+    private int currentTriggerCount = 0;
+    
     private Collider2D _collider;
     private SpriteRenderer _spriteRenderer;
 
@@ -26,12 +31,17 @@ public class LightGate : LightTriggerTarget
     
     public override void OnLightTriggerJustHit()
     {
+        currentTriggerCount++;
+        if (currentTriggerCount < triggerCountToOpen) return;
         _collider.enabled = false;
         _spriteRenderer.color = _disabledColor;
     }
 
     public override void OnLightTriggerJustStoppedBeingHit()
     {
+        currentTriggerCount--;
+        // Assert.Greater(currentTriggerCount, 0); // this should not happen, this actually happens because of Edoardo
+        if (currentTriggerCount >= triggerCountToOpen) return;
         _collider.enabled = true;
         _spriteRenderer.color = _enabledColor;
     }

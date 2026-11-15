@@ -1,10 +1,12 @@
 using System;
+using Nevermind.Lights;
 using UnityEngine;
 
 namespace Nevermind.MemorySystem
 {
     [SelectionBase]
-    public class ThoughtBubble : MonoBehaviour
+    public class ThoughtBubble : MonoBehaviour,
+        IToxicLightTrigger
     {
         /// Event invoked when a thought bubble is destroyed without being collected by the player. Passes the bubble's memory.
         public static event Action<Memory> ThoughtBubbleLost;
@@ -55,6 +57,11 @@ namespace Nevermind.MemorySystem
         {
             if (!wasCollected)
                 ThoughtBubbleLost?.Invoke(memory);
+        }
+
+        public void OnToxicLightBeamHit()
+        {
+            Destroy(gameObject);
         }
     }
 }

@@ -151,3 +151,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3ed0bb483efc966a823fed8b7284c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LightGate
+  triggerCountToOpen: 1
