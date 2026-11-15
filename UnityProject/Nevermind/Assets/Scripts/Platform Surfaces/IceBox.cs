@@ -46,7 +46,7 @@ namespace Nevermind.PlatformSurfaces
             _onIce = false;
             
             if(Mathf.Abs(_rb.linearVelocity.y) <= 0.01f)
-                _rb.velocity = new Vector2(0f, _rb.velocity.y);
+                _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y);
         }
     }
 }

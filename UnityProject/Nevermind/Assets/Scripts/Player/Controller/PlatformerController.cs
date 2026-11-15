@@ -27,6 +27,7 @@ namespace Nevermind.Player.Controller {
         private bool _onIce;
         private float _inputX;
         private float _iceDirection;
+        private float _stuckedSpeed = 0.05f;
         private bool _slideMomentum;
         
         #endregion
@@ -98,6 +99,18 @@ namespace Nevermind.Player.Controller {
                     ReleaseBox();
                 }
             }
+        }
+        
+        private void FixedUpdate()
+        {
+            
+            //Check if player stuck on ice near a wall
+            if(movementLimiter.OnIce && _iceDirection != 0f && Mathf.Abs(rb.linearVelocity.x) < _stuckedSpeed)
+            {
+                _iceDirection = 0f;
+                CheckDirection();
+            }
+            
         }
 
         #region General
@@ -265,21 +278,23 @@ namespace Nevermind.Player.Controller {
             }
 
             if (movementLimiter.OnIce)
-            {
+            {//If sliding on ice keep direction
                 if(_iceDirection == 0f && _inputX != 0f )
                     _iceDirection = Mathf.Sign(_inputX);
                 
                 movement.directionX = _iceDirection;
             }
             else if (_slideMomentum)
-            {
+            {//Jumping from ice keep horizontal momentum
                 movement.directionX = _iceDirection;
             }
             else
-            {
+            {//Input movement
                 movement.directionX = _inputX;
             }
         }
+        
+        #region Ice
 
         public void EnterIce()
         {
@@ -302,5 +317,6 @@ namespace Nevermind.Player.Controller {
             
             CheckDirection();
         }
+        #endregion
     }
 }
