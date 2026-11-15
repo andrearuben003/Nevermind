@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4af54d2aae4f9795a7c328f317d408, type: 3}
+  m_Name: Memory Graphics Settings
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.UI.MemoryGraphicsSettingsSO
+  typeColors:
+  - Item1: 2
+    Item2: {r: 1, g: 1, b: 0, a: 1}
+  - Item1: 1
+    Item2: {r: 0, g: 0.6, b: 1, a: 1}
+  - Item1: 0
+    Item2: {r: 1, g: 0, b: 0.4, a: 1}
+  memoryIcons:
+  - Item1: 0
+    Item2: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - Item1: 1
+    Item2: {fileID: 21300000, guid: a6a29d0a72c5ad0419bc226e305e670d, type: 3}
+  - Item1: 2
+    Item2: {fileID: 21300000, guid: 935b03b126f1904468cde8e3a224491e, type: 3}
+  - Item1: 3
+    Item2: {fileID: 21300000, guid: e7378436ec4ce864fbb00ff427e97809, type: 3}
+  - Item1: 4
+    Item2: {fileID: 21300000, guid: 39be9f1a8eb027548aac1c9ef2777b0c, type: 3}
+  - Item1: 5
+    Item2: {fileID: 21300000, guid: d324d5898390cd04a9f51cc468ab8373, type: 3}

@@ -16,7 +16,7 @@ namespace Nevermind.MemorySystem
         public event Action<MemoryKey> ForgotMemory;
         /// Event invoked when a memory is forgotten without spawning a thought bubble. Passes the forgotten memory key.
         public event Action<Memory> EliminatedMemory;
-
+        
         [SerializeField, Range(2, 10)]
         private int memorySlots = 3;
         [SerializeField, Tooltip("The memories the player currently remembers, add entries in the inspector to give them to the player at start.")]
@@ -50,20 +50,24 @@ namespace Nevermind.MemorySystem
         /// <param name="memory">The memory to remember.</param>
         public void Remember(Memory memory)
         {
-            if (memories.Count == memorySlots) return;
-
             if (memories.Exists(m => m.Key == memory.Key))
             {
                 Memory mem = memories.Find(m => m.Key == memory.Key);
                 if ((int)mem.Type < (int)memory.Type)
                 {
                     Debug.Log($"Upgraded memory {mem} to {memory.Type}");
+                    Forget(mem.Key, false);
+                    Remember(memory);
+                    /*
                     memories.Remove(mem);
                     memories.Add(memory);
                     EliminatedMemory?.Invoke(mem);
+                    */
                 }                    
                 return;
             }
+            
+            if (memories.Count == memorySlots) return;
             
             Debug.Log("Remembering memory: " + memory);
             

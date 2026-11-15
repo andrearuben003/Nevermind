@@ -35,5 +35,15 @@ namespace Nevermind.Player.Controller
         [SerializeField][Tooltip("Distance between the ground-checking colliders")] public Vector3 colliderOffset;
         [SerializeField][Tooltip("Which layers are read as the ground")] public LayerMask groundLayer;
 
+        [Header("GRAB")]
+        [SerializeField][Tooltip("Maximum distance at which the player is able to grab object")] public float grabRange = 1f;
+        [SerializeField][Tooltip("The list of all layer masks containg grabbable object")] public LayerMask grabLayer;
+        [SerializeField][Tooltip("This value is used like this jumpHeight = jumpHeight + grabJumpHeightAddition * #grabbedObjects")] public float grabJumpHeightAddition = 5f;
+        [SerializeField][Tooltip("This value is used like this maxSpeed = maxSpeed + grabMaxSpeedAddition * #grabbedObjects")] public float grabMaxSpeedAddition = 5f;
+        [SerializeField][Tooltip("This value is used like this maxAcceleration = maxAcceleration + grabMaxAcceleration * #grabbedObjects")] public float grabMaxAcceleration = 5f;
+        [SerializeField][Tooltip("The direction in which the grabbed box will be thwon when released")] public Vector2 throwDirection;
+        [SerializeField][Tooltip("The ammount of force used to throw the grabbed box when released")] public float throwForce;
+
+
     }
 }

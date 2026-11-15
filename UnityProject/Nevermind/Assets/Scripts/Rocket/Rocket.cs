@@ -19,20 +19,33 @@ namespace Nevermind.Rocket
         private float rayLength;
         [SerializeField]
         private LayerMask collisionMasks;
+        [SerializeField]
+        private LayerMask destroyableMasks;
 
         private Rigidbody2D rb;
+
+        bool isDangerous;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             currentSpeed = movementSpeed;
+
+            isDangerous = true;
         }
 
         private void Update()
         {
-            if (Physics2D.Raycast(transform.position, direction, rayLength, collisionMasks))
+            if (isDangerous)
             {
-                Explode();
+                if (Physics2D.Raycast(transform.position, direction, rayLength, collisionMasks))
+                {
+                    RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, rayLength, destroyableMasks);
+                    if (hit)
+                        Destroy(hit.collider.gameObject);
+
+                    Explode();
+                }
             }
 
             transform.position = transform.position + (Vector3)direction * currentSpeed * Time.deltaTime;
@@ -44,7 +57,7 @@ namespace Nevermind.Rocket
             Destroy(gameObject);
         }
 
-        private void OnDrawGizmosSelected()
+        private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawLine(transform.position, transform.position + (Vector3)direction * rayLength);
@@ -61,6 +74,8 @@ namespace Nevermind.Rocket
                 rb.gravityScale = 0f;
                 rb.linearDamping = 5f;
                 rb.freezeRotation = true;
+
+                isDangerous = false;
             }
         }
 
@@ -72,6 +87,8 @@ namespace Nevermind.Rocket
 
                 rb.linearVelocity = Vector2.zero;
                 rb.bodyType = RigidbodyType2D.Kinematic;
+
+                isDangerous = true;
             }
         }
 
@@ -79,6 +96,11 @@ namespace Nevermind.Rocket
         {
             if (collision.collider.CompareTag("Player"))
                 collision.transform.parent = transform;
+            else if(collision.collider.GetComponent<Rocket>())
+            {
+                Destroy(collision.gameObject);
+                Destroy(gameObject);
+            }
         }
 
         private void OnCollisionExit2D(Collision2D collision)
@@ -87,5 +109,12 @@ namespace Nevermind.Rocket
                 if(gameObject.activeSelf) //to fix a bug when closing the game
                 collision.transform.parent = null;
         }
+
+        public void SetDirection(Vector2 direction)
+        {
+            this.direction = direction;
+        }
+
+
     }
 }
