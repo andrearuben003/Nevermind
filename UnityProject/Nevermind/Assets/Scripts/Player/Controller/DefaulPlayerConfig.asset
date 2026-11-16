@@ -31,8 +31,8 @@ MonoBehaviour:
   speedLimit: 5
   coyoteTime: 0.15
   jumpBuffer: 0.15
-  groundLength: 0.7
-  colliderOffset: {x: 0.25, y: 0, z: 0}
+  groundLength: 1.25
+  colliderOffset: {x: 0.35, y: 0, z: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 3137
