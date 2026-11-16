@@ -1,145 +1,42 @@
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 
-public class Button : MonoBehaviour
+namespace Nevermind.Interactables
 {
-    [SerializeField]
-    private SpriteRenderer buttonRenderer;
-
-    private bool playerClose;
-
-    private bool buttonPressed;
-
-    [SerializeField]
-    private UnityEvent onPressed = new();
-
-    [SerializeField]
-    private UnityEvent onReleased = new();
-
-    private readonly HashSet<Collider2D> playerColliders = new();
-
-
-    //timer connection
-    [SerializeField]
-    private UnityEvent<float> onTimerProgress = new();
-
-    //set the duration of the timer in seconds
-    [SerializeField]
-    private float activeDuration = 5f;
-
-    private void Awake()
+    public class Button : Interactable
     {
-        if (buttonRenderer == null)
-            buttonRenderer = GetComponent<SpriteRenderer>();
+        public UnityEvent OnPressed;
+        public UnityEvent OnReleased;
+        [SerializeField]
+        private float activeDurationSeconds = 5f;
+        
+        public event Action<float> TimerProgressed;
 
-        buttonRenderer.color = Color.black;
-
-    }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (!collider.CompareTag("Player"))
-            return;
-
-        if (!playerColliders.Add(collider))
-            return;
-
-        if (playerColliders.Count == 1)
+        protected override void onSuccessfulInteraction()
         {
-            playerClose=true;
-            buttonRenderer.color = Color.yellow;
-            Debug.Log("player near the button");
+            StopAllCoroutines();
+            StartCoroutine(pressButton());
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collider)
-    {
-        if (!collider.CompareTag("Player"))
-            return;
-
-        if (!playerColliders.Remove(collider))
-            return;
-
-        if (playerColliders.Count == 0)
+        private IEnumerator pressButton()
         {
-            if(!buttonPressed)
+            OnPressed?.Invoke();
+
+            float timeRemaining = activeDurationSeconds;
+            
+            while (timeRemaining > 0f)
             {
-                buttonRenderer.color = Color.black;
+                TimerProgressed?.Invoke(timeRemaining / activeDurationSeconds);
+                
+                yield return null;
+
+                timeRemaining -= Time.deltaTime;
+                timeRemaining = Mathf.Max(0f, timeRemaining);
             }
-            Debug.Log("player left the button");
-            playerClose=false;
+
+            OnReleased.Invoke();
         }
     }
-
-    //per gestire l'input da tastiera
-    private void Update()
-    {
-            //uso GetKeyDown perche voglio avere l'input solo quando viene premuto
-        if(playerClose && Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log("F pressed");
-            if(!buttonPressed)
-            {
-                Debug.Log("Button activated");
-                onPressed.Invoke();
-                buttonPressed=true;
-                buttonRenderer.color = Color.green;
-                StartCoroutine(ButtonTimer());
-            }
-        }
-    }
-
-    /*
-    // every 5 seconds  
-    private IEnumerator ButtonTimer()
-    {
-        print("5");
-        for (int i = 4; i >= 0 ; i--)
-        {
-            yield return new WaitForSeconds(1);
-            print(i);
-        }
-
-        print("timer finished");
-        onReleased.Invoke();
-        buttonPressed=false;
-        if (playerClose)
-            buttonRenderer.color = Color.yellow;    
-        else
-        {
-            if(!buttonPressed)
-                buttonRenderer.color = Color.black;
-        }
-    }
-    */
-
-    private IEnumerator ButtonTimer()
-    {
-        float timeRemaining = activeDuration;
-
-        onTimerProgress.Invoke(1f);
-
-        while (timeRemaining > 0f)
-        {
-            yield return null;
-
-            timeRemaining -= Time.deltaTime;
-
-            timeRemaining = Mathf.Max(0f, timeRemaining);
-
-            float fraction = timeRemaining / activeDuration;
-
-            onTimerProgress.Invoke(fraction);
-        }
-
-        onReleased.Invoke();
-        buttonPressed = false;
-
-        buttonRenderer.color = playerClose
-            ? Color.yellow
-            : Color.black;
-    }
-
 }

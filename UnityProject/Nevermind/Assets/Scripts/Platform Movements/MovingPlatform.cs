@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Nevermind.PlatformMovements
 {
+    [SelectionBase]
     public class MovingPlatform : MonoBehaviour
     {
         [SerializeField] 
