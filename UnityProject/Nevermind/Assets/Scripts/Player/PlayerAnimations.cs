@@ -27,7 +27,7 @@ namespace Nevermind.Player
         {
             anim.SetBool("IsRunning", movement.velocity.x != 0f);
 
-            anim.SetBool("IsJumping", movement.velocity.y != 0f);
+            anim.SetBool("IsJumping", jump.currentlyJumping);
         }
     }
 }

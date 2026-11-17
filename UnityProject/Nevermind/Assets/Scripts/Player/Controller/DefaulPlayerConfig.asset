@@ -21,9 +21,9 @@ MonoBehaviour:
   maxAirTurnSpeed: 80
   friction: 0
   useAcceleration: 1
-  jumpHeight: 3.5
-  timeToJumpApex: 0.3
-  upwardMovementMultiplier: 1
+  jumpHeight: 4
+  timeToJumpApex: 0.5
+  upwardMovementMultiplier: 2
   downwardMovementMultiplier: 2
   maxAirJumps: 0
   variablejumpHeight: 1

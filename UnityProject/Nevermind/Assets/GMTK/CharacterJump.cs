@@ -45,7 +45,7 @@ public class CharacterJump : MonoBehaviour
     private float coyoteTimeCounter = 0;
     public bool pressingJump;
     public bool onGround;
-    private bool currentlyJumping;
+    public bool currentlyJumping;
 
     private Vector2 groundGravity;
 
