@@ -113,7 +113,7 @@ public class CharacterJump : MonoBehaviour
         velocity = body.linearVelocity;
 
         //Keep trying to do a jump, for as long as desiredJump is true
-        if (desiredJump && onGround)
+        if (desiredJump)
         {
             DoAJump();
             body.linearVelocity = velocity;
@@ -197,7 +197,7 @@ public class CharacterJump : MonoBehaviour
     {
 
         //Create the jump, provided we are on the ground, in coyote time, or have a double jump available
-        if (onGround || (coyoteTimeCounter > 0.03f && coyoteTimeCounter < coyoteTime) || canJumpAgain)
+        if (onGround  || (coyoteTimeCounter > 0.03f && coyoteTimeCounter < coyoteTime) || canJumpAgain)
         {
             desiredJump = false;
             jumpBufferCounter = 0;
