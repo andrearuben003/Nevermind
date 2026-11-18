@@ -3,10 +3,8 @@ using UnityEngine;
 
 namespace Nevermind.Interactables
 {
-    public class LeverGraphics : MonoBehaviour
+    public class LeverGraphics : InteractableGraphics
     {
-        private static readonly int OutlineEnabled = Shader.PropertyToID("_OutlineEnabled");
-
         [SerializeField, Range(0, 360)]
         private float handleOffAngleDeg = 315f;
         [SerializeField, Range(0, 360)]
@@ -15,13 +13,9 @@ namespace Nevermind.Interactables
         private float animationSeconds = 0.75f;
         
         [SerializeField]
-        private Lever lever;
-        [SerializeField]
-        private SpriteRenderer baseRenderer;
-        [SerializeField]
-        private SpriteRenderer handleRenderer;
-        [SerializeField]
         private Transform handlePivot;
+        
+        private Lever lever;
 
         private int onRotationDir;
         private int offRotationDir;
@@ -29,33 +23,24 @@ namespace Nevermind.Interactables
         
         private void Awake()
         {
+            lever = Interactable as Lever;
             onRotationDir = handleOnAngleDeg > handleOffAngleDeg ? -1 : 1;
             offRotationDir = handleOnAngleDeg > handleOffAngleDeg ? 1 : -1;
             step = Mathf.Abs(handleOnAngleDeg - handleOffAngleDeg) / animationSeconds;
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            lever.playerEnteredInteractionRange += showOutline;
-            lever.playerExitedInteractionRange += hideOutline;
+            base.OnEnable();
             lever.OnActivated.AddListener(switchToOn);
             lever.OnDeactivated.AddListener(switchToOff);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
-            lever.playerEnteredInteractionRange -= showOutline;
-            lever.playerExitedInteractionRange -= hideOutline;
+            base.OnDisable();
             lever.OnActivated.RemoveListener(switchToOn);
             lever.OnDeactivated.RemoveListener(switchToOff);
-        }
-
-        private void showOutline() => setOutlineVisible(true);
-        private void hideOutline() => setOutlineVisible(false);
-        private void setOutlineVisible(bool visible)
-        {
-            baseRenderer.material.SetFloat(OutlineEnabled, visible ? 1 : 0);
-            handleRenderer.material.SetFloat(OutlineEnabled, visible ? 1 : 0);
         }
 
         private void switchToOn()

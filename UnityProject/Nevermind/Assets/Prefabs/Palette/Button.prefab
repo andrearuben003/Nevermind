@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4895725423088922745}
   - component: {fileID: 524533597809026098}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6613257830421772572}
   - component: {fileID: 3248352420811632721}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.5372549, g: 0, b: 0.08235294, a: 1}
@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 73549063097248930}
   - component: {fileID: 7821208117549487981}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,9 +228,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c72e2601d1b5cb946bb23fe4856c8737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Interactables.ButtonGraphics
-  button: {fileID: 3324899669908561740}
-  baseRenderer: {fileID: 524533597809026098}
-  buttonRenderer: {fileID: 3248352420811632721}
+  Interactable: {fileID: 3324899669908561740}
+  objectSprites:
+  - {fileID: 524533597809026098}
+  - {fileID: 3248352420811632721}
   buttonPivot: {fileID: 2941813880453322431}
 --- !u!1 &8199596996461775554
 GameObject:
@@ -243,8 +244,7 @@ GameObject:
   - component: {fileID: 8197579350962640476}
   - component: {fileID: 1677934725986832463}
   - component: {fileID: 3324899669908561740}
-  - component: {fileID: 7270178055979423255}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,18 +322,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeDurationSeconds: 5
---- !u!114 &7270178055979423255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8199596996461775554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e05bd4818db702e478fd3bd227524199, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Testing.InteractionControls
 --- !u!1 &8751203907692896633
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2941813880453322431}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

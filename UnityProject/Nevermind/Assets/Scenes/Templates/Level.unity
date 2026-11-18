@@ -1418,7 +1418,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &460482180
 Transform:
@@ -2236,7 +2236,6 @@ GameObject:
   m_Component:
   - component: {fileID: 814589025}
   - component: {fileID: 814589026}
-  - component: {fileID: 814589027}
   m_Layer: 5
   m_Name: Side Menu
   m_TagString: Untagged
@@ -2281,19 +2280,6 @@ MonoBehaviour:
   memoryEntryPrefab: {fileID: 6139643659804218767, guid: 55c1c02fa05d7754fa734ca0868e4961, type: 3}
   memoryEntryParent: {fileID: 1562174236}
   selector: {fileID: 461225684}
---- !u!114 &814589027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 814589024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3279a1b0d8d32345869a742ed8b2d57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Testing.MemoryMenuControls
-  verticalInput: 1
 --- !u!1 &895871477
 GameObject:
   m_ObjectHideFlags: 0
@@ -2829,33 +2815,39 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1212761664693406171, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
   m_PrefabInstance: {fileID: 1721385130}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1025292498
+--- !u!114 &1025292508 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8846574668776656847, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+  m_PrefabInstance: {fileID: 1721385130}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025292497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 205a4b3ad483e3a4f87ab948b9e61a1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 962ede941304e734c8ffebd04528e0c3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryManager
-  memorySlots: 3
-  memories: []
-  thoughtBubblePrefab: {fileID: 6661715623172311984, guid: b47953ba587df9440bd40fe833f29044, type: 3}
---- !u!114 &1025292506
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.PlayerController.OmnidirectionalPlayerController
+--- !u!114 &1025292509 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8337592996603293420, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+  m_PrefabInstance: {fileID: 1721385130}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025292497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea8f3d50e68aca542b0b3cf45903a4aa, type: 3}
+  m_Script: {fileID: 11500000, guid: 188863d7bbbdcf54d96e58c47a578581, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Neverming.Player.PlayerStatsManager
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.PlayerController.PlatformerController
+--- !u!114 &1025292514 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3220443763126500630, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+  m_PrefabInstance: {fileID: 1721385130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025292497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e358bdea8547134d8fe6c77e86ec284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Player.PlayerInteraction
 --- !u!1 &1035972768
 GameObject:
   m_ObjectHideFlags: 0
@@ -2905,6 +2897,274 @@ Transform:
   - {fileID: 2117801197}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1103834506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1103834509}
+  - component: {fileID: 1103834508}
+  - component: {fileID: 1103834507}
+  - component: {fileID: 1103834510}
+  m_Layer: 0
+  m_Name: Input Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1103834507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103834506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c278c3e70558b904bb04a42b79627427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.GlobalInputMapEnabler
+--- !u!114 &1103834508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103834506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: c83c26b7c1e2d984494e3885b9f610e4, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1025292509}
+        m_TargetAssemblyTypeName: Nevermind.PlayerController.PlatformerController,
+          Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 31edc484-9107-4f71-bd28-dfad2bca4736
+    m_ActionName: 'BaseController/Movement[/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1025292509}
+        m_TargetAssemblyTypeName: Nevermind.PlayerController.PlatformerController,
+          Assembly-CSharp
+        m_MethodName: OnJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f4a8f7fa-8df6-4cbb-94d1-a50076d7270d
+    m_ActionName: 'BaseController/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1025292508}
+        m_TargetAssemblyTypeName: Nevermind.PlayerController.OmnidirectionalPlayerController,
+          Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5dc41093-c527-41c6-aba7-3b193e4aa5a5
+    m_ActionName: 'OmnidirectionalController/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1025292514}
+        m_TargetAssemblyTypeName: Nevermind.Player.PlayerInteraction, Assembly-CSharp
+        m_MethodName: TryInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ddbfaf8a-c7b0-4446-bf52-85eee754a26c
+    m_ActionName: 'BaseController/Grab[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1729233588}
+        m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 814589026}
+        m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5b191b32-559a-4534-a221-a51d7de0926d
+    m_ActionName: 'Global/Open Menu[/Keyboard/m]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1729233588}
+        m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
+        m_MethodName: SelectPrevious
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 814589026}
+        m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
+        m_MethodName: SelectPrevious
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 810452c6-2db8-492c-8f7f-15c61c2e42e3
+    m_ActionName: 'Global/Select Previous[/Keyboard/j,/Keyboard/i]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1729233588}
+        m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
+        m_MethodName: SelectNext
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 814589026}
+        m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
+        m_MethodName: SelectNext
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2130ad59-c8ac-4bf9-b1a2-7ad0a8dd76e8
+    m_ActionName: 'Global/Select Next[/Keyboard/l,/Keyboard/k]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1729233588}
+        m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
+        m_MethodName: ForgetSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 814589026}
+        m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
+        m_MethodName: ForgetSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 48a3a8d5-1dc1-4305-8326-5f43b01cbb2f
+    m_ActionName: 'Global/Forget Selected[/Keyboard/o]'
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Base Controller
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &1103834509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103834506}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1103834510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103834506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e68b6c32d103a46a6c3bfba77b389a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.PlayerController.PlayerControllersManager
+  player: {fileID: 1025292497}
 --- !u!1 &1132469008
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,7 +3203,7 @@ Transform:
   m_GameObject: {fileID: 1132469008}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.14266, y: 0.34634, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3246,20 +3506,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9137199752660977936, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 5d6e6153c0535d443b438901c4984f6e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1212761664693406171, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1025292498}
-    - targetCorrespondingSourceObject: {fileID: 1212761664693406171, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1025292506}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
 --- !u!1 &1729233586
 GameObject:
@@ -3271,7 +3521,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1729233587}
   - component: {fileID: 1729233588}
-  - component: {fileID: 1729233589}
   m_Layer: 5
   m_Name: Top menu
   m_TagString: Untagged
@@ -3316,19 +3565,6 @@ MonoBehaviour:
   memoryEntryPrefab: {fileID: 6139643659804218767, guid: 55c1c02fa05d7754fa734ca0868e4961, type: 3}
   memoryEntryParent: {fileID: 692581201}
   selector: {fileID: 2069281957}
---- !u!114 &1729233589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729233586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3279a1b0d8d32345869a742ed8b2d57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Testing.MemoryMenuControls
-  verticalInput: 0
 --- !u!1 &1780550062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3660,7 +3896,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2046442291
 Transform:
@@ -4439,38 +4675,38 @@ Tilemap:
     m_Data:
       e00: 1e-45
       e01: 0
-      e02: -7.851657e-38
-      e03: 6.310897e-29
+      e02: 182000.5
+      e03: -1.4693702e-38
       e10: NaN
       e11: 0
-      e12: 1.71e-43
-      e13: 8.73e-43
-      e20: -4.909139e+15
+      e12: 2.52e-43
+      e13: 9.39e-43
+      e20: -0.00063143205
       e21: 0
-      e22: -1.6640078e+29
-      e23: -0.000000005366079
+      e22: 1.6304934e+29
+      e23: 9.9575826e-29
       e30: 4.5907e-41
       e31: 0
-      e32: 8.76e-43
-      e33: 8.73e-43
+      e32: 9.43e-43
+      e33: 9.4e-43
   - m_RefCount: 0
     m_Data:
       e00: 1e-45
       e01: 0
-      e02: -7.851657e-38
-      e03: 6.310897e-29
+      e02: 182000.5
+      e03: -1.4693702e-38
       e10: NaN
       e11: 0
-      e12: 1.71e-43
-      e13: 8.73e-43
-      e20: -4.909139e+15
+      e12: 2.52e-43
+      e13: 9.39e-43
+      e20: -0.00063143205
       e21: 0
-      e22: -1.6640078e+29
-      e23: -0.0000000053666334
+      e22: 1.6305961e+29
+      e23: 3.5946423e-28
       e30: 4.5907e-41
       e31: 0
-      e32: 8.76e-43
-      e33: 8.73e-43
+      e32: 9.43e-43
+      e33: 9.4e-43
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 4.5e-44, g: 4.5e-44, b: 4.5e-44, a: 4.5e-44}
@@ -4479,7 +4715,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   - m_RefCount: 0
-    m_Data: {r: 6.9056e-41, g: 6.9056e-41, b: 6.9056e-41, a: 6.9056e-41}
+    m_Data: {r: 6.9134e-41, g: 6.9134e-41, b: 6.9134e-41, a: 6.9134e-41}
   m_TileObjectToInstantiateArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -4528,9 +4764,10 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1103834509}
   - {fileID: 1132469010}
   - {fileID: 2010785574}
   - {fileID: 752279038}
-  - {fileID: 911689728}
   - {fileID: 1721385130}
   - {fileID: 2025562698}
+  - {fileID: 911689728}

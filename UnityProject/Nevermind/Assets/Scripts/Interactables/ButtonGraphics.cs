@@ -2,39 +2,28 @@ using UnityEngine;
 
 namespace Nevermind.Interactables
 {
-    public class ButtonGraphics : MonoBehaviour
+    public class ButtonGraphics : InteractableGraphics
     {
-        private static readonly int OutlineEnabled = Shader.PropertyToID("_OutlineEnabled");
-        
-        [SerializeField]
-        private Button button;
-        [SerializeField]
-        private SpriteRenderer baseRenderer;
-        [SerializeField]
-        private SpriteRenderer buttonRenderer;
         [SerializeField]
         private Transform buttonPivot;
+        
+        private Button button;
 
-        private void OnEnable()
+        private void Awake()
         {
-            button.playerEnteredInteractionRange += showOutline;
-            button.playerExitedInteractionRange += hideOutline;
+            button = Interactable as Button;
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
             button.TimerProgressed += onTimerProgress;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
-            button.playerEnteredInteractionRange -= showOutline;
-            button.playerExitedInteractionRange -= hideOutline;
+            base.OnDisable();
             button.TimerProgressed -= onTimerProgress;
-        }
-
-        private void showOutline() => setOutlineVisible(true);
-        private void hideOutline() => setOutlineVisible(false);
-        private void setOutlineVisible(bool visible)
-        {
-            baseRenderer.material.SetFloat(OutlineEnabled, visible ? 1 : 0);
-            buttonRenderer.material.SetFloat(OutlineEnabled, visible ? 1 : 0);
         }
 
         private void onTimerProgress(float remaining)

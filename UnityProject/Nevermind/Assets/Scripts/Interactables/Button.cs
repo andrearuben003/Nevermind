@@ -14,7 +14,7 @@ namespace Nevermind.Interactables
         
         public event Action<float> TimerProgressed;
 
-        protected override void onSuccessfulInteraction()
+        public override void Interact()
         {
             StopAllCoroutines();
             StartCoroutine(pressButton());

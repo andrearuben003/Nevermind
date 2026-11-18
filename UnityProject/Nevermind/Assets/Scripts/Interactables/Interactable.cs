@@ -3,44 +3,15 @@ using UnityEngine;
 
 namespace Nevermind.Interactables
 {
-    [RequireComponent(typeof(Collider2D)), SelectionBase]
+    [SelectionBase]
     public abstract class Interactable : MonoBehaviour
     {
-        public event Action playerEnteredInteractionRange;
-        public event Action playerExitedInteractionRange;
+        public event Action Selected;
+        public event Action Deselected;
+        
+        public abstract void Interact();
 
-        private bool playerInRange;
-        private TagHandle playerTag;
-
-        protected void Awake()
-        {
-            playerTag = TagHandle.GetExistingTag("Player");
-        }
-
-        protected void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!other.CompareTag(playerTag)) return;
-            
-            playerInRange = true;
-            playerEnteredInteractionRange?.Invoke();
-        }
-
-        protected void OnTriggerExit2D(Collider2D other)
-        {
-            if (!other.CompareTag(playerTag)) return;
-            
-            playerInRange = false;
-            playerExitedInteractionRange?.Invoke();
-        }
-
-        public void Interact()
-        {
-            if (!playerInRange) return;
-            
-            Debug.Log($"Interacted with {name}");
-            onSuccessfulInteraction();
-        }
-
-        protected abstract void onSuccessfulInteraction();
+        public void Select() => Selected?.Invoke();
+        public void Deselect() => Deselected?.Invoke();
     }
 }

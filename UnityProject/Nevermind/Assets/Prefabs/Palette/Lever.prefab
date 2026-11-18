@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 466006765167884051}
   - component: {fileID: 655758515566822265}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lever_base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 0323698de39257349bbc978e71e84da2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5796262034851248258}
   - component: {fileID: 3189971338352139454}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lever_handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4617325985055137689, guid: 8ea29e0245babcb45adcc3d28aeeecca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -193,8 +193,7 @@ GameObject:
   - component: {fileID: 7122139973948206166}
   - component: {fileID: 3027054387574015324}
   - component: {fileID: 4234727623351612676}
-  - component: {fileID: 494575783225059951}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lever
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +268,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Gate, Assembly-CSharp
+        m_TargetAssemblyTypeName: Nevermind.Interactables.Gate, Assembly-CSharp
         m_MethodName: OpenGate
         m_Mode: 1
         m_Arguments:
@@ -284,7 +283,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Gate, Assembly-CSharp
+        m_TargetAssemblyTypeName: Nevermind.Interactables.Gate, Assembly-CSharp
         m_MethodName: CloseGate
         m_Mode: 1
         m_Arguments:
@@ -295,18 +294,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &494575783225059951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6954461986970047812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e05bd4818db702e478fd3bd227524199, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Testing.InteractionControls
 --- !u!1 &7874953497529466051
 GameObject:
   m_ObjectHideFlags: 0
@@ -317,7 +304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9004311860214481037}
   - component: {fileID: 3794146379158267636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -353,12 +340,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a243f6d9b25efc94daf6439590c014a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Interactables.LeverGraphics
+  Interactable: {fileID: 4234727623351612676}
+  objectSprites:
+  - {fileID: 655758515566822265}
+  - {fileID: 3189971338352139454}
   handleOffAngleDeg: 315
   handleOnAngleDeg: 45
   animationSeconds: 0.75
-  lever: {fileID: 4234727623351612676}
-  baseRenderer: {fileID: 655758515566822265}
-  handleRenderer: {fileID: 3189971338352139454}
   handlePivot: {fileID: 4455603776348366671}
 --- !u!1 &8697690450859863371
 GameObject:
@@ -369,7 +357,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4455603776348366671}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Handle pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

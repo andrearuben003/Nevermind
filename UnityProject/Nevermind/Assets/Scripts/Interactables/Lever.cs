@@ -10,7 +10,7 @@ namespace Nevermind.Interactables
 
         private bool isActivated;
 
-        protected override void onSuccessfulInteraction()
+        public override void Interact()
         {
             if (!isActivated)
                 OnActivated.Invoke();

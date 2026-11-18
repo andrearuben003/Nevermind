@@ -22,7 +22,7 @@ namespace Nevermind.Player
         private PlayerControllersManager player;
         private void Start()
         {
-            player = PlayerControllersManager.Instace;
+            player = PlayerControllersManager.Instance;
         }
 
         public void EnterSlime()
@@ -40,10 +40,10 @@ namespace Nevermind.Player
 
                 if(countSlime <= 0)
                 {
-                    Vector2 inputDir =  player.OmnidirectionalController.GetInputDir();
-                    player.ChangeControllerType(ControllerType.Default);
-                    player.PlatformerController.Bounce(inputDir, pushOnExit);
-                    countSlime = 0;
+                    //Vector2 inputDir =  player.OmnidirectionalController.GetInputDir();
+                    //player.ChangeControllerType(ControllerType.Default);
+                    //player.PlatformerController.Bounce(inputDir, pushOnExit);
+                    //countSlime = 0;
                 }
 
             }
