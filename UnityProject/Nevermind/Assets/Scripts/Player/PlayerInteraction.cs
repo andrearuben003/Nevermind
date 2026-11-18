@@ -27,19 +27,29 @@ namespace Nevermind.Player
 
         private void checkInteractionRange()
         {
-            Vector2 origin = new  Vector2(transform.position.x + offset.y * transform.localScale.x, transform.position.y + offset.y);
+            Vector2 origin = new(transform.position.x + offset.y * transform.localScale.x, transform.position.y + offset.y);
             
             RaycastHit2D hit = Physics2D.CircleCast(origin, radius, Vector2.zero, 0, interactableLayer);
             
-            selectedInteractable?.Deselect();
-            selectedInteractable = hit.collider ? hit.collider.GetComponent<Interactable>() : null;
-            selectedInteractable?.Select();
+            Interactable interactable = hit.collider ? hit.collider.GetComponent<Interactable>() : null;
+            
+            if (interactable != selectedInteractable)
+            {
+                selectedInteractable?.Deselect();
+                selectedInteractable =  interactable;
+                selectedInteractable?.Select();
+            }
         }
         
         public void TryInteract(InputAction.CallbackContext context)
         {
+            if (!selectedInteractable) return;
+
             if (context.started)
-                selectedInteractable?.Interact();
+                selectedInteractable.Interact();
+            
+            if (context.canceled && selectedInteractable.ContinuousInteraction)
+                selectedInteractable.Interact();
         }
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Nevermind.Interactables
 {
-    [SelectionBase, RequireComponent(typeof(Rigidbody2D)), RequireComponent(typeof(Joint2D))]
+    [RequireComponent(typeof(TargetJoint2D))]
     public class Grabbable : Interactable
     {
         private static Transform playerTransform;
