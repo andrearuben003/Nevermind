@@ -1,5 +1,6 @@
 using Nevermind.Interactables;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Nevermind.Player
 {
@@ -35,9 +36,10 @@ namespace Nevermind.Player
             selectedInteractable?.Select();
         }
         
-        public void TryInteract()
+        public void TryInteract(InputAction.CallbackContext context)
         {
-            selectedInteractable?.Interact();
+            if (context.started)
+                selectedInteractable?.Interact();
         }
     }
 }

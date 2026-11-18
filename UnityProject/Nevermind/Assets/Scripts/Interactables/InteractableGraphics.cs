@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Nevermind.Interactables
 {
-    public abstract class InteractableGraphics : MonoBehaviour
+    public class InteractableGraphics : MonoBehaviour
     {
         private static readonly int OutlineEnabled = Shader.PropertyToID("_OutlineEnabled");
 
