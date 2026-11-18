@@ -7,7 +7,6 @@ namespace Nevermind.Player
 
         private CharacterMovement movement;
         private CharacterJump jump;
-
         private MovementLimiter limiter;
 
         private Animator anim;
@@ -27,7 +26,14 @@ namespace Nevermind.Player
         {
             anim.SetBool("IsRunning", movement.velocity.x != 0f);
 
-            anim.SetBool("IsJumping", jump.currentlyJumping);
+            if (jump.currentlyJumping && jump.body.linearVelocityY > 0.01f)
+                anim.SetTrigger("Jumping");
+
+            if(jump.body.linearVelocityY < -0.01f)
+                anim.SetTrigger("Falling");
+
+            if (movement.onGround)
+                anim.SetTrigger("OnGround");
         }
     }
 }
