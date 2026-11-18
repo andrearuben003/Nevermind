@@ -51,7 +51,8 @@ namespace Nevermind.MemorySystem
         Gravity,
         Slime,
         Ice,
-        Rubber
+        Rubber,
+        Stone
     }
 
     public enum MemoryType
