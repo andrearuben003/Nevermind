@@ -24,16 +24,9 @@ namespace Nevermind.Player
 
         private void Update()
         {
-            anim.SetBool("IsRunning", movement.velocity.x != 0f);
-
-            if (jump.currentlyJumping && jump.body.linearVelocityY > 0.01f)
-                anim.SetTrigger("Jumping");
-
-            if(jump.body.linearVelocityY < -0.01f)
-                anim.SetTrigger("Falling");
-
-            if (movement.onGround)
-                anim.SetTrigger("OnGround");
+            anim.SetFloat("xMovement", Mathf.Abs(movement.velocity.x));
+            anim.SetFloat("yMovement", jump.velocity.y);
+            anim.SetBool("onGround", jump.onGround);
         }
     }
 }
