@@ -1,5 +1,5 @@
-using Nevermind.PlatformSurfaces;
 using Unity.VisualScripting;
+using Nevermind.PlatformSurfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -86,6 +86,8 @@ namespace Nevermind.Player.Controller {
                 CheckDirection();
             }
 
+            /*
+
             if (grabbedObject)
             {
                 jump.jumpHeight = config.jumpHeight + config.grabJumpHeightAddition * grabbedObject.transform.parent.childCount;
@@ -99,6 +101,7 @@ namespace Nevermind.Player.Controller {
                     ReleaseBox();
                 }
             }
+            */
         }
         
         private void FixedUpdate()
@@ -161,7 +164,7 @@ namespace Nevermind.Player.Controller {
         #endregion
 
         #region Grab
-
+        /*
         public void OnGrab(InputAction.CallbackContext context)
         {
             if (context.started){
@@ -260,7 +263,7 @@ namespace Nevermind.Player.Controller {
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * config.grabRange);
-        }
+        }*/
 
         #endregion
 
