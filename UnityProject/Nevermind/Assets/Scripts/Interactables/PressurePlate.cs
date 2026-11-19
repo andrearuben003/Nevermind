@@ -43,7 +43,7 @@ private void OnTriggerEnter2D(Collider2D collider)
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (!collider.CompareTag("Player"))
+        if (!(collider.CompareTag("Player") || collider.CompareTag("Box")))
             return;
 
         playerColliders.Remove(collider);

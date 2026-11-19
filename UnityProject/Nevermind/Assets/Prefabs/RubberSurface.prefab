@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemorySpriteUpdater
   MemoryKey: 2
   spriteRenderer: {fileID: 3624983442189594743}
+  activeAlpha: 1
   inactiveAlpha: 0.2
 --- !u!1 &8303361845487867365
 GameObject:
@@ -201,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RubberAttach
   bounceSpeed: 10
+  bounceForce: 10
 --- !u!114 &4730060675603846546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,6 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2606afc5344f5740bd13713b7a7c630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.MemoryComponentEnabler
-  MemoryKey: 2
+  MemoryKey: 5
   components:
   - {fileID: 1301007539032731458}
