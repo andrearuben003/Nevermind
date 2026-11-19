@@ -40,6 +40,9 @@ namespace Nevermind.Interactables
            
                 if (!isGrabbed && playerRigidbody2D.linearVelocity.sqrMagnitude > 1f)
                     rb.AddForce(playerRigidbody2D.linearVelocity.normalized * throwForce, ForceMode2D.Impulse);
+                
+                if (!isGrabbed)
+                    coll.isTrigger = false;
             }
         }
 

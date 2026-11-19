@@ -27,7 +27,7 @@ namespace Nevermind.Player
 
         private void checkInteractionRange()
         {
-            Vector2 origin = new(transform.position.x + offset.y * transform.localScale.x, transform.position.y + offset.y);
+            Vector2 origin = new(transform.position.x + offset.x * transform.localScale.x, transform.position.y + offset.y);
             
             RaycastHit2D hit = Physics2D.CircleCast(origin, radius, Vector2.zero, 0, interactableLayer);
             

@@ -65,7 +65,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &2840489628868152700
 BoxCollider2D:
@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e358bdea8547134d8fe6c77e86ec284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Player.PlayerInteraction
-  radius: 0.5
-  offset: {x: 0.7, y: -0.2}
+  radius: 1
+  offset: {x: 1.5, y: -0.2}
   checkInterval: 0.07
   interactableLayer:
     serializedVersion: 2
