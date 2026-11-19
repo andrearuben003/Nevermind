@@ -14,7 +14,7 @@ Nevrmind is a puzzle-platformer in which you can control what does and doesn't e
 
 - **Movement:** The player has a physics based character controller that allows them to move sideways. 
 
-- **Memory System:** The player has a set of memories that they can remember/forget. The elements in the level change their behavior depending on the memories the player currently remembers. When the player forgets a memory, a thought bubble containing it is dropped at their position. The player has to interact with the bubble to remember the memory. 
+- **Memory System:** The player has a set of memories that they can remember/forget. The elements in the level change their behavior depending on the memories the player currently remembers. When the player forgets a memory, a thought bubble containing it is dropped at their position. The player has to interact with the bubble to remember the memory. Memories will be destroyed when passing through a memory screen.
 
 #### **2.1.2 Level Elements** 
 
@@ -36,7 +36,7 @@ Nevrmind is a puzzle-platformer in which you can control what does and doesn't e
 
 - **Kill Zone:** Kills the player on contact. 
 
-- **Slime\*:** Surface mod, makes objects stick together. Big slime area can be swam through. 
+- **Slime\*:** Surface mod. Big slime area can be swam through. 
 
 - **Light Beam\*:** Emits a ray of light, can be rotated by the player. 
 
@@ -79,26 +79,17 @@ _\*tied to a memory that enables/disable the object._
 
 - **Object Specific:** See previous section. 
 
-#### **Memory Types** 
-
-- **Permanent:** Cannot be forgotten. 
-
-- **Semi-Permanent:** Can be forgotten, will return to the player at a memory font. 
-
-- **Fragile:** Can be forgotten, will be destroyed when passing through a memory screen. 
-
 ### **2.2 Level Design** 
 
 A level is defined as a single scene composed of a succession of rooms, each occupying one screen and containing one puzzle. Each level is designed around a theme (eg. ”forest”, ”volcano”, ”temple”) and a central mechanic (eg. ”boxpushing”, ”slime”, ”lights”) that is explored throughout the level’s rooms.
 
-The game's mechanical progression should be as follows:
-- Level 0: Memories, Stone, basic controls (tutorial)
-- Level 1: Rubber, Boxes -- Rewards with Jump memory
-- Level 2: Slime (for grabbing objs), Ball, Pressure plate -- Rewards with Hands memory
-- Level 3: Ice
-- Level 4: Slime (more complex functions), Rockets
-- Level 5: Lights
-- Level 6: Gravity
+The game's mechanical progression should be as follows (memory rewards in parenthesis):
+- Level 0: Memories, Stone, Rubberm, basic controls; it is the tutorial (Jump, Hands)
+- Level 1: Most non-memory elements: pressure plate, button, ... (slime) 
+- Level 2: Slime (ice)
+- Level 3: Ice (light)
+- Level 5: Lights (gravity)
+- Level 6: Gravity (to be discussed, will be lore based)
 - Level 7: Finale
 
 ## **3 Characters\***
@@ -245,3 +236,34 @@ Added vision statement, expanded on level design.
 |Hands|Lights Cleanup|Editor tools for level creation|||
 |||Memory UI|||
 |Level 2, 4|Level 5|Level 6|Level 3|Level 0, 1|
+
+### **10.6 Week 6**
+
+#### **10.6.1 November 10 team meeting**
+
+The team brought some level samples, but we realized that the team needs more information about level progression in order to create levels.
+No deadline has been given from this meeting.
+
+#### **10.6.2 November 12 team meeting**
+
+The team build in group a sketch for level 0 (tutorial) and agreed on some new principles for the game:
+
+- No more memory slots (challenge only comes from combining the memories)
+
+- Level progression has been decided to be: tutorial, stone/rubber, hands, slime, ice, light, gravity, final level
+
+- All memories will be fragile, except for Jump and Hands
+
+#### **10.6.3 November 17 deadline**
+
+Bring some screens for the levels (everyone but Shaan); finish implementing the tilemaps (Shaan).
+
+### **10.7 Week 7**
+
+#### **10.7.1 November 17 team meeting**
+
+The team discussed on some levels. Nothing relevant has been brought up.
+
+#### **10.7.2 November 24 deadline**
+
+Continue designing level screens (everyone but Shaan); fix and refactor the necessary code (Shaan).

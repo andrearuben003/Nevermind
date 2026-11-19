@@ -46,77 +46,13 @@ namespace Nevermind.PlatformMovements
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (other.collider.CompareTag("Player"))
-            {
-                if(!other.transform.parent || !other.transform.parent.GetComponent<Slime>())
-                {
-                    other.transform.parent = transform;
-                }
-            }
-            else if (other.collider.CompareTag("Box"))
-            {
-                Transform group = other.gameObject.transform.parent;
-
-                //Only when the box is not grabbed by the player
-                if (group && !group.transform.parent)
-                {
-                    group.transform.parent = transform;
-                }
-            }
+            other.transform.parent = transform;
         }
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            //TO-FIX
-            if (!other.gameObject.CompareTag("Box") && !other.collider.CompareTag("Player"))
-            {
-                other.transform.parent = null;
-            }
-            else if (other.collider.CompareTag("Box"))
-            {
-                Transform group = other.gameObject.transform.parent;
-
-                //Only when the box is not grabbed by the player
-                if (group && group.transform.parent == transform)
-                {
-                    group.transform.parent = null;
-                }
-            } 
-            else if(other.collider.CompareTag("Player"))
-            {
-                if (!other.transform.parent || !other.transform.parent.GetComponent<Slime>())
-                {
-                    other.transform.parent = null;
-                }
-            }
+            other.transform.parent = null;
         }
 
-        private void OnTriggerStay2D(Collider2D other)
-        {
-            if (other.CompareTag("Slime") && other.GetComponent<SlimeLayer>())
-            {
-                Transform group = other.gameObject.transform.parent.parent;
-
-                //Only when the box is not grabbed by the player
-                if (group && !group.transform.parent)
-                {
-                    group.transform.parent = transform;
-                }
-            }
-        }
-
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.CompareTag("Slime") && other.GetComponent<SlimeLayer>()) 
-            {
-                Transform group = other.gameObject.transform.parent.parent;
-
-                //Only when the box is not grabbed by the player
-                if (group && !group.transform.parent)
-                {
-                    group.transform.parent = null;
-                }
-            }
-        }
     }
 }

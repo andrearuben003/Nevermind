@@ -66,6 +66,8 @@ namespace Nevermind.Player.Controller {
                 movement.directionX = 0f;
             }
 
+            /*
+
             if (grabbedObject)
             {
                 jump.jumpHeight = config.jumpHeight + config.grabJumpHeightAddition * grabbedObject.transform.parent.childCount;
@@ -79,6 +81,7 @@ namespace Nevermind.Player.Controller {
                     ReleaseBox();
                 }
             }
+            */
         }
 
         #region General
@@ -128,7 +131,7 @@ namespace Nevermind.Player.Controller {
         #endregion
 
         #region Grab
-
+        /*
         public void OnGrab(InputAction.CallbackContext context)
         {
             if (context.started){
@@ -227,7 +230,7 @@ namespace Nevermind.Player.Controller {
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawLine(transform.position, transform.position + Vector3.right * transform.localScale.x * config.grabRange);
-        }
+        }*/
 
         #endregion
 
@@ -235,5 +238,6 @@ namespace Nevermind.Player.Controller {
         {
             rb.AddForce(dir * bounceAmount, ForceMode2D.Impulse);
         }
+
     }
 }
