@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nevermind.MemorySystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Nevermind.UI
@@ -46,23 +47,31 @@ namespace Nevermind.UI
                 child.gameObject.SetActive(!child.gameObject.activeSelf);
         }
 
-        public void SelectNext()
+        public void SelectNext(InputAction.CallbackContext context)
         {
+            if (!context.started) return;
+            
             if (memoryEntryParent.childCount == 0) return;
             
             SelectedIndex = (SelectedIndex + 1) % memoryEntryParent.childCount;
         }
         
-        public void SelectPrevious() 
+        public void SelectPrevious(InputAction.CallbackContext context) 
         {
+            if (!context.started) return;
+            
             if (memoryEntryParent.childCount == 0) return;
             
             int r = (SelectedIndex - 1) % memoryEntryParent.childCount;
             SelectedIndex = r < 0 ? r + memoryEntryParent.childCount : r;
         }
 
-        public void ForgetSelected()
+        public void ForgetSelected(InputAction.CallbackContext context)
         {
+            if (!context.started) return;
+            
+            if (SelectedIndex < 0 || SelectedIndex >= menuEntries.Count) return;
+            
             Memory selectedMem = memoryEntryParent.GetChild(SelectedIndex).GetComponent<MemoryMenuItem>().Memory;
             MemoryManager.Instance.Forget(selectedMem.Key);
         }

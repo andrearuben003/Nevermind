@@ -3055,7 +3055,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1729233588}
         m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
         m_MethodName: SelectPrevious
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3067,7 +3067,7 @@ MonoBehaviour:
       - m_Target: {fileID: 814589026}
         m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
         m_MethodName: SelectPrevious
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3083,7 +3083,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1729233588}
         m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
         m_MethodName: SelectNext
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3095,7 +3095,7 @@ MonoBehaviour:
       - m_Target: {fileID: 814589026}
         m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
         m_MethodName: SelectNext
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3111,7 +3111,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1729233588}
         m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
         m_MethodName: ForgetSelected
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3123,7 +3123,7 @@ MonoBehaviour:
       - m_Target: {fileID: 814589026}
         m_TargetAssemblyTypeName: Nevermind.UI.MemoryMenu, Assembly-CSharp
         m_MethodName: ForgetSelected
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3509,8 +3509,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7844641604033330621, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: memories.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844641604033330621, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
       propertyPath: memories.Array.data[0].Key
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844641604033330621, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: memories.Array.data[1].Key
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844641604033330621, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
+      propertyPath: memories.Array.data[2].Key
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

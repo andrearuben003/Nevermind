@@ -23,21 +23,21 @@ namespace Nevermind.Testing
 
             if (verticalInput)
             {
-                if (Input.GetKeyDown(KeyCode.K))
-                    menu.SelectNext();
-                if (Input.GetKeyDown(KeyCode.I))
-                    menu.SelectPrevious();
+                //if (Input.GetKeyDown(KeyCode.K))
+                //    menu.SelectNext();
+                //if (Input.GetKeyDown(KeyCode.I))
+                //    menu.SelectPrevious();
             }
             else
             {
-                if (Input.GetKeyDown(KeyCode.L))
-                    menu.SelectNext();
-                if (Input.GetKeyDown(KeyCode.J))
-                    menu.SelectPrevious();
+                //if (Input.GetKeyDown(KeyCode.L))
+                //    menu.SelectNext();
+                //if (Input.GetKeyDown(KeyCode.J))
+                //    menu.SelectPrevious();
             }
             
-            if (Input.GetKeyDown(KeyCode.O))
-                menu.ForgetSelected();
+            //if (Input.GetKeyDown(KeyCode.O))
+            //    menu.ForgetSelected();
         }
     }
 }
