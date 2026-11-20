@@ -1,7 +1,7 @@
 using Nevermind.Player.Controller;
 using UnityEngine;
 
-namespace Neverming.Player
+namespace Nevermind.Player
 {
     public class PlayerStatsManager : MonoBehaviour
     {
@@ -22,7 +22,7 @@ namespace Neverming.Player
         private PlayerControllersManager player;
         private void Start()
         {
-            player = PlayerControllersManager.Instace;
+            player = PlayerControllersManager.Instance;
         }
 
         public void EnterSlime()
@@ -40,10 +40,10 @@ namespace Neverming.Player
 
                 if(countSlime <= 0)
                 {
-                    Vector2 inputDir =  player.OmnidirectionalController.GetInputDir();
-                    player.ChangeControllerType(ControllerType.Default);
-                    player.PlatformerController.Bounce(inputDir, pushOnExit);
-                    countSlime = 0;
+                    //Vector2 inputDir =  player.OmnidirectionalController.GetInputDir();
+                    //player.ChangeControllerType(ControllerType.Default);
+                    //player.PlatformerController.Bounce(inputDir, pushOnExit);
+                    //countSlime = 0;
                 }
 
             }

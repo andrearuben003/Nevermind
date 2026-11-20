@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f226db9f7f6631c4b8850057e285ee30
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 154787
+  packageName: Easy Prefabs Browser
+  packageVersion: 2.0
+  assetPath: Assets/TigerForge/EasyPrefabBrowser/Editor/PrefabBrowser.cs
+  uploadId: 408677

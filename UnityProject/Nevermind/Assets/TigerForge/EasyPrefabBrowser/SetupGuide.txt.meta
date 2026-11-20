@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ea2e24b9f0d7eec479fb46c408a25442
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 154787
+  packageName: Easy Prefabs Browser
+  packageVersion: 2.0
+  assetPath: Assets/TigerForge/EasyPrefabBrowser/SetupGuide.txt
+  uploadId: 408677

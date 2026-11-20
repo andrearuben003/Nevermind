@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nevermind.MemorySystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Nevermind.UI
@@ -24,14 +25,12 @@ namespace Nevermind.UI
             get => selectedIndex;
             set
             {
-                Debug.Log("Setting "  + value + " over " + menuEntries.Count);
                 selectedIndex = Mathf.Clamp(value, 0, Mathf.Clamp(menuEntries.Count - 1, 0, int.MaxValue));
                 if (menuEntries.Count == 0)
                     selector.gameObject.SetActive(false);
                 else
                 {
                     selector.gameObject.SetActive(true);
-                    Debug.Log(selectedIndex + " Pos "  + memoryEntryParent.GetChild(selectedIndex));
                     Canvas.ForceUpdateCanvases();
                     LayoutRebuilder.ForceRebuildLayoutImmediate(memoryEntryParent);
                     
@@ -42,34 +41,37 @@ namespace Nevermind.UI
         
         private Dictionary<MemoryKey, GameObject> menuEntries = new Dictionary<MemoryKey, GameObject>();
 
-        //private void Start()
-        //{
-        //    SelectedIndex = -1;
-        //}
-
         public void Toggle()
         {
             foreach (Transform child in transform)
                 child.gameObject.SetActive(!child.gameObject.activeSelf);
         }
 
-        public void SelectNext()
+        public void SelectNext(InputAction.CallbackContext context)
         {
+            if (!context.started) return;
+            
             if (memoryEntryParent.childCount == 0) return;
             
             SelectedIndex = (SelectedIndex + 1) % memoryEntryParent.childCount;
         }
         
-        public void SelectPrevious() 
+        public void SelectPrevious(InputAction.CallbackContext context) 
         {
+            if (!context.started) return;
+            
             if (memoryEntryParent.childCount == 0) return;
             
             int r = (SelectedIndex - 1) % memoryEntryParent.childCount;
             SelectedIndex = r < 0 ? r + memoryEntryParent.childCount : r;
         }
 
-        public void ForgetSelected()
+        public void ForgetSelected(InputAction.CallbackContext context)
         {
+            if (!context.started) return;
+            
+            if (SelectedIndex < 0 || SelectedIndex >= menuEntries.Count) return;
+            
             Memory selectedMem = memoryEntryParent.GetChild(SelectedIndex).GetComponent<MemoryMenuItem>().Memory;
             MemoryManager.Instance.Forget(selectedMem.Key);
         }

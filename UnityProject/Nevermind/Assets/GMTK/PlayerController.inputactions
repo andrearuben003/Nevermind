@@ -3,7 +3,121 @@
     "name": "PlayerController",
     "maps": [
         {
-            "name": "BaseController",
+            "name": "Global",
+            "id": "7aaa6722-0abe-4678-8fa1-4e4c614967ac",
+            "actions": [
+                {
+                    "name": "Open Menu",
+                    "type": "Button",
+                    "id": "5b191b32-559a-4534-a221-a51d7de0926d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Select Previous",
+                    "type": "Button",
+                    "id": "810452c6-2db8-492c-8f7f-15c61c2e42e3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Select Next",
+                    "type": "Button",
+                    "id": "2130ad59-c8ac-4bf9-b1a2-7ad0a8dd76e8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Forget Selected",
+                    "type": "Button",
+                    "id": "48a3a8d5-1dc1-4305-8326-5f43b01cbb2f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e1ca96c2-f15a-412d-b0cb-ed94b4059591",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c928adb9-261d-4386-9c8e-2d84a518c92e",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Previous",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2fdadb38-5a1c-4ae6-beac-1ba01b904c2d",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Previous",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5265f7e4-a5db-4136-a64e-9a46263659e8",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5620114c-4320-43c3-b089-833a1d111a45",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7b288673-659e-4d38-a883-65ea75f02969",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Forget Selected",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Base Controller",
             "id": "8b68df87-0557-46b7-a429-f9ed174b2d42",
             "actions": [
                 {
@@ -27,7 +141,7 @@
                     "priority": 0
                 },
                 {
-                    "name": "Grab",
+                    "name": "Interact",
                     "type": "Button",
                     "id": "ddbfaf8a-c7b0-4446-bf52-85eee754a26c",
                     "expectedControlType": "",
@@ -118,18 +232,18 @@
                 {
                     "name": "",
                     "id": "434a6700-6c54-494a-b313-dab23fc8b0df",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grab",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "OmnidirectionalController",
+            "name": "Omnidirectional Controller",
             "id": "fe91e2b4-b9e3-467a-bb4f-9a9ff778b695",
             "actions": [
                 {
