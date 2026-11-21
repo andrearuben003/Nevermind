@@ -100,7 +100,7 @@ namespace Nevermind.PlatformMovements
         
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (!other.gameObject.CompareTag("Player") || other.rigidbody == null) 
+            if (!other.gameObject.CompareTag("Player") && other.rigidbody == null) 
                 return;
 
             // Check if entity is on top of the platform
@@ -110,10 +110,30 @@ namespace Nevermind.PlatformMovements
                 riderEntities.Remove(other.collider.attachedRigidbody);
         }
 
+        /// This piece of codes expands the behaviour to a possible slime attached to the platform
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (!other.gameObject.CompareTag("Player") && other.attachedRigidbody == null)
+                return;
+
+            Debug.Log(other.name);
+
+            riderEntities.Add(other.attachedRigidbody);
+        }
+
         private void OnCollisionExit2D(Collision2D other)
         {
             if (other.rigidbody != null)
                 riderEntities.Remove(other.collider.attachedRigidbody);
         }
+
+        /// This piece of codes expands the behaviour to a possible slime attached to the platform
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.attachedRigidbody != null)
+                riderEntities.Remove(other.attachedRigidbody);
+        }
+
+
     }
 }

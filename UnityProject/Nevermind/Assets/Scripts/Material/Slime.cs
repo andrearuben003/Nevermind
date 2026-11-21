@@ -10,18 +10,24 @@ namespace Nevermind.Material
         [SerializeField] private float pushOnExit = 20f;
 
         private TagHandle playerTag;
+        private TagHandle boxTag;
 
         private void Awake()
         {
             playerTag = TagHandle.GetExistingTag("Player");
+            boxTag = TagHandle.GetExistingTag("Box");
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag(playerTag))
                 PlayerControllersManager.Instance.ChangeControllerType(ControllerType.Omnidirectional);
-            
-            //TODO slime interaction with non player objects
+
+            if (other.CompareTag(boxTag))
+            {
+                other.attachedRigidbody.gravityScale = 0f;
+                other.attachedRigidbody.linearVelocityY = 0f;
+            }
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -32,8 +38,9 @@ namespace Nevermind.Material
                 Vector2 exitDir = PlayerControllersManager.Instance.OmnidirectionalController.GetInputDir();
                 other.attachedRigidbody.AddForce(exitDir * pushOnExit, ForceMode2D.Impulse);
             }
-            
-            //TODO slime interaction with non player objects
+
+            if (other.CompareTag(boxTag))
+                other.attachedRigidbody.gravityScale = 1f;
         }
     }
 }
