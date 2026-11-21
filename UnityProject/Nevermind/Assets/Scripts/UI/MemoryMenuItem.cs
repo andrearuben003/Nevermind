@@ -29,14 +29,7 @@ namespace Nevermind.UI
         public void Initialize(Memory memory)
         {
             Memory = memory;
-            memoryBackground.color = memoryGraphicsSettings.TypeColors[memory.Type];
-            memoryIcon.sprite = memoryGraphicsSettings.MemoryIcons[memory.Key];
-            
-            if (memory.Type == MemoryType.Permanent)
-            {
-                transform.SetAsFirstSibling();
-                enabled = false; //Since permanent memories can't be forgotten, disable dragging
-            }
+            memoryIcon.sprite = memoryGraphicsSettings.MemoryIcons[memory];
         }
 
         public void OnBeginDrag(PointerEventData eventData)
@@ -50,7 +43,7 @@ namespace Nevermind.UI
             if (RectTransformUtility.RectangleContainsScreenPoint(containerRect, Input.mousePosition))
                 rectTransform.SetParent(containerRect);
             else
-                MemoryManager.Instance.Forget(Memory.Key);
+                MemoryManager.Instance.Forget(Memory);
         }
 
         public void OnDrag(PointerEventData eventData)

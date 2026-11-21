@@ -9,9 +9,9 @@ namespace Nevermind.Testing
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Q))
-                MemoryManager.Instance.Remember(new Memory(MemoryKey.Light));
+                MemoryManager.Instance.Remember(Memory.Light);
             if (Input.GetKeyDown(KeyCode.W))
-                MemoryManager.Instance.Forget(MemoryKey.Light);
+                MemoryManager.Instance.Forget(Memory.Light);
         }
     }
 }

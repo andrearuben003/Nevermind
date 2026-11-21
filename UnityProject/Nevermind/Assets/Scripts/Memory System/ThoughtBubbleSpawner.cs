@@ -20,18 +20,18 @@ namespace Nevermind.MemorySystem
         private void OnEnable()
         {
             MemoryManager.Instance.EliminatedMemory += onBubbleLost;
-            ThoughtBubble.ThoughtBubbleLost += onBubbleLost;
+            ThoughtBubble.BubblePopped += onBubbleLost;
         }
 
         private void OnDisable()
         {
             MemoryManager.Instance.EliminatedMemory -= onBubbleLost;
-            ThoughtBubble.ThoughtBubbleLost -= onBubbleLost;
+            ThoughtBubble.BubblePopped -= onBubbleLost;
         }
 
-        private void onBubbleLost(Memory memory)
+        private void onBubbleLost(Memory bubbleMemory)
         {
-            if (memory == this.memory)
+            if (bubbleMemory == memory)
                 spawnBubble();
         }
         
