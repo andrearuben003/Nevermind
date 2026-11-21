@@ -4,7 +4,7 @@ using UnityEngine.Tilemaps;
 namespace Nevermind.MemorySystem
 {
     [AddComponentMenu("Memory System/Memory Tile Updater")]
-    public class MemoryTileUpdater : MemoryListener
+    public class MemoryTileUpdater : SpecificMemoryListener
     {
         [SerializeField]
         private Tilemap tileMap;
@@ -15,19 +15,15 @@ namespace Nevermind.MemorySystem
         [SerializeField, Range(0f, 1f)]
         private float inactiveAlpha = 0.2f;
 
-        protected override void onRemembered(MemoryKey key)
+        protected override void onRememberedKey()
         {
-            if (key != MemoryKey) return;
-
             Color color = tileMap.color;
             color.a = activeAlpha;
             tileMap.color = color;
         }
 
-        protected override void onForgot(MemoryKey key)
+        protected override void onForgotKey() 
         {
-            if (key != MemoryKey) return;
-
             Color color = tileMap.color;
             color.a = inactiveAlpha;
             tileMap.color = color;

@@ -39,7 +39,7 @@ namespace Nevermind.UI
             }
         }
         
-        private Dictionary<MemoryKey, GameObject> menuEntries = new Dictionary<MemoryKey, GameObject>();
+        private Dictionary<Memory, GameObject> menuEntries = new();
 
         public void Toggle()
         {
@@ -73,31 +73,27 @@ namespace Nevermind.UI
             if (SelectedIndex < 0 || SelectedIndex >= menuEntries.Count) return;
             
             Memory selectedMem = memoryEntryParent.GetChild(SelectedIndex).GetComponent<MemoryMenuItem>().Memory;
-            MemoryManager.Instance.Forget(selectedMem.Key);
+            MemoryManager.Instance.Forget(selectedMem);
         }
         
-        protected override void onRemembered(MemoryKey key)
+        protected override void onRemembered(Memory memory)
         {
-            GameObject entry = Instantiate(memoryEntryPrefab, memoryEntryParent);
-            Memory mem = getFullMemory(key);
-            entry.GetComponent<MemoryMenuItem>().Initialize(mem);
+            if (menuEntries.ContainsKey(memory)) return;
             
-            menuEntries.Add(key, entry);
+            GameObject entry = Instantiate(memoryEntryPrefab, memoryEntryParent);
+            entry.GetComponent<MemoryMenuItem>().Initialize(memory);
+            
+            menuEntries.Add(memory, entry);
             SelectedIndex = selectedIndex;
         }
 
-        protected override void onForgot(MemoryKey key)
+        protected override void onForgot(Memory memory)
         {
-            if (menuEntries.TryGetValue(key, out GameObject entry))
+            if (menuEntries.TryGetValue(memory, out GameObject entry))
                 Destroy(entry);
             
-            menuEntries.Remove(key);
+            menuEntries.Remove(memory);
             SelectedIndex = selectedIndex;
-        }
-
-        private Memory getFullMemory(MemoryKey key)
-        {
-            return MemoryManager.Instance.GetMemories().Find(m => m.Key == key);
         }
     }
 }

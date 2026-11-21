@@ -35,18 +35,11 @@ namespace Nevermind.LevelSystem
         {
             SceneManager.sceneLoaded -= onSceneLoaded;
         }
-
-        //private void Update()
-        //{
-        //    if (Input.GetKeyDown(KeyCode.R))
-        //        Reload();
-        //}
         
         private void onSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             //Bind to the reload input
             PlayerInput input = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
-            int reloadInd = input.actions.FindAction("Reload").GetBindingIndex();
             input.actions["Reload"].started += reload;
             
             if (recordedMemories == null) return;
