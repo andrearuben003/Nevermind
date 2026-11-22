@@ -13,7 +13,7 @@ namespace Nevermind.Testing
             if (Input.GetKeyDown(KeyCode.Q))
                 MemoryManager.Instance.Remember(controlledMemory);
             if (Input.GetKeyDown(KeyCode.W))
-                MemoryManager.Instance.Forget(controlledMemory.Key);
+                MemoryManager.Instance.Forget(controlledMemory);
         }
     }
 }
