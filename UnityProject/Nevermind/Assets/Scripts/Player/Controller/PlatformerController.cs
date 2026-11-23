@@ -1,3 +1,4 @@
+using System;
 using Nevermind.PlatformSurfaces;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,8 +16,13 @@ namespace Nevermind.Player.Controller {
         private float _iceDirection;
         private float _stuckedSpeed = 0.05f;
         private bool _slideMomentum;
+        private Rigidbody2D _rb;
         
+        public bool IsOnIce => _onIce;
+        public float SlideDir => _iceDirection;
+
         #endregion
+        
         private CharacterMovement movement;
         private CharacterJump jump;
         private CharacterGround ground;
@@ -57,6 +63,7 @@ namespace Nevermind.Player.Controller {
             ground.groundLayer = config.groundLayer;
             
             _onIce = false;
+            _rb = GetComponent<Rigidbody2D>();
         }
 
         private void Update()
@@ -67,7 +74,7 @@ namespace Nevermind.Player.Controller {
                 return;
             }
             
-            if(_slideMomentum && !movementLimiter.OnIce && rb.linearVelocity.y <= 0.01f)
+            if(_slideMomentum && !movementLimiter.OnIce && _rb.linearVelocity.y <= 0.01f)
             {
                 _slideMomentum = false;
                 _iceDirection = 0f;
@@ -79,7 +86,7 @@ namespace Nevermind.Player.Controller {
         {
             
             //Check if player stuck on ice near a wall
-            if(movementLimiter.OnIce && _iceDirection != 0f && Mathf.Abs(rb.linearVelocity.x) < _stuckedSpeed)
+            if(movementLimiter.OnIce && _iceDirection != 0f && Mathf.Abs(_rb.linearVelocity.x) < _stuckedSpeed)
             {
                 _iceDirection = 0f;
                 CheckDirection();
@@ -176,12 +183,34 @@ namespace Nevermind.Player.Controller {
         {
             movementLimiter.OnIce = false;
 
-            _slideMomentum = rb.linearVelocity.y > 0.01f && _iceDirection != 0f;
+            _slideMomentum = _rb.linearVelocity.y > 0.01f && _iceDirection != 0f;
             if(!_slideMomentum)
                 _iceDirection = 0f;
             
             CheckDirection();
         }
+
+        public void StartSliding(float dir)
+        {
+            _slideMomentum = false;
+            _iceDirection = dir;
+            CheckDirection();
+        }
+
+        public void StopSliding()
+        {
+            _slideMomentum = false;
+            _iceDirection = 0f;
+            movement.directionX = 0f;
+            _rb.linearVelocity = new Vector2(0f, _rb.linearVelocity.y);
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if(other.gameObject.TryGetComponent<IIceAffected>(out IIceAffected otherIce))
+                IceCollision.TransferMomentum(this, other);
+        }
+
         #endregion
     }
 }

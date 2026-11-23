@@ -7,5 +7,11 @@ namespace Nevermind.PlatformSurfaces
     {
         void EnterIce();
         void ExitIce();
+        
+        bool IsOnIce { get; }
+        float SlideDir { get; }
+        
+        void StartSliding(float dir);
+        void StopSliding();
     }
 }
