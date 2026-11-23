@@ -1,69 +1,45 @@
-using System;
 using System.Collections.Generic;
-using Nevermind.MemorySystem;
-using Nevermind.Player.Controller;
-using TarodevController;
+using System.Linq;
 using UnityEngine;
 
 namespace Nevermind.PlatformSurfaces
 {
     public class RubberSurface : MonoBehaviour
     {
-        /// <summary>
-        /// Bounce Speed for objects (as boxes) and Tarodev Player Controller
-        /// </summary>
-        [SerializeField] float bounceSpeed = 10;
+        [SerializeField, Min(0)] 
+        private float bounceSpeed = 10;
+
+        [SerializeField, Min(0)]
+        private float playerMultiplier = 2;
+
+        private Rigidbody2D rb;
+        private TagHandle playerTag;
         
-        /// <summary>
-        /// Bounce Speed for GMTK Player Controller
-        /// </summary>
-        [SerializeField] float bounceForce = 10;
-
-        private Rigidbody2D _rb;
-
         void Awake()
         {
-            _rb = this.gameObject.GetComponentInParent<Rigidbody2D>();
+            rb = gameObject.GetComponentInParent<Rigidbody2D>();
+            playerTag = TagHandle.GetExistingTag("Player");
         }
-
-        void OnEnable()
+        
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            List<Collider2D> cols = new();
-            GetComponent<Collider2D>().Overlap(cols);
-
-            foreach (Collider2D col in cols) {
-                GenerateBounce(col);
-            }
-
-        }
-    
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!enabled)
+            Collider2D col = other.collider;
+            if (col.attachedRigidbody == rb || !col.attachedRigidbody)
                 return;
         
-            GenerateBounce(other);
-        }
+            List<ContactPoint2D> contacts = new();
+            other.GetContacts(contacts);
+            Vector2 normalAvg = contacts.Aggregate(Vector2.zero, (current, contact) => current + contact.normal) / contacts.Count;
+            Vector2 bounce = -normalAvg * bounceSpeed;
 
-        private void GenerateBounce(Collider2D other)
-        {
-            if (other.attachedRigidbody == _rb || other.attachedRigidbody == null)
-                return;
+            if(rb.bodyType == RigidbodyType2D.Dynamic)
+                rb.AddForce(-bounce, ForceMode2D.Impulse);
         
-            Vector2 velocity = this.transform.up * bounceSpeed;
-        
-            if(_rb && _rb.bodyType == RigidbodyType2D.Dynamic)
-                _rb.linearVelocity = -velocity;
-        
-            if(other.gameObject.CompareTag("Player"))
-            {
-                if (other.gameObject.TryGetComponent<PlayerController>(out var pl))
-                    pl.Bounce(velocity);
-                else if (other.gameObject.TryGetComponent<PlatformerController>(out var pc))
-                    pc.Bounce(this.transform.up, bounceForce);
-            }
-            else if(other.attachedRigidbody.bodyType == RigidbodyType2D.Dynamic)
-                other.attachedRigidbody.linearVelocity = velocity;
+            if (col.gameObject.CompareTag(playerTag))
+                bounce *= playerMultiplier;
+            
+            if(col.attachedRigidbody.bodyType == RigidbodyType2D.Dynamic)
+                col.attachedRigidbody.AddForce(bounce, ForceMode2D.Impulse);
         }
     }
 }

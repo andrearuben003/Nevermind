@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Nevermind.MemorySystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Nevermind.UI
@@ -24,14 +25,12 @@ namespace Nevermind.UI
             get => selectedIndex;
             set
             {
-                Debug.Log("Setting "  + value + " over " + menuEntries.Count);
                 selectedIndex = Mathf.Clamp(value, 0, Mathf.Clamp(menuEntries.Count - 1, 0, int.MaxValue));
                 if (menuEntries.Count == 0)
                     selector.gameObject.SetActive(false);
                 else
                 {
                     selector.gameObject.SetActive(true);
-                    Debug.Log(selectedIndex + " Pos "  + memoryEntryParent.GetChild(selectedIndex));
                     Canvas.ForceUpdateCanvases();
                     LayoutRebuilder.ForceRebuildLayoutImmediate(memoryEntryParent);
                     
@@ -40,12 +39,7 @@ namespace Nevermind.UI
             }
         }
         
-        private Dictionary<MemoryKey, GameObject> menuEntries = new Dictionary<MemoryKey, GameObject>();
-
-        //private void Start()
-        //{
-        //    SelectedIndex = -1;
-        //}
+        private Dictionary<Memory, GameObject> menuEntries = new();
 
         public void Toggle()
         {
@@ -53,49 +47,53 @@ namespace Nevermind.UI
                 child.gameObject.SetActive(!child.gameObject.activeSelf);
         }
 
-        public void SelectNext()
+        public void SelectNext(InputAction.CallbackContext context)
         {
+            if (!context.started) return;
+            
             if (memoryEntryParent.childCount == 0) return;
             
             SelectedIndex = (SelectedIndex + 1) % memoryEntryParent.childCount;
         }
         
-        public void SelectPrevious() 
+        public void SelectPrevious(InputAction.CallbackContext context) 
         {
+            if (!context.started) return;
+            
             if (memoryEntryParent.childCount == 0) return;
             
             int r = (SelectedIndex - 1) % memoryEntryParent.childCount;
             SelectedIndex = r < 0 ? r + memoryEntryParent.childCount : r;
         }
 
-        public void ForgetSelected()
+        public void ForgetSelected(InputAction.CallbackContext context)
         {
+            if (!context.started) return;
+            
+            if (SelectedIndex < 0 || SelectedIndex >= menuEntries.Count) return;
+            
             Memory selectedMem = memoryEntryParent.GetChild(SelectedIndex).GetComponent<MemoryMenuItem>().Memory;
-            MemoryManager.Instance.Forget(selectedMem.Key);
+            MemoryManager.Instance.Forget(selectedMem);
         }
         
-        protected override void onRemembered(MemoryKey key)
+        protected override void onRemembered(Memory memory)
         {
-            GameObject entry = Instantiate(memoryEntryPrefab, memoryEntryParent);
-            Memory mem = getFullMemory(key);
-            entry.GetComponent<MemoryMenuItem>().Initialize(mem);
+            if (menuEntries.ContainsKey(memory)) return;
             
-            menuEntries.Add(key, entry);
+            GameObject entry = Instantiate(memoryEntryPrefab, memoryEntryParent);
+            entry.GetComponent<MemoryMenuItem>().Initialize(memory);
+            
+            menuEntries.Add(memory, entry);
             SelectedIndex = selectedIndex;
         }
 
-        protected override void onForgot(MemoryKey key)
+        protected override void onForgot(Memory memory)
         {
-            if (menuEntries.TryGetValue(key, out GameObject entry))
+            if (menuEntries.TryGetValue(memory, out GameObject entry))
                 Destroy(entry);
             
-            menuEntries.Remove(key);
+            menuEntries.Remove(memory);
             SelectedIndex = selectedIndex;
-        }
-
-        private Memory getFullMemory(MemoryKey key)
-        {
-            return MemoryManager.Instance.GetMemories().Find(m => m.Key == key);
         }
     }
 }

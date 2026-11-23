@@ -1,7 +1,6 @@
+using System;
 using Nevermind.Player.Controller;
-using Neverming.Player;
 using UnityEngine;
-
 
 namespace Nevermind.Material 
 {
@@ -9,28 +8,39 @@ namespace Nevermind.Material
     {
         [Tooltip("Indicates of much the player get pushed on exiting the slime collider")]
         [SerializeField] private float pushOnExit = 20f;
-        
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            // Change controller type to the omnidirectional one
-            if (collision.CompareTag("Player"))
-            {
-                PlayerStatsManager.Instance.EnterSlime();
 
-                collision.transform.parent = transform;
+        private TagHandle playerTag;
+        private TagHandle boxTag;
+
+        private void Awake()
+        {
+            playerTag = TagHandle.GetExistingTag("Player");
+            boxTag = TagHandle.GetExistingTag("Box");
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.CompareTag(playerTag))
+                PlayerControllersManager.Instance.ChangeControllerType(ControllerType.Omnidirectional);
+
+            if (other.CompareTag(boxTag))
+            {
+                other.attachedRigidbody.gravityScale = 0f;
+                other.attachedRigidbody.linearVelocityY = 0f;
             }
         }
 
-        private void OnTriggerExit2D(Collider2D collision)
+        private void OnTriggerExit2D(Collider2D other)
         {
-            // Go back to the base player controller type and give it a push when exiting
-            if (collision.CompareTag("Player"))
+            if (other.CompareTag(playerTag))
             {
-                PlayerStatsManager.Instance.ExitSlime(pushOnExit);
-
-                if(collision.gameObject.activeSelf)
-                        collision.transform.parent = null;
+                PlayerControllersManager.Instance.ChangeControllerType(ControllerType.Default);
+                Vector2 exitDir = PlayerControllersManager.Instance.OmnidirectionalController.GetInputDir();
+                other.attachedRigidbody.AddForce(exitDir * pushOnExit, ForceMode2D.Impulse);
             }
+
+            if (other.CompareTag(boxTag))
+                other.attachedRigidbody.gravityScale = 1f;
         }
     }
 }

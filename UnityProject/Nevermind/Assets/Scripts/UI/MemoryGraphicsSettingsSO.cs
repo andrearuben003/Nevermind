@@ -9,19 +9,12 @@ namespace Nevermind.UI
     public class MemoryGraphicsSettingsSO : ScriptableObject
     {
         [SerializeField]
-        private List<SerTuple<MemoryType, Color>> typeColors = new ();
-        [SerializeField]
-        private List<SerTuple<MemoryKey, Sprite>> memoryIcons = new ();
+        private List<SerTuple<Memory, Sprite>> memoryIcons = new ();
         
-        public readonly Dictionary<MemoryType, Color> TypeColors = new Dictionary<MemoryType, Color>();
-        public readonly Dictionary<MemoryKey, Sprite> MemoryIcons = new Dictionary<MemoryKey, Sprite>();
+        public readonly Dictionary<Memory, Sprite> MemoryIcons = new Dictionary<Memory, Sprite>();
 
         private void OnValidate()
         {
-            TypeColors.Clear();
-            foreach (var typeColor in typeColors)
-                TypeColors.Add(typeColor.Item1, typeColor.Item2);
-            
             MemoryIcons.Clear();
             foreach (var memoryIcon in memoryIcons)
                 MemoryIcons.Add(memoryIcon.Item1, memoryIcon.Item2);

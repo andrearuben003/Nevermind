@@ -22,6 +22,8 @@ MonoBehaviour:
   memoryIcons:
   - Item1: 0
     Item2: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - Item1: 6
+    Item2: {fileID: 21300000, guid: 5b1edfa57f5894944b67c92938645ec5, type: 3}
   - Item1: 1
     Item2: {fileID: 21300000, guid: a6a29d0a72c5ad0419bc226e305e670d, type: 3}
   - Item1: 2
