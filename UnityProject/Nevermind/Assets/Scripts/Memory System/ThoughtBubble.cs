@@ -7,7 +7,7 @@ namespace Nevermind.MemorySystem
     public class ThoughtBubble : MonoBehaviour
     {
         /// Event invoked when a thought bubble is destroyed without being collected by the player. Passes the bubble's memory.
-        public static event Action<Memory> ThoughtBubbleLost;
+        public static event Action<Memory> BubblePopped;
         public event Action<Memory> MemoryChanged;
         
         [SerializeField]
@@ -16,7 +16,6 @@ namespace Nevermind.MemorySystem
         private Memory memory;
         
         private TagHandle playerTag;
-        private bool wasCollected;
         
         private void Awake()
         {
@@ -40,7 +39,6 @@ namespace Nevermind.MemorySystem
             if (!collectable || !other.gameObject.CompareTag(playerTag)) return;
             
             MemoryManager.Instance.Remember(memory);
-            wasCollected = true;
             Destroy(gameObject);
         }
 
@@ -51,10 +49,11 @@ namespace Nevermind.MemorySystem
             collectable = true;
         }
 
-        private void OnDestroy()
+        /// Invokes the BubblePopped event and destroys the bubble. Use this to destroy the bubble externally.
+        public void PopBubble()
         {
-            if (!wasCollected)
-                ThoughtBubbleLost?.Invoke(memory);
+            BubblePopped?.Invoke(memory);
+            Destroy(gameObject);
         }
     }
 }

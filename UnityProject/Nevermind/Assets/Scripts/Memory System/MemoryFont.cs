@@ -5,7 +5,7 @@ namespace Nevermind.MemorySystem
     public class MemoryFont : MonoBehaviour
     {
         [SerializeField]
-        private MemoryKey[] restorableMemories;
+        private Memory[] restorableMemories;
 
         private TagHandle playerTag;
 
@@ -18,8 +18,8 @@ namespace Nevermind.MemorySystem
         {
             if (!other.CompareTag(playerTag)) return;
 
-            foreach (MemoryKey key in restorableMemories)
-                MemoryManager.Instance.Remember(new Memory(key, MemoryType.SemiPermanent));
+            foreach (Memory key in restorableMemories)
+                MemoryManager.Instance.Remember(key);
         }
     }
 }

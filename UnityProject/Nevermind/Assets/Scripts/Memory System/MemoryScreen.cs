@@ -17,11 +17,10 @@ namespace Nevermind.MemorySystem
         {
             if (!other.CompareTag(playerTag)) return;
 
-            List<Memory> fragiles = MemoryManager.Instance.GetMemoriesByType(MemoryType.Fragile);
-            foreach (Memory mem in fragiles)
-            {
-                MemoryManager.Instance.Forget(mem.Key, false);
-            }
+            List<Memory> mems = MemoryManager.Instance.GetMemories();
+            foreach (Memory mem in mems)
+                MemoryManager.Instance.Forget(mem, false);
+            
         }
     }
 }

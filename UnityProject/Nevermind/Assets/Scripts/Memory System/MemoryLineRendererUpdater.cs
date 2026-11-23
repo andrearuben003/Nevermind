@@ -3,31 +3,27 @@ using UnityEngine;
 namespace Nevermind.MemorySystem
 {
     [AddComponentMenu("Memory System/Memory Line Renderer Updater")]
-    public class MemoryLineRendererUpdater : MemoryListener
+    public class MemoryLineRendererUpdater : SpecificMemoryListener
     {
+        private const float ActiveAlpha = 1f;
+        
         [SerializeField]
         private LineRenderer lineRenderer;
         [SerializeField]
         private float inactiveAlpha = 0.2f;
-        
-        private float activeAlpha = 1f;
-        
-        protected override void onRemembered(MemoryKey key)
+
+        protected override void onRememberedKey()
         {
-            if (key != MemoryKey) return;
-            
             Color sColor = lineRenderer.startColor;
             Color eColor = lineRenderer.endColor;
-            sColor.a = activeAlpha;
-            eColor.a = activeAlpha;
+            sColor.a = ActiveAlpha;
+            eColor.a = ActiveAlpha;
             lineRenderer.startColor = sColor;
             lineRenderer.endColor = eColor;
         }
 
-        protected override void onForgot(MemoryKey key)
+        protected override void onForgotKey()
         {
-            if (key != MemoryKey) return;
-            
             Color sColor = lineRenderer.startColor;
             Color eColor = lineRenderer.endColor;
             sColor.a = inactiveAlpha;
