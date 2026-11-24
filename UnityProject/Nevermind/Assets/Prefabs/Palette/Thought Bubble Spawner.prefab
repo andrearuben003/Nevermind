@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b77946ebeab84c943a9b2a60fd89e066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.MemorySystem.ThoughtBubbleSpawner
-  bubblePrefab: {fileID: 6661715623172311984, guid: b47953ba587df9440bd40fe833f29044, type: 3}
-  memory:
-    Key: 0
-    Type: 0
+  Prefab: {fileID: 6661715623172311984, guid: b47953ba587df9440bd40fe833f29044, type: 3}
+  memory: 0
