@@ -38,6 +38,7 @@ namespace Nevermind.MemorySystem
         private void spawnBubble()
         {
             GameObject bubble = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
+            bubble.transform.parent = transform;
             bubble.GetComponent<ThoughtBubble>().Initialize(memory, true);
         }
 
