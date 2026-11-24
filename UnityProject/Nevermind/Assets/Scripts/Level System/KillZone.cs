@@ -1,4 +1,3 @@
-using Nevermind.MemorySystem;
 using UnityEngine;
 
 namespace Nevermind.LevelSystem
@@ -17,8 +16,8 @@ namespace Nevermind.LevelSystem
         {
             if (other.gameObject.CompareTag(playerTag))
                 RespawnManager.Instance.Reload();
-            else if (other.gameObject.TryGetComponent(out ThoughtBubble bubble))
-                bubble.PopBubble();
+            else if (other.gameObject.TryGetComponent(out Killable killable))
+                killable.Kill();
         }
     }
 }
