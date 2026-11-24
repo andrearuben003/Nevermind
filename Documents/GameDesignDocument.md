@@ -52,7 +52,7 @@ Nevrmind is a puzzle-platformer in which you can control what does and doesn't e
 
 - **Memory Font:** Restores the player’s semi-permanent memories. 
 
-- **Ice\*:** Surface mod, makes objects slide. 
+- <del>**Ice\*:** Surface mod, makes objects slide. </del>
 
 - **Rubber\*:** Surface mod, makes objects bounce. 
 
@@ -86,8 +86,8 @@ A level is defined as a single scene composed of a succession of rooms, each occ
 The game's mechanical progression should be as follows (memory rewards in parenthesis):
 - Level 0: Memories, Stone, Rubberm, basic controls; it is the tutorial (Jump, Hands)
 - Level 1: Most non-memory elements: pressure plate, button, ... (slime) 
-- Level 2: Slime (ice)
-- Level 3: Ice (light)
+- Level 2: Slime (ice) 
+- <del>Level 3: Ice (light)</del>
 - Level 5: Lights (gravity)
 - Level 6: Gravity (to be discussed, will be lore based)
 - Level 7: Finale
@@ -267,3 +267,19 @@ The team discussed on some levels. Nothing relevant has been brought up.
 #### **10.7.2 November 24 deadline**
 
 Continue designing level screens (everyone but Shaan); fix and refactor the necessary code (Shaan).
+
+### **10.8 Week 8**
+
+#### **10.8.1 November 24 team meeting**
+- The code refactoring was almost completed.
+- During this meeting the team playtested the levels developed during the week and discussed on how to improve them.
+- The team is thinking about the possibility of removing the ice mechanic from the game.
+
+#### **10.7.2 December 1 deadline**
+
+|Andrea Ruben|Christian|Shaan|Matteo|Andrea Coscia|
+|---|---|---|---|---|
+|Fixing slime level|Implementing light level|Menu UI|Implementing gravity level|Implementing level 1|
+
+
+
