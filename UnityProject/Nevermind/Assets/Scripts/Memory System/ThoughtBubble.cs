@@ -1,15 +1,14 @@
 using System;
-using Nevermind.Lights;
+using Nevermind.LevelSystem;
 using UnityEngine;
 
 namespace Nevermind.MemorySystem
 {
     [SelectionBase]
-    public class ThoughtBubble : MonoBehaviour,
-        IToxicLightTrigger
+    public class ThoughtBubble : Killable
     {
         /// Event invoked when a thought bubble is destroyed without being collected by the player. Passes the bubble's memory.
-        public static event Action<Memory> ThoughtBubbleLost;
+        public static event Action<Memory> BubblePopped;
         public event Action<Memory> MemoryChanged;
         
         [SerializeField]
@@ -18,7 +17,6 @@ namespace Nevermind.MemorySystem
         private Memory memory;
         
         private TagHandle playerTag;
-        private bool wasCollected;
         
         private void Awake()
         {
@@ -42,7 +40,6 @@ namespace Nevermind.MemorySystem
             if (!collectable || !other.gameObject.CompareTag(playerTag)) return;
             
             MemoryManager.Instance.Remember(memory);
-            wasCollected = true;
             Destroy(gameObject);
         }
 
@@ -53,15 +50,10 @@ namespace Nevermind.MemorySystem
             collectable = true;
         }
 
-        private void OnDestroy()
+        public override void Kill()
         {
-            if (!wasCollected)
-                ThoughtBubbleLost?.Invoke(memory);
-        }
-
-        public void OnToxicLightBeamHit()
-        {
-            Destroy(gameObject);
+            BubblePopped?.Invoke(memory);
+            base.Kill();
         }
     }
 }

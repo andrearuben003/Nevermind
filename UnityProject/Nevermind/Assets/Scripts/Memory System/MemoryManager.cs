@@ -11,16 +11,14 @@ namespace Nevermind.MemorySystem
         public static MemoryManager Instance;
 
         /// Event invoked when a memory is remembered. Passes the remembered memory key.
-        public event Action<MemoryKey> RememberedMemory;
+        public event Action<Memory> RememberedMemory;
         /// Event invoked when a memory is forgotten. Passes the forgotten memory key.
-        public event Action<MemoryKey> ForgotMemory;
+        public event Action<Memory> ForgotMemory;
         /// Event invoked when a memory is forgotten without spawning a thought bubble. Passes the forgotten memory key.
         public event Action<Memory> EliminatedMemory;
         
-        [SerializeField, Range(2, 10)]
-        private int memorySlots = 3;
         [SerializeField, Tooltip("The memories the player currently remembers, add entries in the inspector to give them to the player at start.")]
-        private List<Memory> memories = new();
+        private List<Memory> rememberedMemories = new();
         [SerializeField]
         private GameObject thoughtBubblePrefab;
         
@@ -35,69 +33,45 @@ namespace Nevermind.MemorySystem
         private void Start()
         {
             // Invokes remembered and forgot at start to make sure all components are in the correct starting state
-            foreach (Memory memory in memories)
-                RememberedMemory?.Invoke(memory.Key);
+            foreach (Memory memory in rememberedMemories)
+                RememberedMemory?.Invoke(memory);
             
-            foreach (MemoryKey key in Enum.GetValues(typeof(MemoryKey)))
+            foreach (Memory key in Enum.GetValues(typeof(Memory)))
             {
-                if (memories.Exists(m => m.Key == key)) continue;
+                if (rememberedMemories.Contains(key)) continue;
                 
                 ForgotMemory?.Invoke(key);
             }
         }
 
-        /// Adds a memory to the remembered list if not already present and if there are available slots or upgrades the present memory if of an inferior type.
+        /// Adds a memory to the remembered list if not already present.
         /// <param name="memory">The memory to remember.</param>
         public void Remember(Memory memory)
         {
-            if (memories.Exists(m => m.Key == memory.Key))
-            {
-                Memory mem = memories.Find(m => m.Key == memory.Key);
-                if ((int)mem.Type < (int)memory.Type)
-                {
-                    Debug.Log($"Upgraded memory {mem} to {memory.Type}");
-                    Forget(mem.Key, false);
-                    Remember(memory);
-                    /*
-                    memories.Remove(mem);
-                    memories.Add(memory);
-                    EliminatedMemory?.Invoke(mem);
-                    */
-                }                    
-                return;
-            }
-            
-            if (memories.Count == memorySlots) return;
+            if (rememberedMemories.Contains(memory)) return;
             
             Debug.Log("Remembering memory: " + memory);
             
-            memories.Add(memory);
-            RememberedMemory?.Invoke(memory.Key);
+            rememberedMemories.Add(memory);
+            RememberedMemory?.Invoke(memory);
         }
 
         /// Removes a memory from the remembered list if present.
-        /// <param name="key">The memory key to forget.</param>
+        /// <param name="memory">The memory to forget.</param>
         /// <param name="spawnBubble">If true, a thought bubble object will be instantiated.</param>
-        public void Forget(MemoryKey key, bool spawnBubble = true)
+        public void Forget(Memory memory, bool spawnBubble = true)
         {
-            if (!memories.Exists(m => m.Key == key)) return;
+            if (!rememberedMemories.Contains(memory)) return;
             
-            Memory mem = memories.Find(m => m.Key == key);
-            if (mem.Type == MemoryType.Permanent)
-            {
-                Debug.Log("Can't forget permanent memory: " + key);
-                return;
-            }
+            Debug.Log("Forgetting memory: " + memory);
             
-            Debug.Log("Forgetting memory: " + mem);
-            
-            memories.Remove(mem);
-            ForgotMemory?.Invoke(mem.Key);
+            rememberedMemories.Remove(memory);
+            ForgotMemory?.Invoke(memory);
             
             if (spawnBubble)
-                spawnThoughtBubble(mem);
+                spawnThoughtBubble(memory);
             else
-                EliminatedMemory?.Invoke(mem);
+                EliminatedMemory?.Invoke(memory);
         }
         
         private void spawnThoughtBubble(Memory memory)
@@ -106,21 +80,14 @@ namespace Nevermind.MemorySystem
             bubble.GetComponent<ThoughtBubble>().Initialize(memory);
         }
         
-        public List<Memory> GetMemories() => memories.ToList();
-        
-        /// <param name="typeFlags">The memory types that should be included in the result.</param>
-        /// <returns>A list of the memories the player remembers that match the desired type.</returns>
-        public List<Memory> GetMemoriesByType(MemoryType typeFlags)
-        {
-            return memories.Where(m => typeFlags.HasFlag(m.Type)).ToList();
-        }
+        public List<Memory> GetMemories() => rememberedMemories.ToList();
 
         /// Makes the player forget all their current memories and replaces them with new ones.
         /// <param name="newMemories">The memories the player should have.</param>
         public void SetMemories(List<Memory> newMemories)
         {
-            foreach (Memory memory in memories.ToList())
-                Forget(memory.Key, false);
+            foreach (Memory memory in rememberedMemories.ToList())
+                Forget(memory, false);
 
             foreach (Memory memory in newMemories)
                 Remember(memory);

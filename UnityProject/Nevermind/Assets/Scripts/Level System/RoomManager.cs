@@ -22,9 +22,11 @@ namespace Nevermind.LevelSystem
 
         private void Start()
         {
-            rooms[0].SetActive(true);
-            for (int i = 1; i < rooms.Count; i++)
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (i == CurrentRoomIndex) continue;
                 rooms[i].SetActive(false);
+            }
         }
         
         public int GetRoomIndex(GameObject room) => rooms.IndexOf(room);

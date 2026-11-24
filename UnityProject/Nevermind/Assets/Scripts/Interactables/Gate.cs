@@ -1,43 +1,54 @@
+using System.Collections;
 using UnityEngine;
 
-public class Gate : MonoBehaviour
+namespace Nevermind.Interactables
 {
-    [SerializeField]
-    private SpriteRenderer gateRenderer;
-    
-    [SerializeField]
-    private GameObject openVisual;
-    
-    [SerializeField]
-    private GameObject closeVisual;
-
-    [SerializeField]
-    private Collider2D gateCollider;
-
-    private void Awake()
+    [SelectionBase]
+    public class Gate : MonoBehaviour
     {
-        if (gateRenderer == null)
-            gateRenderer = GetComponent<SpriteRenderer>();
+        [SerializeField, Min(0)]
+        private float animationTime = 0.2f;
+        [SerializeField]
+        private Transform gatePivot;
+        [SerializeField]
+        private Collider2D gateCollider;
 
-        if (gateCollider == null)
-            gateCollider = GetComponent<Collider2D>();
+        private void Start()
+        {
+            CloseGate();
+        }
 
-        CloseGate();
-    }
+        public void OpenGate()
+        {
+            Debug.Log("Gate OPENED");
+            
+            gateCollider.enabled = false;
+            
+            StopAllCoroutines();
+            StartCoroutine(animateGate(0));
+        }
 
-    public void OpenGate()
-    {
-        openVisual.SetActive(true);
-        closeVisual.SetActive(false);
-        gateCollider.enabled = false;
-        Debug.Log("Gate OPENED");
-    }
+        public void CloseGate()
+        {
+            Debug.Log("Gate CLOSED");
+            
+            gateCollider.enabled = true;
+            
+            StopAllCoroutines();
+            StartCoroutine(animateGate(1));
+        }
 
-    public void CloseGate()
-    {
-        openVisual.SetActive(false);
-        closeVisual.SetActive(true);
-        gateCollider.enabled = true;
-        Debug.Log("Gate CLOSED");
+        private IEnumerator animateGate(float finalScale)
+        {
+            Vector3 target = new(1, finalScale, 1);
+            
+            while (Mathf.Abs(gatePivot.localScale.y - finalScale) > 0.01f)
+            {
+                gatePivot.localScale = Vector3.Slerp(gatePivot.localScale, target, Time.deltaTime / animationTime);
+                yield return null;
+            }
+            
+            gatePivot.localScale = target;
+        }
     }
 }

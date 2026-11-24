@@ -9,7 +9,7 @@ namespace Nevermind.Lights
 
     [SelectionBase]
     [RequireComponent(typeof(EdgeCollider2D), typeof(LineRenderer))]
-    public abstract class LightEmitter : MemoryListener
+    public abstract class LightEmitter : SpecificMemoryListener
     {
         
         // Beam data
@@ -201,13 +201,13 @@ namespace Nevermind.Lights
                 BeamRenderer.SetPosition(i, BeamPoints[i]);
         }
 
-        protected override void onRemembered(MemoryKey key)
+        protected override void onRememberedKey()
         {
             if (key !=  MemoryKey.Light) return;
             IsLightEnabled = true;
         }
 
-        protected override void onForgot(MemoryKey key)
+        protected override void onForgotKey()
         {
             if (key !=  MemoryKey.Light) return;
             IsLightEnabled = false;

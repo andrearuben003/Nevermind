@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Nevermind.MemorySystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace Nevermind.LevelSystem
@@ -34,20 +35,24 @@ namespace Nevermind.LevelSystem
         {
             SceneManager.sceneLoaded -= onSceneLoaded;
         }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-                Reload();
-        }
         
         private void onSceneLoaded(Scene scene, LoadSceneMode mode)
         {
+            //Bind to the reload input
+            PlayerInput input = GameObject.Find("Input Manager").GetComponent<PlayerInput>();
+            input.actions["Reload"].started += reload;
+            
             if (recordedMemories == null) return;
             
             MemoryManager.Instance.transform.position = recordedPosition;
             MemoryManager.Instance.SetMemories(recordedMemories);
             RoomManager.Instance.SwitchRoom(recordedCameraIndex);
+        }
+
+        private void reload(InputAction.CallbackContext context)
+        {
+            if (!context.started) return;
+            Reload();
         }
         
         public void Reload()

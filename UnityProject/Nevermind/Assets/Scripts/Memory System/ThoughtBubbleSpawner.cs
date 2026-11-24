@@ -1,43 +1,35 @@
+using Nevermind.LevelSystem;
 using UnityEditor;
 using UnityEngine;
 
 namespace Nevermind.MemorySystem
 {
-    [SelectionBase]
-    public class ThoughtBubbleSpawner : MonoBehaviour
+    public class ThoughtBubbleSpawner : Spawner
     {
         [SerializeField]
-        private GameObject bubblePrefab;
-
-        [SerializeField]
         private Memory memory;
-
-        private void Awake()
-        {
-            spawnBubble();
-        }
-
+        
         private void OnEnable()
         {
             MemoryManager.Instance.EliminatedMemory += onBubbleLost;
-            ThoughtBubble.ThoughtBubbleLost += onBubbleLost;
+            ThoughtBubble.BubblePopped += onBubbleLost;
         }
 
         private void OnDisable()
         {
             MemoryManager.Instance.EliminatedMemory -= onBubbleLost;
-            ThoughtBubble.ThoughtBubbleLost -= onBubbleLost;
+            ThoughtBubble.BubblePopped -= onBubbleLost;
         }
 
-        private void onBubbleLost(Memory memory)
+        private void onBubbleLost(Memory bubbleMemory)
         {
-            if (memory == this.memory)
-                spawnBubble();
+            if (bubbleMemory == memory)
+                spawn();
         }
         
-        private void spawnBubble()
+        protected override void spawn()
         {
-            GameObject bubble = Instantiate(bubblePrefab, transform.position, Quaternion.identity);
+            GameObject bubble = Instantiate(Prefab, transform.position, Quaternion.identity);
             bubble.GetComponent<ThoughtBubble>().Initialize(memory, true);
         }
 
