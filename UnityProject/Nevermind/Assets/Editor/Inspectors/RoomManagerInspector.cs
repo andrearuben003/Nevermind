@@ -35,7 +35,7 @@ public class RoomManagerInspector : Editor
     
     private void addRoom()
     {
-        GameObject room = new()
+        GameObject roomObj = new()
         {
             name = $"---- ROOM {rooms.arraySize} ----",
             transform =
@@ -43,7 +43,9 @@ public class RoomManagerInspector : Editor
                 parent = levelHeader
             }
         };
-
+        Room room = roomObj.AddComponent<Room>();
+        SerializedObject roomSO = new(room);
+        
         rooms.InsertArrayElementAtIndex(rooms.arraySize);
         rooms.GetArrayElementAtIndex(rooms.arraySize - 1).objectReferenceValue = room;
         serializedObject.ApplyModifiedProperties();
@@ -54,12 +56,14 @@ public class RoomManagerInspector : Editor
             name = $"Camera {rooms.arraySize - 1}",
             transform =
             {
-                parent = room.transform,
+                parent = roomObj.transform,
                 position = new Vector3(0, -3, -10)
             }
         };
         CinemachineCamera camera = newCam.AddComponent<CinemachineCamera>();
         camera.Lens.OrthographicSize = 5f;
+        roomSO.FindProperty("roomCamera").objectReferenceValue = camera;
+        roomSO.ApplyModifiedProperties();
         
         // Add room boundary
         GameObject transition = new()
@@ -73,7 +77,9 @@ public class RoomManagerInspector : Editor
         };
         EditorGUIUtility.SetIconForObject(transition, boundaryIcon);
         transition.transform.SetSiblingIndex(transition.transform.GetSiblingIndex() - 1);
-        transition.AddComponent<BoxCollider2D>().isTrigger = true;
+        BoxCollider2D coll = transition.AddComponent<BoxCollider2D>();
+        coll.isTrigger = true;
+        coll.size = new(1, 3);
         RoomBoundary roomBound = transition.AddComponent<RoomBoundary>();
         
         SerializedObject roomBoundary = new(roomBound);
@@ -87,12 +93,15 @@ public class RoomManagerInspector : Editor
             name = $"Checkpoint {rooms.arraySize - 1}",
             transform =
             {
-                parent = room.transform,
+                parent = roomObj.transform,
                 position = new Vector3(6, -3, 0)
             }
         };
         EditorGUIUtility.SetIconForObject(checkpoint, checkpointIcon);
-        checkpoint.AddComponent<BoxCollider2D>().isTrigger = true;
+        coll = checkpoint.AddComponent<BoxCollider2D>();
+        coll.isTrigger = true;
+        coll.size = new(1, 3);
+        coll.offset = new(0, 1.5f);
         checkpoint.AddComponent<Checkpoint>();
     }
 }

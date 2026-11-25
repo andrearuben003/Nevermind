@@ -54,7 +54,6 @@ namespace Nevermind.Interactables
             Rigidbody2D rb = other.attachedRigidbody;
             if (!rb || 
                 bodiesOnPlate.Contains(rb) ||
-                rb.gravityScale == 0 ||
                 Mathf.Abs(rb.linearVelocityY) >= 0.01f) return;
             
             bodiesOnPlate.Add(rb);

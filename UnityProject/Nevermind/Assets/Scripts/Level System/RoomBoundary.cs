@@ -6,9 +6,9 @@ namespace Nevermind.LevelSystem
     public class RoomBoundary : MonoBehaviour
     {
         [SerializeField, Tooltip("The room to the left of the boundary.")]
-        private GameObject leftRoom;
+        private Room leftRoom;
         [SerializeField, Tooltip("The room to the right of the boundary.")]
-        private GameObject rightRoom;
+        private Room rightRoom;
         
         private int leftCameraIndex;
         private int rightCameraIndex;

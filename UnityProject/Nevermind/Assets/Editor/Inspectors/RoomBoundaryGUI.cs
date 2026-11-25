@@ -11,8 +11,10 @@ public static class RoomBoundaryGUI
         Vector3 pos = boundary.transform.position;
         
         SerializedObject serializedObject = new(boundary);
-        GameObject lCam = ((GameObject)serializedObject.FindProperty("leftRoom").objectReferenceValue).GetComponentInChildren<CinemachineCamera>().gameObject;
-        GameObject rCam = ((GameObject)serializedObject.FindProperty("rightRoom").objectReferenceValue).GetComponentInChildren<CinemachineCamera>().gameObject;
+        Object lO = serializedObject.FindProperty("leftRoom").objectReferenceValue;
+        Object rO = serializedObject.FindProperty("rightRoom").objectReferenceValue;
+        GameObject lCam = lO ? ((Room)lO).GetComponentInChildren<CinemachineCamera>().gameObject : null;
+        GameObject rCam = rO ? ((Room)rO).GetComponentInChildren<CinemachineCamera>().gameObject : null;
 
         if (lCam)
         {
