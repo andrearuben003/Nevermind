@@ -280,6 +280,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e920870017cf2b34eb41456a7b86800a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Interactables.Grabbable
-  carryOffset: {x: 1.5, y: 0.2}
-  weightlessCarry: 1
-  throwForce: 2
+  carryOffset: {x: 1.5, y: 1.2}
+  throwForce: 10

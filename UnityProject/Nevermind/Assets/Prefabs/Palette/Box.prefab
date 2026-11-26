@@ -191,8 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Interactables.Grabbable
   carryOffset: {x: 1.5, y: 1.2}
-  weightlessCarry: 1
-  throwForce: 2
+  throwForce: 10
 --- !u!114 &1082745481477291200
 MonoBehaviour:
   m_ObjectHideFlags: 0

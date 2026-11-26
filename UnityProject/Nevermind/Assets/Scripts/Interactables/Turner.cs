@@ -1,6 +1,3 @@
-using System;
-using Nevermind.Interactables;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Nevermind.Interactables
@@ -17,8 +14,6 @@ namespace Nevermind.Interactables
         private bool turning;
         private void Awake()
         {
-            ContinuousInteraction = true;
-            
             playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
@@ -33,9 +28,14 @@ namespace Nevermind.Interactables
             target.Rotate(target.forward, turn);
         }
 
-        public override void Interact()
+        public override void InteractHoldStart()
         {
-            turning = !turning;
+            turning = true;
+        }
+
+        public override void InteractHoldEnd()
+        {
+            turning = false;
         }
 
         public override void Deselect()
