@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4113093312762431310}
   - component: {fileID: 8030327974023082703}
-  - component: {fileID: 7866416706072944012}
+  - component: {fileID: 7531363925592817103}
   m_Layer: 0
   m_Name: LightTrigger
   m_TagString: Untagged
@@ -161,7 +161,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
---- !u!114 &7866416706072944012
+--- !u!114 &7531363925592817103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6574127776066032428}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c7189a4756c36abd821c3232f963354, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d757ec7e9f856b8599834232bfe0a24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Lights.LightTrigger
   triggerSprite: {fileID: 1360759232442618500}

@@ -203,13 +203,11 @@ namespace Nevermind.Lights
 
         protected override void onRememberedKey()
         {
-            if (key !=  MemoryKey.Light) return;
             IsLightEnabled = true;
         }
 
         protected override void onForgotKey()
         {
-            if (key !=  MemoryKey.Light) return;
             IsLightEnabled = false;
         }
     }
