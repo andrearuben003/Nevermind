@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8846574668776656847}
   - component: {fileID: 7844641604033330621}
   - component: {fileID: 3220443763126500630}
+  - component: {fileID: 4596050382051532864}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -169,6 +170,18 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &4596050382051532864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212761664693406171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 128f3856072d14b14adbc495dcd446d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Player.PlayerLightHandler
 --- !u!1 &3635357656931494244
 GameObject:
   m_ObjectHideFlags: 0

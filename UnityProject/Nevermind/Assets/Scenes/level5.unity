@@ -13930,8 +13930,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac18278ce66329b47a4e36dde5129b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.RoomBoundary
-  leftRoom: {fileID: 2032395950}
-  rightRoom: {fileID: 2144421374}
+  leftRoom: {fileID: 2032395952}
+  rightRoom: {fileID: 2144421376}
 --- !u!61 &255131070
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14920,11 +14920,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2748121743132405048, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 150.42
+      value: 15.52
       objectReference: {fileID: 0}
     - target: {fileID: 2748121743132405048, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.25
+      value: 3.73
       objectReference: {fileID: 0}
     - target: {fileID: 2748121743132405048, guid: 6698fc16b39912748b5df185da5b5ca1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16090,13 +16090,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.RoomManager
   rooms:
-  - {fileID: 1261253162}
-  - {fileID: 1666230004}
-  - {fileID: 1669911232}
-  - {fileID: 2103984076}
-  - {fileID: 1599657374}
-  - {fileID: 2032395950}
-  - {fileID: 2144421374}
+  - {fileID: 1261253164}
+  - {fileID: 1666230006}
+  - {fileID: 1669911234}
+  - {fileID: 2103984078}
+  - {fileID: 1599657376}
+  - {fileID: 2032395952}
+  - {fileID: 2144421376}
 --- !u!1001 &804764107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16452,8 +16452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac18278ce66329b47a4e36dde5129b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.RoomBoundary
-  leftRoom: {fileID: 1261253162}
-  rightRoom: {fileID: 1666230004}
+  leftRoom: {fileID: 1261253164}
+  rightRoom: {fileID: 1666230006}
 --- !u!61 &895087477
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17733,6 +17733,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1261253163}
+  - component: {fileID: 1261253164}
   m_Layer: 0
   m_Name: ---- ROOM 0 ----
   m_TagString: Untagged
@@ -17756,6 +17757,22 @@ Transform:
   - {fileID: 1501545211}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1261253164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261253162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fcb9ee960f57a40b76ecd3f559b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Room
+  roomCamera: {fileID: 1501545212}
+  autoCollectBodies: 1
+  controlledBodies: []
+  controlledComponents: []
 --- !u!1 &1295059938
 GameObject:
   m_ObjectHideFlags: 0
@@ -17801,8 +17818,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac18278ce66329b47a4e36dde5129b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.RoomBoundary
-  leftRoom: {fileID: 1666230004}
-  rightRoom: {fileID: 1669911232}
+  leftRoom: {fileID: 1666230006}
+  rightRoom: {fileID: 1669911234}
 --- !u!61 &1295059941
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17932,8 +17949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac18278ce66329b47a4e36dde5129b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.RoomBoundary
-  leftRoom: {fileID: 2103984076}
-  rightRoom: {fileID: 1599657374}
+  leftRoom: {fileID: 2103984078}
+  rightRoom: {fileID: 1599657376}
 --- !u!61 &1298377732
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18494,8 +18511,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac18278ce66329b47a4e36dde5129b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.RoomBoundary
-  leftRoom: {fileID: 1599657374}
-  rightRoom: {fileID: 2032395950}
+  leftRoom: {fileID: 1599657376}
+  rightRoom: {fileID: 2032395952}
 --- !u!61 &1518279271
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18790,6 +18807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1599657375}
+  - component: {fileID: 1599657376}
   m_Layer: 0
   m_Name: ---- ROOM 4 ----
   m_TagString: Untagged
@@ -18818,6 +18836,22 @@ Transform:
   - {fileID: 590901717}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1599657376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599657374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fcb9ee960f57a40b76ecd3f559b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Room
+  roomCamera: {fileID: 1355169474}
+  autoCollectBodies: 1
+  controlledBodies: []
+  controlledComponents: []
 --- !u!1 &1666230004
 GameObject:
   m_ObjectHideFlags: 0
@@ -18827,6 +18861,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1666230005}
+  - component: {fileID: 1666230006}
   m_Layer: 0
   m_Name: ---- ROOM 1 ----
   m_TagString: Untagged
@@ -18856,6 +18891,22 @@ Transform:
   - {fileID: 323468138}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1666230006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666230004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fcb9ee960f57a40b76ecd3f559b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Room
+  roomCamera: {fileID: 1354253330}
+  autoCollectBodies: 1
+  controlledBodies: []
+  controlledComponents: []
 --- !u!1 &1669911232
 GameObject:
   m_ObjectHideFlags: 0
@@ -18865,6 +18916,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1669911233}
+  - component: {fileID: 1669911234}
   m_Layer: 0
   m_Name: ---- ROOM 2 ----
   m_TagString: Untagged
@@ -18896,6 +18948,22 @@ Transform:
   - {fileID: 963385128}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1669911234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669911232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fcb9ee960f57a40b76ecd3f559b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Room
+  roomCamera: {fileID: 394485117}
+  autoCollectBodies: 1
+  controlledBodies: []
+  controlledComponents: []
 --- !u!1001 &1729127177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20699,8 +20767,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac18278ce66329b47a4e36dde5129b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.RoomBoundary
-  leftRoom: {fileID: 1669911232}
-  rightRoom: {fileID: 2103984076}
+  leftRoom: {fileID: 1669911234}
+  rightRoom: {fileID: 2103984078}
 --- !u!61 &1822071835
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -21372,6 +21440,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2032395951}
+  - component: {fileID: 2032395952}
   m_Layer: 0
   m_Name: ---- ROOM 5 ----
   m_TagString: Untagged
@@ -21404,6 +21473,22 @@ Transform:
   - {fileID: 1003513018}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2032395952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032395950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fcb9ee960f57a40b76ecd3f559b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Room
+  roomCamera: {fileID: 227218089}
+  autoCollectBodies: 1
+  controlledBodies: []
+  controlledComponents: []
 --- !u!1 &2046442290
 GameObject:
   m_ObjectHideFlags: 0
@@ -21799,6 +21884,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2103984077}
+  - component: {fileID: 2103984078}
   m_Layer: 0
   m_Name: ---- ROOM 3 ----
   m_TagString: Untagged
@@ -21835,6 +21921,22 @@ Transform:
   - {fileID: 1085579583}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2103984078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103984076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fcb9ee960f57a40b76ecd3f559b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Room
+  roomCamera: {fileID: 64900457}
+  autoCollectBodies: 1
+  controlledBodies: []
+  controlledComponents: []
 --- !u!4 &2117216371 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9067762837888528133, guid: 46039f3267261f83a9c0dbfeb7d17042, type: 3}
@@ -22392,6 +22494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2144421375}
+  - component: {fileID: 2144421376}
   m_Layer: 0
   m_Name: ---- ROOM 6 ----
   m_TagString: Untagged
@@ -22427,6 +22530,22 @@ Transform:
   - {fileID: 1568662551}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2144421376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144421374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fcb9ee960f57a40b76ecd3f559b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Room
+  roomCamera: {fileID: 734752401}
+  autoCollectBodies: 1
+  controlledBodies: []
+  controlledComponents: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
