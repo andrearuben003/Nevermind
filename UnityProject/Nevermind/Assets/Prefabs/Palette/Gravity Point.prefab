@@ -5128,7 +5128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df2d9006e0ca61d43880d6b4d82f069d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Gravity.GravityPoint
-  attractionForce: 1.5
+  attractionForce: 1
 --- !u!114 &4516155225408809985
 MonoBehaviour:
   m_ObjectHideFlags: 0

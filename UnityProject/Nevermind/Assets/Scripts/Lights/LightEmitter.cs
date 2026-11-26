@@ -20,7 +20,7 @@ namespace Nevermind.Lights
         protected readonly List<RaycastHit2D> RaycastHits = new();
         // Gravity related data
         protected bool JustEnteredGravity = false;
-        protected readonly List<Gravity> GravityInfluences = new();
+        protected readonly List<GravityField> GravityInfluences = new();
 
         // Memory bind
         protected bool IsLightEnabled = false;
@@ -93,7 +93,7 @@ namespace Nevermind.Lights
                 // Gravity check
                 if (currentCollider.CompareTag("Gravity"))
                 {
-                    if (!currentCollider.TryGetComponent(out Gravity gravityInfluence)) 
+                    if (!currentCollider.TryGetComponent(out GravityField gravityInfluence)) 
                         throw new Exception("No Gravity class in gravity object");
                     if (GravityInfluences.Contains(gravityInfluence)) continue;
                     GravityInfluences.Add(gravityInfluence);
@@ -127,15 +127,14 @@ namespace Nevermind.Lights
                 JustEnteredGravity = false;
                 castDistance = maxDistance;
                 for (int j = 0; j < GravityInfluences.Count; j++)
-                    if (!GravityInfluences[j].IsPointInGravityFields(currentOrigin))
+                    if (!GravityInfluences[j].IsPointInGravityField(currentOrigin))
                         GravityInfluences.RemoveAt(j);
                 if (GravityInfluences.Count > 0)
                 {
                     // Weighted average of the influences
                     Vector2 force = Vector2.zero;
-                    foreach (Gravity gravityInfluence in GravityInfluences)
-                        force += gravityInfluence.GetDirectionTowardsCenter(currentOrigin) *
-                                 gravityInfluence.attractionForce;
+                    foreach (GravityField gravityInfluence in GravityInfluences)
+                        force += gravityInfluence.GetGravityForce(currentOrigin);
                     force /= GravityInfluences.Count;
                 
                     currentDirection = (currentDirection + force*gravityInfluenceStrength).normalized;

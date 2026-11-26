@@ -72,15 +72,14 @@ namespace Nevermind.Lights
                 JustEnteredGravity = false;
                 castDistance = maxDistance;
                 for (int j = 0; j < GravityInfluences.Count; j++)
-                    if (!GravityInfluences[j].IsPointInGravityFields(currentOrigin))
+                    if (!GravityInfluences[j].IsPointInGravityField(currentOrigin))
                         GravityInfluences.RemoveAt(j);
                 if (GravityInfluences.Count > 0)
                 {
                     // Weighted average of the influences
                     Vector2 force = Vector2.zero;
-                    foreach (Gravity gravityInfluence in GravityInfluences)
-                        force += gravityInfluence.GetDirectionTowardsCenter(currentOrigin) *
-                                 gravityInfluence.attractionForce;
+                    foreach (GravityField gravityInfluence in GravityInfluences)
+                        force += gravityInfluence.GetGravityForce(currentOrigin);
                     force /= GravityInfluences.Count;
                 
                     currentDirection = (currentDirection + force*gravityInfluenceStrength).normalized;
