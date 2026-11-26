@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Nevermind.Gravity;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -31,9 +32,14 @@ namespace Nevermind.Interactables
             Rigidbody2D rb = other.attachedRigidbody;
             if (!rb) return;
 
-            if (bodiesOnPlate.Contains(rb))
+            bool gravityAffected = false;
+            
+            if(other.gameObject.TryGetComponent(out IGravityAffected affected))
+               gravityAffected = affected.IsAffectedByGravity;
+
+            if(bodiesOnPlate.Contains(rb))
             {
-                if (Mathf.Abs(rb.linearVelocityY) >= 0.001f)
+                if (Mathf.Abs(rb.linearVelocityY) >= 0.001f && !gravityAffected)
                 {
                     bodiesOnPlate.Remove(rb);
                     checkUnpress();
@@ -41,7 +47,7 @@ namespace Nevermind.Interactables
             }
             else
             {
-                if (Mathf.Abs(rb.linearVelocityY) < 0.001f)
+                if (Mathf.Abs(rb.linearVelocityY) < 0.001f || gravityAffected)
                 {
                     bodiesOnPlate.Add(rb);
                     checkPress();
@@ -52,13 +58,18 @@ namespace Nevermind.Interactables
         private void OnTriggerEnter2D(Collider2D other)
         {
             Rigidbody2D rb = other.attachedRigidbody;
+            
+            bool gravityAffected = false;
+            if(other.gameObject.TryGetComponent(out IGravityAffected affected))
+                gravityAffected = affected.IsAffectedByGravity;
+            
             if (!rb || 
                 bodiesOnPlate.Contains(rb) ||
                 rb.gravityScale == 0 ||
-                Mathf.Abs(rb.linearVelocityY) >= 0.01f) return;
+                (Mathf.Abs(rb.linearVelocityY)  >= 0.01f &&
+                 !gravityAffected)) return;
             
             bodiesOnPlate.Add(rb);
-            
             checkPress();
         }
 
@@ -68,7 +79,6 @@ namespace Nevermind.Interactables
             if (!rb || !bodiesOnPlate.Contains(rb)) return;
             
             bodiesOnPlate.Remove(rb);
-            
             checkUnpress();
         }
         

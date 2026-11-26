@@ -32,13 +32,30 @@ namespace Nevermind.Gravity
             return _gravityCollider.OverlapPoint(point);
         }
         
+        protected virtual void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!other.TryGetComponent(out IGravityAffected affected))
+                return;
+            affected.IsAffectedByGravity = true;
+        }
+        
         protected virtual void OnTriggerStay2D(Collider2D other)
         {
+            if(other.gameObject.TryGetComponent(out IGravityAffected affected) && !affected.IsAffectedByGravity)
+                affected.IsAffectedByGravity = true;
+            
             Vector2 force = GetDirectionTowardsCenter(other.transform.position) * attractionForce;
             if (other.TryGetComponent(out PlayerController controller))
                 controller.ApplyGravityFlow(force);
             else if (other.TryGetComponent(out Rigidbody2D rigidBody))
                 rigidBody.AddForce(force, ForceMode2D.Impulse);
+        }
+        
+        protected virtual void OnTriggerExit2D(Collider2D other)
+        {
+            if (!other.TryGetComponent(out IGravityAffected affected))
+                return;
+            affected.IsAffectedByGravity = false;
         }
     }
 }

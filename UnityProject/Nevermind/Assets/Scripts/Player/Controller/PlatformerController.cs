@@ -1,9 +1,10 @@
+using Nevermind.Gravity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Nevermind.Player.Controller {
 
-    public class PlatformerController : MonoBehaviour
+    public class PlatformerController : MonoBehaviour, IGravityAffected
     {
         [SerializeField] 
         private PlayerConfig config;
@@ -12,6 +13,8 @@ namespace Nevermind.Player.Controller {
         private CharacterJump jump;
         private CharacterGround ground;
         private MovementLimiter movementLimiter;
+
+        public bool IsAffectedByGravity { get; set; }
 
         private void Awake()
         {
