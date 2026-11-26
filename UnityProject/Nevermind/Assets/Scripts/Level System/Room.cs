@@ -26,7 +26,8 @@ namespace Nevermind.LevelSystem
             roomCamera.enabled = true;
             
             foreach (Rigidbody2D body in controlledBodies)
-                body.bodyType = RigidbodyType2D.Dynamic;
+                if (body != null)
+                    body.bodyType = RigidbodyType2D.Dynamic;
             
             foreach (Behaviour component in controlledComponents)
                 component.enabled = true;
@@ -39,6 +40,7 @@ namespace Nevermind.LevelSystem
             
             foreach (Rigidbody2D body in controlledBodies)
             {
+                if (body == null) continue;
                 body.bodyType = RigidbodyType2D.Kinematic;
                 body.linearVelocity = Vector2.zero;
                 body.angularVelocity = 0f;

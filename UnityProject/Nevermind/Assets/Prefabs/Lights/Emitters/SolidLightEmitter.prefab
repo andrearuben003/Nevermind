@@ -201,13 +201,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d30e6b4550005c0bb594bc8f7c6afcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Lights.LightEmitterSolid
-  MemoryKey: 0
-  maxDistance: 100
+  MemoryKey: 1
   maxBeamPoints: 200
-  hitCollisionEpsilon: 0.01
+  maxDistance: 100
   widthMultiplier: 0.3
   colliderEdgeRadius: 0.15
+  hitCollisionEpsilon: 0.01
   alphaOnDeactivation: 0.2
+  gravityStepDistance: 0.8
+  gravityInfluenceStrength: 0.16
 --- !u!1 &5337299503701264355
 GameObject:
   m_ObjectHideFlags: 0
