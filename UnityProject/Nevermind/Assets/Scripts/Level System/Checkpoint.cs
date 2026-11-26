@@ -6,7 +6,7 @@ namespace Nevermind.LevelSystem
     public class Checkpoint : MonoBehaviour
     {
         private TagHandle playerTag;
-
+        
         private void Awake()
         {
             playerTag = TagHandle.GetExistingTag("Player");

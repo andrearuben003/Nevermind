@@ -21,7 +21,7 @@ MonoBehaviour:
   maxAirTurnSpeed: 80
   friction: 0
   useAcceleration: 1
-  jumpHeight: 5.5
+  jumpHeight: 6
   timeToJumpApex: 0.5
   upwardMovementMultiplier: 2
   downwardMovementMultiplier: 2
@@ -31,11 +31,11 @@ MonoBehaviour:
   speedLimit: 10
   coyoteTime: 0.1
   jumpBuffer: 0.15
-  groundLength: 1.25
+  groundLength: 0.25
   colliderOffset: {x: 0.35, y: 0, z: 0}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 3137
+    m_Bits: 3136
   grabRange: 1.5
   grabLayer:
     serializedVersion: 2

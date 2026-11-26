@@ -15,10 +15,10 @@ namespace Nevermind.Player
         {
             anim = GetComponent<Animator>();
 
-            movement = GetComponent<CharacterMovement>();
-            jump = GetComponent<CharacterJump>();
+            movement = GetComponentInParent<CharacterMovement>();
+            jump = GetComponentInParent<CharacterJump>();
 
-            limiter = GetComponent<MovementLimiter>();
+            limiter = GetComponentInParent<MovementLimiter>();
         }
 
 

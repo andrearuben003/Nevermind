@@ -8,7 +8,7 @@ namespace Nevermind.LevelSystem
         public static RoomManager Instance;
 
         [SerializeField]
-        private List<GameObject> rooms;
+        private List<Room> rooms;
 
         public int CurrentRoomIndex { get; private set; }
 
@@ -25,11 +25,11 @@ namespace Nevermind.LevelSystem
             for (int i = 0; i < rooms.Count; i++)
             {
                 if (i == CurrentRoomIndex) continue;
-                rooms[i].SetActive(false);
+                rooms[i].DisableRoom();
             }
         }
         
-        public int GetRoomIndex(GameObject room) => rooms.IndexOf(room);
+        public int GetRoomIndex(Room room) => rooms.IndexOf(room);
         
         public void SwitchRoom(int index)
         {
@@ -37,8 +37,8 @@ namespace Nevermind.LevelSystem
             
             Debug.Log($"Switching cameras {CurrentRoomIndex} --> {index}");
             
-            rooms[CurrentRoomIndex].SetActive(false);
-            rooms[index].SetActive(true);
+            rooms[CurrentRoomIndex].DisableRoom();
+            rooms[index].EnableRoom();
             
             CurrentRoomIndex = index;
         }

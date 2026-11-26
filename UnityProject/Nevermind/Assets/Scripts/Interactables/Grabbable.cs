@@ -25,10 +25,10 @@ namespace Nevermind.Interactables
         private TargetJoint2D joint;
         private Collider2D coll;
         private bool isGrabbed;
-        private bool IsGrabbed
+        public bool IsGrabbed
         {
             get => isGrabbed;
-            set  
+            private set  
             {
                 isGrabbed = value;
                 

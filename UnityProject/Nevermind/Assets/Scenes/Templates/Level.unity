@@ -349,7 +349,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 5
-      m_TileSpriteIndex: 58
+      m_TileSpriteIndex: 54
       m_TileMatrixIndex: 0
       m_TileColorIndex: 3
       m_TileObjectToInstantiateIndex: 65535
@@ -519,7 +519,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 5
-      m_TileSpriteIndex: 47
+      m_TileSpriteIndex: 55
       m_TileMatrixIndex: 0
       m_TileColorIndex: 3
       m_TileObjectToInstantiateIndex: 65535
@@ -569,7 +569,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 5
-      m_TileSpriteIndex: 54
+      m_TileSpriteIndex: 58
       m_TileMatrixIndex: 0
       m_TileColorIndex: 3
       m_TileObjectToInstantiateIndex: 65535
@@ -659,7 +659,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 5
-      m_TileSpriteIndex: 44
+      m_TileSpriteIndex: 53
       m_TileMatrixIndex: 0
       m_TileColorIndex: 3
       m_TileObjectToInstantiateIndex: 65535
@@ -829,7 +829,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 5
-      m_TileSpriteIndex: 43
+      m_TileSpriteIndex: 51
       m_TileMatrixIndex: 0
       m_TileColorIndex: 3
       m_TileObjectToInstantiateIndex: 65535
@@ -936,38 +936,38 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -368416039, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -854208989, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 2014705556, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 38739328, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: -68601368, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 12
     m_Data: {fileID: -1144303210, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
   - m_RefCount: 32
     m_Data: {fileID: -197646815, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 2014705556, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
+    m_Data: {fileID: -68601368, guid: 8a1d8b9ab893fd242a301c5ea543fc26, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 49
     m_Data:
@@ -2434,7 +2434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.RoomManager
   rooms:
-  - {fileID: 1261253162}
+  - {fileID: 1261253164}
 --- !u!1 &806644520
 GameObject:
   m_ObjectHideFlags: 0
@@ -3603,6 +3603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1261253163}
+  - component: {fileID: 1261253164}
   m_Layer: 0
   m_Name: ---- ROOM 0 ----
   m_TagString: Untagged
@@ -3626,6 +3627,22 @@ Transform:
   - {fileID: 1501545211}
   m_Father: {fileID: 752279038}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1261253164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261253162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0fcb9ee960f57a40b76ecd3f559b58d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Room
+  roomCamera: {fileID: 1501545212}
+  autoCollectBodies: 1
+  controlledBodies: []
+  controlledComponents: []
 --- !u!1 &1501545210
 GameObject:
   m_ObjectHideFlags: 0

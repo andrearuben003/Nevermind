@@ -18,7 +18,7 @@ namespace Nevermind.Player.Controller
 
 
         [Header("JUMP")]
-        [SerializeField, Range(2f, 5.5f)][Tooltip("Maximum jump height")] public float jumpHeight = 7.3f;
+        [SerializeField, Range(2f, 10f)][Tooltip("Maximum jump height")] public float jumpHeight = 7.3f;
         [SerializeField, Range(0.2f, 1.25f)][Tooltip("How long it takes to reach that height before coming back down")] public float timeToJumpApex;
         [SerializeField, Range(0f, 5f)][Tooltip("Gravity multiplier to apply when going up")] public float upwardMovementMultiplier = 1f;
         [SerializeField, Range(1f, 10f)][Tooltip("Gravity multiplier to apply when coming down")] public float downwardMovementMultiplier = 6.17f;
