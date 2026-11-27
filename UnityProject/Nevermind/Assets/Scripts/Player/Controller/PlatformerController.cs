@@ -57,6 +57,7 @@ namespace Nevermind.Player.Controller {
             {
                 movement.directionX = 0f;
             }
+
         }
 
         #region General
