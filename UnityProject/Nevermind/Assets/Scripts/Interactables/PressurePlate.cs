@@ -65,11 +65,11 @@ namespace Nevermind.Interactables
             
             if (!rb || 
                 bodiesOnPlate.Contains(rb) ||
-                rb.gravityScale == 0 ||
                 (Mathf.Abs(rb.linearVelocityY)  >= 0.01f &&
                  !gravityAffected)) return;
             
             bodiesOnPlate.Add(rb);
+            
             checkPress();
         }
 
@@ -79,6 +79,7 @@ namespace Nevermind.Interactables
             if (!rb || !bodiesOnPlate.Contains(rb)) return;
             
             bodiesOnPlate.Remove(rb);
+            
             checkUnpress();
         }
         

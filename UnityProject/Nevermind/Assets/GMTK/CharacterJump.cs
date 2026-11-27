@@ -49,6 +49,9 @@ public class CharacterJump : MonoBehaviour
 
     private Vector2 groundGravity;
 
+    /// If true, stops the component from altering the body's gravity scale.
+    public bool LockGravity;
+
     void Start()
     {
         //Find the character's Rigidbody and ground detection and juice scripts
@@ -103,8 +106,9 @@ public class CharacterJump : MonoBehaviour
     {
         //Determine the character's gravity scale, using the stats provided. Multiply it by a gravMultiplier, used later
         
-        // ( Ground Gravity ) * ( Gravity Multiplier).  
-        body.gravityScale = (groundGravity.y / Physics2D.gravity.y) * gravMultiplier;
+        // ( Ground Gravity ) * ( Gravity Multiplier).
+        if (!LockGravity)
+            body.gravityScale = (groundGravity.y / Physics2D.gravity.y) * gravMultiplier;
     }
 
     private void FixedUpdate()
@@ -254,8 +258,4 @@ public class CharacterJump : MonoBehaviour
         }
 
     */
-
-
-
-
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
@@ -40,6 +42,9 @@ public class CharacterMovement : MonoBehaviour
 
     private MovementLimiter movementLimiter;
 
+    /// Contains values to be added to the character's velocity.x from external entities.
+    public Dictionary<int, float> ExternalInfluences {get; private set;} = new();
+    
     private void Start()
     {
         //Find the character's Rigidbody and ground detection script
@@ -126,18 +131,19 @@ public class CharacterMovement : MonoBehaviour
 
         //Move our velocity towards the desired velocity, at the rate of the number calculated above
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
-
+        velocity += Vector2.right * ExternalInfluences.Values.Aggregate(0f, (a, b) => a + b);
+        
         //Update the Rigidbody with this new velocity
         body.linearVelocity = velocity;
-
     }
 
     private void runWithoutAcceleration()
     {
         //If we're not using acceleration and deceleration, just send our desired velocity (direction * max speed) to the Rigidbody
         velocity.x = desiredVelocity.x;
-
-        body.linearVelocity = velocity;
+        velocity += Vector2.right * ExternalInfluences.Values.Aggregate(0f, (a, b) => a + b);
+        
+        body.linearVelocity = velocity + body.totalForce;
     }
 
     public void Bounce(Vector2 dir, float bounceAmount)
@@ -145,5 +151,5 @@ public class CharacterMovement : MonoBehaviour
         body.AddForce(dir * bounceAmount, ForceMode2D.Impulse);
     }
 
-
+    
 }

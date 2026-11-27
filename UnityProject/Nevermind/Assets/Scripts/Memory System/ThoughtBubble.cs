@@ -1,10 +1,12 @@
 using System;
+using Nevermind.LevelSystem;
+using Nevermind.Lights;
 using UnityEngine;
 
 namespace Nevermind.MemorySystem
 {
     [SelectionBase]
-    public class ThoughtBubble : MonoBehaviour
+    public class ThoughtBubble : Killable, IToxicLightTrigger
     {
         /// Event invoked when a thought bubble is destroyed without being collected by the player. Passes the bubble's memory.
         public static event Action<Memory> BubblePopped;
@@ -49,11 +51,16 @@ namespace Nevermind.MemorySystem
             collectable = true;
         }
 
-        /// Invokes the BubblePopped event and destroys the bubble. Use this to destroy the bubble externally.
-        public void PopBubble()
+        public override void Kill()
         {
             BubblePopped?.Invoke(memory);
-            Destroy(gameObject);
+            base.Kill();
+        }
+
+        public void OnToxicLightBeamHit()
+        {
+            // TODO: memory should stay deleted as long as the beam is hitting it
+            Kill();
         }
     }
 }

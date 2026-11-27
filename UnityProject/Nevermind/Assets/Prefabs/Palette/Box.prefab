@@ -61,6 +61,7 @@ GameObject:
   - component: {fileID: 4456129282097068198}
   - component: {fileID: 6121040835388037222}
   - component: {fileID: 1110498055840438490}
+  - component: {fileID: 1082745481477291200}
   m_Layer: 10
   m_Name: Box
   m_TagString: Box
@@ -76,7 +77,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7704980309683930774}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -189,9 +190,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e920870017cf2b34eb41456a7b86800a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nevermind.Interactables.Grabbable
-  carryOffset: {x: 1.5, y: 0.2}
-  weightlessCarry: 1
-  throwForce: 2
+  carryOffset: {x: 1.5, y: 1.2}
+  throwForce: 10
+--- !u!114 &1082745481477291200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704980309683930774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14b7c74ca02840468b6e56ab77b63f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Nevermind.LevelSystem.Killable
 --- !u!1 &7961630474587915875
 GameObject:
   m_ObjectHideFlags: 0

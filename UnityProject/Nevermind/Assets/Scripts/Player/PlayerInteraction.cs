@@ -1,6 +1,7 @@
 using Nevermind.Interactables;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 namespace Nevermind.Player
 {
@@ -43,13 +44,29 @@ namespace Nevermind.Player
         
         public void TryInteract(InputAction.CallbackContext context)
         {
+            //if (context.interaction is TapInteraction && context.performed)
+            //    Debug.Log("Tap");
+            //if (context.interaction is HoldInteraction && context.started)
+            //    Debug.Log("Hold");
+            //if (context.interaction is HoldInteraction && context.performed)
+            //    Debug.Log("Hold performed");
+            //if (context.interaction is HoldInteraction && context.canceled)
+            //    Debug.Log("Hold canceled");
+            
             if (!selectedInteractable) return;
 
-            if (context.started)
-                selectedInteractable.Interact();
-            
-            if (context.canceled && selectedInteractable.ContinuousInteraction)
-                selectedInteractable.Interact();
+            switch (context.interaction)
+            {
+                case TapInteraction when context.performed:
+                    selectedInteractable.Interact();
+                    break;
+                case HoldInteraction when context.performed:
+                    selectedInteractable.InteractHoldStart();
+                    break;
+                case HoldInteraction when context.canceled:
+                    selectedInteractable.InteractHoldEnd();
+                    break;
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ namespace Nevermind.Material
             {
                 other.attachedRigidbody.gravityScale = 0f;
                 other.attachedRigidbody.linearVelocityY = 0f;
+                other.attachedRigidbody.linearDamping = 5f;
             }
         }
 
@@ -40,7 +41,10 @@ namespace Nevermind.Material
             }
 
             if (other.CompareTag(boxTag))
+            {
                 other.attachedRigidbody.gravityScale = 1f;
+                other.attachedRigidbody.linearDamping = 0f;
+            }
         }
     }
 }

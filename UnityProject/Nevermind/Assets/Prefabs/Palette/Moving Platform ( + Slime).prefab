@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4290997410717909628}
   - component: {fileID: 7531304309886629727}
   - component: {fileID: 6341111243924470730}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Moving Platform ( + Slime)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

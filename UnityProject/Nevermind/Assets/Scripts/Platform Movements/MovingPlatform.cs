@@ -58,8 +58,8 @@ namespace Nevermind.PlatformMovements
             if (delta != Vector2.zero)
             {
                 //Moves entities on the platform
-                if(delta.y > 0f)
-                    delta.y = 0f;
+                //if(delta.y > 0f)
+                    //delta.y = 0f;
                 
                 foreach (Rigidbody2D e in riderEntities)
                     e.position += delta;
@@ -100,7 +100,7 @@ namespace Nevermind.PlatformMovements
         
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (!other.gameObject.CompareTag("Player") && other.rigidbody == null) 
+            if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Box") && !other.gameObject.CompareTag("Thought Bubble")) 
                 return;
 
             // Check if entity is on top of the platform
@@ -113,7 +113,7 @@ namespace Nevermind.PlatformMovements
         /// This piece of codes expands the behaviour to a possible slime attached to the platform
         private void OnTriggerStay2D(Collider2D other)
         {
-            if (!other.gameObject.CompareTag("Player") && other.attachedRigidbody == null)
+            if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Box"))
                 return;
 
             Debug.Log(other.name);
@@ -123,14 +123,18 @@ namespace Nevermind.PlatformMovements
 
         private void OnCollisionExit2D(Collision2D other)
         {
-            if (other.rigidbody != null)
+            if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Box") && !other.gameObject.CompareTag("Thought Bubble"))
+                return;
+
                 riderEntities.Remove(other.collider.attachedRigidbody);
         }
 
         /// This piece of codes expands the behaviour to a possible slime attached to the platform
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.attachedRigidbody != null)
+            if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Box"))
+                return;
+
                 riderEntities.Remove(other.attachedRigidbody);
         }
 

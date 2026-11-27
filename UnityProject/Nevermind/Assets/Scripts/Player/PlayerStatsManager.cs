@@ -1,9 +1,12 @@
+using Nevermind.LevelSystem;
+using Nevermind.Lights;
 using Nevermind.Player.Controller;
 using UnityEngine;
 
 namespace Nevermind.Player
 {
-    public class PlayerStatsManager : MonoBehaviour
+    public class PlayerStatsManager : MonoBehaviour,
+        IDefaultLightTrigger, IToxicLightTrigger, ISolidLightTrigger
     {
         public static PlayerStatsManager Instance {  get; private set; }
 
@@ -53,5 +56,20 @@ namespace Nevermind.Player
             }
         }
 
+        public void OnDefaultLightBeamHit()
+        {
+            // nothing
+        }
+
+        // ReSharper disable Unity.PerformanceAnalysis
+        public void OnToxicLightBeamHit()
+        {
+            RespawnManager.Instance.Reload();
+        }
+
+        public void OnSolidLightBeamHit()
+        {
+            // nothing
+        }
     }
 }
